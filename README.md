@@ -4,7 +4,7 @@ KrakenExchangeAPI
 Kraken.com exchage API, written in Python 2.
 
 
-Istallation
+Installation
 -----------
 
 Run `python2 ./setup.py install`. The module will be called `krakenex`.
