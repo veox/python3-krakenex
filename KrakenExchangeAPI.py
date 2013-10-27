@@ -26,32 +26,56 @@ import time
 
 
 class KrakenExchangeAPI(object):
-    '''Kraken.com cryptocurrency Exchange API'''
-
-
-    def __init__(self, key, secret):
+    """Kraken.com cryptocurrency Exchange API.
+    
+    Public methods:
+    query_public
+    query_private
+    
+    """
+    
+    def __init__(self, key = '', secret = ''):
+        """Create an object with authentication information.
+        
+        Arguments:
+        key    -- key required to make queries to the API (default '')
+        secret -- private key used to sign API messages (default '')
+        
+        """
         self.key = key
         self.secret = secret
         self.uri = 'https://api.kraken.com'
         self.version = '0'
-
-
-    def query_public(self, method, req={}):
+    
+    def query_public(self, method, req = {}):
+        """API queries that do not require a valid key/secret pair.
+        
+        Arguments:
+        method -- API method name (string, no default)
+        req    -- additional request parameters (default {})
+        
+        """
         postdata = urllib.urlencode(req)
-
+        
         headers = {
             'User-Agent': 'Kraken Python API Agent'
         }
-
+        
         url = self.uri + '/' + self.version + '/public/' + method
         ret = urllib2.urlopen(urllib2.Request(url, postdata, headers))
         return json.loads(ret.read())
-
-        
+    
     def query_private(self, method, req={}):
+        """API queries that require a valid key/secret pair.
+        
+        Arguments:
+        method -- API method name (string, no default)
+        req    -- additional request parameters (default {})
+        
+        """
         req['nonce'] = int(1000*time.time())
         postdata = urllib.urlencode(req)
-
+        
         urlpath = '/' + self.version + '/private/' + method
         message = urlpath + hashlib.sha256(str(req['nonce']) +
                                             postdata).digest()
