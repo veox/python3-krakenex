@@ -10,6 +10,9 @@ API][cryptsypyapi] were used as examples.
 
 See also: [Kraken API documentation][krakenapidoc].
 
+To install, run `python2 ./setup.py install`. The package will be called
+`krakenex`.
+
 [krakenphpapi]: https://github.com/payward/kraken-api-client
 [cryptsypyapi]: https://github.com/ScriptProdigy/CryptsyPythonAPI
 [krakenapidoc]: https://www.kraken.com/help/api
