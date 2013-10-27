@@ -1,7 +1,7 @@
 KrakenExchangeAPI
 =================
 
-Kraken.com exchage API, written in Python 2.
+Kraken.com exchange API, written in Python 2.
 
 
 Installation
