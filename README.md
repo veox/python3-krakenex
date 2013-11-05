@@ -22,13 +22,14 @@ For a list of public/private API methods, see
 Attribution
 -----------
 
-This code is licensed under the ISC license. It should be available in
-`LICENSE`.
+This code is licensed under the GPLv3 license. It should be available in
+`LICENSE`. If not, see [here][gnugpl].
 
 Payward's [PHP API][krakenphpapi] and ScriptProdigy's [Cryptsy Python
 API][cryptsypyapi] were used as examples.
 
 
+[gnugpl]: https://www.gnu.org/licenses/gpl-3.0.txt
 [krakenphpapi]: https://github.com/payward/kraken-api-client
 [cryptsypyapi]: https://github.com/ScriptProdigy/CryptsyPythonAPI
 [krakenapidoc]: https://www.kraken.com/help/api
