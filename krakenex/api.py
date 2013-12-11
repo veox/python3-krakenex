@@ -46,7 +46,7 @@ class API(object):
         self.key = key
         self.secret = secret
         self.uri = 'https://api.kraken.com'
-        self.version = '0'
+        self.apiversion = '0'
     
     def query_public(self, method, req = {}):
         """API queries that do not require a valid key/secret pair.
@@ -62,7 +62,7 @@ class API(object):
             'User-Agent': 'Kraken Python API Agent'
         }
         
-        url = self.uri + '/' + self.version + '/public/' + method
+        url = self.uri + '/' + self.apiversion + '/public/' + method
         ret = urllib2.urlopen(urllib2.Request(url, postdata, headers))
         return json.loads(ret.read())
     
@@ -77,7 +77,7 @@ class API(object):
         req['nonce'] = int(1000*time.time())
         postdata = urllib.urlencode(req)
         
-        urlpath = '/' + self.version + '/private/' + method
+        urlpath = '/' + self.apiversion + '/private/' + method
         message = urlpath + hashlib.sha256(str(req['nonce']) +
                                             postdata).digest()
         signature = hmac.new(base64.b64decode(self.secret),
