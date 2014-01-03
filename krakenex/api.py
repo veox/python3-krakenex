@@ -17,13 +17,14 @@
 
 import json
 import urllib
-import urllib2
 
 import hashlib
 import hmac
 import base64
 
 import time
+
+from krakenex import connection
 
 
 class API(object):
@@ -47,48 +48,54 @@ class API(object):
         self.secret = secret
         self.uri = 'https://api.kraken.com'
         self.apiversion = '0'
+
+    def _query(self, urlpath, req = {}, conn = None, headers = {}):
+        """TODO
+        """
+
+        url = self.uri + urlpath
+
+        if conn is None:
+            conn = connection.Connection()
+
+        ret = conn._request(url, req, headers)
+        return json.loads(ret)
+
     
-    def query_public(self, method, req = {}):
+    def query_public(self, method, req = {}, conn = None):
         """API queries that do not require a valid key/secret pair.
         
         Arguments:
         method -- API method name (string, no default)
         req    -- additional request parameters (default {})
+        conn   -- connection object to reuse (default None)
         
         """
-        postdata = urllib.urlencode(req)
-        
-        headers = {
-            'User-Agent': 'Kraken Python API Agent'
-        }
-        
-        url = self.uri + '/' + self.apiversion + '/public/' + method
-        ret = urllib2.urlopen(urllib2.Request(url, postdata, headers))
-        return json.loads(ret.read())
+        urlpath = '/' + self.apiversion + '/public/' + method
+
+        return self._query(urlpath, req, conn)
+
     
-    def query_private(self, method, req={}):
+    def query_private(self, method, req={}, conn = None):
         """API queries that require a valid key/secret pair.
         
         Arguments:
         method -- API method name (string, no default)
         req    -- additional request parameters (default {})
+        conn   -- connection object to reuse (default None)
         
         """
+        urlpath = '/' + self.apiversion + '/private/' + method
+
         req['nonce'] = int(1000*time.time())
         postdata = urllib.urlencode(req)
-        
-        urlpath = '/' + self.apiversion + '/private/' + method
         message = urlpath + hashlib.sha256(str(req['nonce']) +
-                                            postdata).digest()
+                                           postdata).digest()
         signature = hmac.new(base64.b64decode(self.secret),
                              message, hashlib.sha512)
-        
         headers = {
-            'User-Agent': 'Kraken Python API Agent',
             'API-Key': self.key,
             'API-Sign': base64.b64encode(signature.digest())
         }
-        
-        url = self.uri + urlpath
-        ret = urllib2.urlopen(urllib2.Request(url, postdata, headers))
-        return json.loads(ret.read())
+
+        return self._query(urlpath, req, conn, headers)

@@ -15,15 +15,17 @@
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 import httplib
+import urllib
 
-class KrakenConnection(object):
+class Connection(object):
     """Kraken.com connection handler.
 
     Public methods:
     close
     """
 
-    def __init__(self, uri = 'https://api.kraken.com', timeout = 30):
+
+    def __init__(self, uri = 'api.kraken.com', timeout = 30):
         """ Create an object for reusable connections.
         
         Arguments:
@@ -36,6 +38,7 @@ class KrakenConnection(object):
 
         self.conn = httplib.HTTPSConnection(uri, timeout = timeout)
 
+
     def close(self):
         """ Close the connection.
 
@@ -43,12 +46,14 @@ class KrakenConnection(object):
         """
         self.conn.close()
 
-    def _request(self, url, data = {}, headers = {}):
+
+    def _request(self, url, req = {}, headers = {}):
         """ TODO
 
-        headers -- additional user-provided HTTP headers, such as
-                   API-Key and API-Sign (default: {})
+        headers -- additional HTTP headers, such as API-Key and API-Sign
+                   (default: {})
         """
+        data = urllib.urlencode(req)
         headers.update(self.headers)
 
         self.conn.request("POST", url, data, headers)
