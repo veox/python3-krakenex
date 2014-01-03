@@ -16,6 +16,8 @@
 
 import httplib
 import urllib
+import pkg_resources # for User-Agent
+
 
 class Connection(object):
     """Kraken.com connection handler.
@@ -30,10 +32,10 @@ class Connection(object):
         
         Arguments:
         uri     -- URI to connect to (default: 'https://api.kraken.com')
-        timeout -- blocking operations timeout in seconds (default: 30)
+        timeout -- blocking operations' timeout in seconds (default: 30)
         """
         self.headers = {
-            'User-Agent': 'Kraken Python API Agent'  # TODO: version
+            'User-Agent': 'krakenex/' + pkg_resources.require("krakenex")[0].version + ' (+' + pkg_resources.require("krakenex")[0].url + ')'
         }
 
         self.conn = httplib.HTTPSConnection(uri, timeout = timeout)
@@ -48,9 +50,12 @@ class Connection(object):
 
 
     def _request(self, url, req = {}, headers = {}):
-        """ TODO
-
-        headers -- additional HTTP headers, such as API-Key and API-Sign
+        """ Send POST request to API server.
+        
+        url     -- Fully-qualified URL with all necessary urlencoded
+                   information (string, no default)
+        req     -- additional API request parameters (default: {})
+        headers -- additional HTTPS headers, such as API-Key and API-Sign
                    (default: {})
         """
         data = urllib.urlencode(req)

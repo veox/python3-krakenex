@@ -18,11 +18,13 @@
 import json
 import urllib
 
+# private query nonce
+import time
+
+# private query signing
 import hashlib
 import hmac
 import base64
-
-import time
 
 from krakenex import connection
 
@@ -40,9 +42,9 @@ class API(object):
         """Create an object with authentication information.
         
         Arguments:
-        key    -- key required to make queries to the API (default '')
-        secret -- private key used to sign API messages (default '')
-        
+        key    -- key required to make queries to the API (default: '')
+        secret -- private key used to sign API messages (default: '')
+
         """
         self.key = key
         self.secret = secret
@@ -50,9 +52,15 @@ class API(object):
         self.apiversion = '0'
 
     def _query(self, urlpath, req = {}, conn = None, headers = {}):
-        """TODO
+        """Low-level query handling.
+        
+        Arguments:
+        urlpath -- API URL path sans host (string, no default)
+        req     -- additional API request parameters (default: {})
+        conn    -- kraken.Connection object (default: None)
+        headers -- HTTPS headers (default: {})
+        
         """
-
         url = self.uri + urlpath
 
         if conn is None:
@@ -67,8 +75,8 @@ class API(object):
         
         Arguments:
         method -- API method name (string, no default)
-        req    -- additional request parameters (default {})
-        conn   -- connection object to reuse (default None)
+        req    -- additional API request parameters (default: {})
+        conn   -- connection object to reuse (default: None)
         
         """
         urlpath = '/' + self.apiversion + '/public/' + method
@@ -81,8 +89,8 @@ class API(object):
         
         Arguments:
         method -- API method name (string, no default)
-        req    -- additional request parameters (default {})
-        conn   -- connection object to reuse (default None)
+        req    -- additional API request parameters (default: {})
+        conn   -- connection object to reuse (default: None)
         
         """
         urlpath = '/' + self.apiversion + '/private/' + method
