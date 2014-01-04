@@ -7,7 +7,12 @@ Kraken.com exchange API, Python 2 package.
 Installation
 -----------
 
-Run `python2 ./setup.py install`. The module will be called `krakenex`.
+Dependencies (Debian package names):
+
+* `python`
+* `python-pkg-resources`
+
+Run `python ./setup.py install`. The module will be called `krakenex`.
 
 
 Documentation
