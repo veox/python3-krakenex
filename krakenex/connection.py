@@ -16,7 +16,6 @@
 
 import httplib
 import urllib
-import pkg_resources # for User-Agent
 
 
 class Connection(object):
@@ -35,7 +34,7 @@ class Connection(object):
         timeout -- blocking operations' timeout in seconds (default: 30)
         """
         self.headers = {
-            'User-Agent': 'krakenex/' + pkg_resources.require("krakenex")[0].version + ' (+' + pkg_resources.require("krakenex")[0].url + ')'
+            'User-Agent': 'krakenex/0.0.2 (+https://github.com/veox/krakenex)'
         }
 
         self.conn = httplib.HTTPSConnection(uri, timeout = timeout)
