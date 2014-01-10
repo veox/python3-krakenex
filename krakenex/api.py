@@ -37,19 +37,31 @@ class API:
     query_private
     
     """
-    
     def __init__(self, key = '', secret = ''):
         """Create an object with authentication information.
         
         Arguments:
         key    -- key required to make queries to the API (default: '')
         secret -- private key used to sign API messages (default: '')
-
+        
         """
         self.key = key
         self.secret = secret
         self.uri = 'https://api.kraken.com'
         self.apiversion = '0'
+
+
+    def load_key(self, path):
+        """Load key and secret from file.
+        
+        Argument:
+        path -- path to file (string, no default)
+        
+        """
+        f = open(path, "r")
+        self.key = f.readline().strip()
+        self.secret = f.readline().strip()
+
 
     def _query(self, urlpath, req = {}, conn = None, headers = {}):
         """Low-level query handling.
