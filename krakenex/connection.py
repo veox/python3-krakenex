@@ -18,7 +18,7 @@ import httplib
 import urllib
 
 
-class Connection(object):
+class Connection:
     """Kraken.com connection handler.
 
     Public methods:
