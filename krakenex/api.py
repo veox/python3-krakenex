@@ -110,13 +110,17 @@ class API:
         req['nonce'] = int(1000*time.time())
         postdata = urllib.parse.urlencode(req)
 
-        message = urlpath + hashlib.sha256(str(req['nonce']) +
-                                           postdata).digest()
+        # Unicode-objects must be encoded before hashing
+        encoded = (str(req['nonce']) + postdata).encode()
+        message = urlpath.encode() + hashlib.sha256(encoded).digest()
+
         signature = hmac.new(base64.b64decode(self.secret),
                              message, hashlib.sha512)
+        sigdigest = base64.b64encode(signature.digest())
+
         headers = {
             'API-Key': self.key,
-            'API-Sign': base64.b64encode(signature.digest())
+            'API-Sign': sigdigest.decode()
         }
 
         return self._query(urlpath, req, conn, headers)
