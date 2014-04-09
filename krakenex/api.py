@@ -33,6 +33,7 @@ class API:
     """Kraken.com cryptocurrency Exchange API.
     
     Public methods:
+    load_key
     query_public
     query_private
     
