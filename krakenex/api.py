@@ -16,7 +16,7 @@
 
 
 import json
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 # private query nonce
 import time
@@ -108,7 +108,8 @@ class API:
         urlpath = '/' + self.apiversion + '/private/' + method
 
         req['nonce'] = int(1000*time.time())
-        postdata = urllib.urlencode(req)
+        postdata = urllib.parse.urlencode(req)
+
         message = urlpath + hashlib.sha256(str(req['nonce']) +
                                            postdata).digest()
         signature = hmac.new(base64.b64decode(self.secret),

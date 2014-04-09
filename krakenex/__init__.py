@@ -14,5 +14,5 @@
 # Public LICENSE along with krakenex. If not, see
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
-from connection import Connection
-from api import API
+from krakenex.connection import Connection
+from krakenex.api import API

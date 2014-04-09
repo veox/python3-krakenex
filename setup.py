@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 from distutils.core import setup
 
@@ -7,6 +7,6 @@ setup(name='krakenex',
       description='kraken.com cryptocurrency exchange API',
       author='Noel Maersk',
       author_email='veox@wemakethings.net',
-      url='https://github.com/veox/KrakenExchangeAPI',
+      url='https://github.com/veox/python3-krakenex',
       packages=['krakenex'],
      )

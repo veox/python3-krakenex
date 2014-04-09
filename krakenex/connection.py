@@ -14,8 +14,8 @@
 # Public LICENSE along with krakenex. If not, see
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
-import httplib
-import urllib
+import http.client
+import urllib.request, urllib.parse, urllib.error
 
 
 class Connection:
@@ -37,7 +37,7 @@ class Connection:
             'User-Agent': 'krakenex/0.0.3 (+https://github.com/veox/krakenex)'
         }
 
-        self.conn = httplib.HTTPSConnection(uri, timeout = timeout)
+        self.conn = http.client.HTTPSConnection(uri, timeout = timeout)
 
 
     def close(self):
@@ -57,7 +57,7 @@ class Connection:
         headers -- additional HTTPS headers, such as API-Key and API-Sign
                    (default: {})
         """
-        data = urllib.urlencode(req)
+        data = urllib.parse.urlencode(req)
         headers.update(self.headers)
 
         self.conn.request("POST", url, data, headers)
