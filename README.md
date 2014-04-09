@@ -1,8 +1,6 @@
 krakenex
 ========
 
-**NOTE**: work in progress to port krakenex from Python 2 to 3.
-
 Kraken.com exchange API, Python 3 package.
 
 
@@ -29,7 +27,7 @@ This code is licensed under the GPLv3 license. It should be available in
 
 Payward's [PHP API][krakenphpapi], Alan McIntyre's [BTC-e API][btceapi],
 and ScriptProdigy's [Cryptsy Python API][cryptsypyapi] were used as
-examples.
+examples when writing the original [Python 2 package][python2-krakenex].
 
 
 [gnugpl]: https://www.gnu.org/licenses/gpl-3.0.txt
@@ -37,3 +35,4 @@ examples.
 [btceapi]: https://github.com/alanmcintyre/btce-api
 [cryptsypyapi]: https://github.com/ScriptProdigy/CryptsyPythonAPI
 [krakenapidoc]: https://www.kraken.com/help/api
+[python2-krakenex]: https://github.com/veox/python2-krakenex
