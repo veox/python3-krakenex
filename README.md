@@ -1,7 +1,9 @@
 krakenex
 ========
 
-Kraken.com exchange API, Python 2 package.
+**NOTE**: work in progress to port krakenex from Python 2 to 3.
+
+Kraken.com exchange API, Python 3 package.
 
 
 Installation
