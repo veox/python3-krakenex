@@ -1,5 +1,8 @@
-#!/usr/bin/env python2
-#
+#!/usr/bin/env python3
+
+# This file is part of krakenex.
+# Licensed under the Simplified BSD license. See examples/LICENSE.
+
 # Demonstrates how to use the conditional close functionality; that is,
 # placing an order that, once filled, will place another order.
 #

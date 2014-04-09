@@ -22,8 +22,11 @@ For a list of public/private API methods, see
 Attribution
 -----------
 
-This code is licensed under the GPLv3 license. It should be available in
+Core code is licensed under the GPLv3 license. It should be available in
 `LICENSE`. If not, see [here][gnugpl].
+
+Examples are licensed under the Simplified BSD license. See
+`examples/LICENSE`.
 
 Payward's [PHP API][krakenphpapi], Alan McIntyre's [BTC-e API][btceapi],
 and ScriptProdigy's [Cryptsy Python API][cryptsypyapi] were used as
