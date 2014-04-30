@@ -34,7 +34,7 @@ class Connection:
         timeout -- blocking operations' timeout in seconds (default: 30)
         """
         self.headers = {
-            'User-Agent': 'krakenex/0.0.4.1 (+https://github.com/veox/python3-krakenex)'
+            'User-Agent': 'krakenex/0.0.5 (+https://github.com/veox/python3-krakenex)'
         }
 
         self.conn = http.client.HTTPSConnection(uri, timeout = timeout)

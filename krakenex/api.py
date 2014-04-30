@@ -38,18 +38,21 @@ class API:
     query_private
     
     """
-    def __init__(self, key = '', secret = ''):
+    def __init__(self, key = '', secret = '', conn = None):
         """Create an object with authentication information.
         
         Arguments:
         key    -- key required to make queries to the API (default: '')
         secret -- private key used to sign API messages (default: '')
+        conn   -- krakenex.Connection object for connection reuse
+                  (default: None)
         
         """
         self.key = key
         self.secret = secret
         self.uri = 'https://api.kraken.com'
         self.apiversion = '0'
+        self.conn = conn
 
 
     def load_key(self, path):
@@ -62,6 +65,16 @@ class API:
         f = open(path, "r")
         self.key = f.readline().strip()
         self.secret = f.readline().strip()
+
+
+    def set_connection(self, conn):
+        """Set an existing connection to be used as a default in queries.
+
+        Argument:
+        conn -- connection (krakenex.Connection object, no default)
+
+        """
+        self.conn = conn
 
 
     def _query(self, urlpath, req = {}, conn = None, headers = {}):
@@ -77,7 +90,10 @@ class API:
         url = self.uri + urlpath
 
         if conn is None:
-            conn = connection.Connection()
+            if self.conn is None:
+                conn = connection.Connection()
+            else:
+                conn = self.conn
 
         ret = conn._request(url, req, headers)
         return json.loads(ret)
