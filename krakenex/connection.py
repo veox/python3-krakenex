@@ -30,8 +30,11 @@ class Connection:
         """ Create an object for reusable connections.
         
         Arguments:
-        uri     -- URI to connect to (default: 'https://api.kraken.com')
-        timeout -- blocking operations' timeout in seconds (default: 30)
+        uri     -- URI to connect to (string, default:
+                   'https://api.kraken.com')
+        timeout -- blocking operations' timeout in seconds (number,
+                   default: 30)
+
         """
         self.headers = {
             'User-Agent': 'krakenex/0.0.5 (+https://github.com/veox/python3-krakenex)'
@@ -44,6 +47,7 @@ class Connection:
         """ Close the connection.
 
         No arguments.
+
         """
         self.conn.close()
 
@@ -51,11 +55,12 @@ class Connection:
     def _request(self, url, req = {}, headers = {}):
         """ Send POST request to API server.
         
-        url     -- Fully-qualified URL with all necessary urlencoded
+        url     -- fully-qualified URL with all necessary urlencoded
                    information (string, no default)
-        req     -- additional API request parameters (default: {})
+        req     -- additional API request parameters (dict, default: {})
         headers -- additional HTTPS headers, such as API-Key and API-Sign
-                   (default: {})
+                   (dict, default: {})
+
         """
         data = urllib.parse.urlencode(req)
         headers.update(self.headers)

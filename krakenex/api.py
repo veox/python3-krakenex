@@ -42,10 +42,11 @@ class API:
         """Create an object with authentication information.
         
         Arguments:
-        key    -- key required to make queries to the API (default: '')
-        secret -- private key used to sign API messages (default: '')
-        conn   -- krakenex.Connection object for connection reuse
-                  (default: None)
+        key    -- key required to make queries to the API (string,
+                  default: '')
+        secret -- private key used to sign API messages (string,
+                  default: '')
+        conn   -- connection (krakenex.Connection object, default: None)
         
         """
         self.key = key
@@ -82,9 +83,9 @@ class API:
         
         Arguments:
         urlpath -- API URL path sans host (string, no default)
-        req     -- additional API request parameters (default: {})
-        conn    -- kraken.Connection object (default: None)
-        headers -- HTTPS headers (default: {})
+        req     -- additional API request parameters (dict, default: {})
+        conn    -- connection (kraken.Connection object, default: None)
+        headers -- HTTPS headers (dict, default: {})
         
         """
         url = self.uri + urlpath
@@ -104,8 +105,8 @@ class API:
         
         Arguments:
         method -- API method name (string, no default)
-        req    -- additional API request parameters (default: {})
-        conn   -- connection object to reuse (default: None)
+        req    -- additional API request parameters (dict, default: {})
+        conn   -- connection (kraken.Connection object, default: None)
         
         """
         urlpath = '/' + self.apiversion + '/public/' + method
@@ -118,8 +119,8 @@ class API:
         
         Arguments:
         method -- API method name (string, no default)
-        req    -- additional API request parameters (default: {})
-        conn   -- connection object to reuse (default: None)
+        req    -- additional API request parameters (dict, default: {})
+        conn   -- connection (kraken.Connection object,default: None)
         
         """
         urlpath = '/' + self.apiversion + '/private/' + method
