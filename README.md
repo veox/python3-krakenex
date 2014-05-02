@@ -7,7 +7,9 @@ Kraken.com exchange API, Python 3 package.
 Installation
 -----------
 
-Run `python ./setup.py install`. The module will be called `krakenex`.
+This package requires Python 3.3 or later.
+
+Run `python3 ./setup.py install`. The module will be called `krakenex`.
 
 
 Documentation
