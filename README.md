@@ -24,8 +24,8 @@ For a list of public/private API methods, see
 Attribution
 -----------
 
-Core code is licensed under the GPLv3 license. It should be available in
-`LICENSE`. If not, see [here][gnugpl].
+Core code is licensed under the LGPLv3 license. It should be available in
+`LICENSE`. If not, see [here][corelicense].
 
 Examples are licensed under the Simplified BSD license. See
 `examples/LICENSE`.
@@ -33,11 +33,12 @@ Examples are licensed under the Simplified BSD license. See
 Payward's [PHP API][krakenphpapi], Alan McIntyre's [BTC-e API][btceapi],
 and ScriptProdigy's [Cryptsy Python API][cryptsypyapi] were used as
 examples when writing the original [Python 2 package][python2-krakenex].
+It was then ported to Python 3.
 
 
-[gnugpl]: https://www.gnu.org/licenses/gpl-3.0.txt
+[krakenapidoc]: https://www.kraken.com/help/api
+[corelicense]: https://www.gnu.org/licenses/lgpl-3.0.txt
 [krakenphpapi]: https://github.com/payward/kraken-api-client
 [btceapi]: https://github.com/alanmcintyre/btce-api
 [cryptsypyapi]: https://github.com/ScriptProdigy/CryptsyPythonAPI
-[krakenapidoc]: https://www.kraken.com/help/api
 [python2-krakenex]: https://github.com/veox/python2-krakenex

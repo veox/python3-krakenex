@@ -37,7 +37,7 @@ class Connection:
 
         """
         self.headers = {
-            'User-Agent': 'krakenex/0.0.5 (+https://github.com/veox/python3-krakenex)'
+            'User-Agent': 'krakenex/0.0.6 (+https://github.com/veox/python3-krakenex)'
         }
 
         self.conn = http.client.HTTPSConnection(uri, timeout = timeout)
