@@ -34,6 +34,7 @@ class API:
     
     Public methods:
     load_key
+    set_connection
     query_public
     query_private
     
