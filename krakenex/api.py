@@ -29,7 +29,7 @@ import base64
 from krakenex import connection
 
 
-class API:
+class API(object):
     """Kraken.com cryptocurrency Exchange API.
     
     Public methods:

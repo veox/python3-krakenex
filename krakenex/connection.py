@@ -19,7 +19,7 @@ import http.client
 import urllib.request, urllib.parse, urllib.error
 
 
-class Connection:
+class Connection(object):
     """Kraken.com connection handler.
 
     Public methods:
