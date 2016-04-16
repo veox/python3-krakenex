@@ -1,3 +1,9 @@
+"""Sphinx docstring test.
+
+.. moduleauthor:: Noel Maersk
+
+"""
+
 # This file is part of krakenex.
 #
 # krakenex is free software: you can redistribute it and/or modify it
