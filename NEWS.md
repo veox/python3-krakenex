@@ -1,5 +1,8 @@
 # python3-krakenex release news
 
+## 0.0.6.1 - Fri Mar 25 2016
+* Classes sub-classed from `object`.
+
 
 ## 0.0.6 - Tue Jul 22 2014
 * Core license changed to LGPLv3. Examples remain at Simplified BSD.
