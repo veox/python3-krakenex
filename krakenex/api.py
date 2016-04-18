@@ -67,7 +67,7 @@ class API(object):
     def set_connection(self, conn):
         """Set an existing connection to be used as a default in queries.
 
-        :param conn: connection
+        :param conn: connection TODO
         :type conn: krakenex.Connection
 
         """
