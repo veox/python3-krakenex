@@ -39,7 +39,7 @@ class API(object):
         :param key: key required to make queries to the API
         :type key: str
         :param secret: private key used to sign API messages
-        :type secret: string
+        :type secret: str
         :param conn: connection TODO
         :type conn: krakenex.Connection
         
@@ -56,7 +56,7 @@ class API(object):
         
         Argument:
         :param path: path to keyfile
-        :type path: string
+        :type path: str
         
         """
         f = open(path, "r")
@@ -78,7 +78,7 @@ class API(object):
         """Low-level query handling.
         
         :param urlpath: API URL path sans host
-        :type urlpath: string
+        :type urlpath: str
         :param req: additional API request parameters
         :type req: dict
         :param conn: connection TODO

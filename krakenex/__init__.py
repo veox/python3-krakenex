@@ -1,7 +1,5 @@
-"""These are the classes defined by `krakenex`.
-
-.. moduleauthor:: Noel Maersk
-
+"""These are the classes defined by `krakenex`. Every class is in
+a separate module.
 
 """
 

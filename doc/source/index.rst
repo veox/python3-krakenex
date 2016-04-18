@@ -6,26 +6,18 @@
 krakenex documentation
 ======================
 
-Contents
---------
-
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
+   
 
+      
 
-
-Indices
--------
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-  
 Classes and methods
 -------------------
-
+  
 .. automodule:: krakenex
    :members: API, Connection
    :special-members:
    :private-members:
+
+
