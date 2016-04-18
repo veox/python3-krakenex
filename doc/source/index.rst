@@ -3,25 +3,29 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to krakenex's documentation!
-====================================
+krakenex documentation
+======================
 
-Contents:
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
 
 
 
-Indices and tables
-==================
+Indices
+-------
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
 
-ADOC
-====
+  
+Classes and methods
+-------------------
 
 .. automodule:: krakenex
    :members: API, Connection
+   :special-members:
+   :private-members:

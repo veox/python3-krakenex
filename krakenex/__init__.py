@@ -1,6 +1,7 @@
-"""Sphinx docstring test.
+"""These are the classes defined by `krakenex`.
 
 .. moduleauthor:: Noel Maersk
+
 
 """
 

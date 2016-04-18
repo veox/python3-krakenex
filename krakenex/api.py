@@ -32,22 +32,16 @@ from krakenex import connection
 class API(object):
     """Kraken.com cryptocurrency Exchange API.
     
-    Public methods:
-    load_key
-    set_connection
-    query_public
-    query_private
-    
     """
     def __init__(self, key = '', secret = '', conn = None):
         """Create an object with authentication information.
         
-        Arguments:
-        key    -- key required to make queries to the API (string,
-                  default: '')
-        secret -- private key used to sign API messages (string,
-                  default: '')
-        conn   -- connection (krakenex.Connection object, default: None)
+        :param key: key required to make queries to the API
+        :type key: str
+        :param secret: private key used to sign API messages
+        :type secret: string
+        :param conn: connection TODO
+        :type conn: krakenex.Connection
         
         """
         self.key = key
@@ -61,7 +55,8 @@ class API(object):
         """Load key and secret from file.
         
         Argument:
-        path -- path to file (string, no default)
+        :param path: path to keyfile
+        :type path: string
         
         """
         f = open(path, "r")
@@ -72,8 +67,8 @@ class API(object):
     def set_connection(self, conn):
         """Set an existing connection to be used as a default in queries.
 
-        Argument:
-        conn -- connection (krakenex.Connection object, no default)
+        :param conn: connection
+        :type conn: krakenex.Connection
 
         """
         self.conn = conn
@@ -82,11 +77,14 @@ class API(object):
     def _query(self, urlpath, req = {}, conn = None, headers = {}):
         """Low-level query handling.
         
-        Arguments:
-        urlpath -- API URL path sans host (string, no default)
-        req     -- additional API request parameters (dict, default: {})
-        conn    -- connection (kraken.Connection object, default: None)
-        headers -- HTTPS headers (dict, default: {})
+        :param urlpath: API URL path sans host
+        :type urlpath: string
+        :param req: additional API request parameters
+        :type req: dict
+        :param conn: connection TODO
+        :type conn: krakenex.Connection
+        :param headers: HTTPS headers
+        :type headers: dict
         
         """
         url = self.uri + urlpath
@@ -104,10 +102,12 @@ class API(object):
     def query_public(self, method, req = {}, conn = None):
         """API queries that do not require a valid key/secret pair.
         
-        Arguments:
-        method -- API method name (string, no default)
-        req    -- additional API request parameters (dict, default: {})
-        conn   -- connection (kraken.Connection object, default: None)
+        :param method: API method name
+        :type method: str
+        :param req: additional API request parameters
+        :type req: dict
+        :param conn: connection TODO
+        :type conn: krakenex.Connection
         
         """
         urlpath = '/' + self.apiversion + '/public/' + method
@@ -118,10 +118,12 @@ class API(object):
     def query_private(self, method, req={}, conn = None):
         """API queries that require a valid key/secret pair.
         
-        Arguments:
-        method -- API method name (string, no default)
-        req    -- additional API request parameters (dict, default: {})
-        conn   -- connection (kraken.Connection object,default: None)
+        :param method: API method name
+        :type method: str
+        :param req: additional API request parameters
+        :type req: dict
+        :param conn: connection TODO
+        :type conn: krakenex.Connection
         
         """
         urlpath = '/' + self.apiversion + '/private/' + method
