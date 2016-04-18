@@ -17,6 +17,9 @@ Documentation
 
 The code is simple and documented in docstrings.
 
+You can also view it [online][githubpages], or generate your own with
+`sphinx` in [doc](doc).
+
 For a list of public/private API methods, see
 [Kraken API documentation][krakenapidoc].
 
@@ -42,3 +45,4 @@ It was then ported to Python 3.
 [btceapi]: https://github.com/alanmcintyre/btce-api
 [cryptsypyapi]: https://github.com/ScriptProdigy/CryptsyPythonAPI
 [python2-krakenex]: https://github.com/veox/python2-krakenex
+[githubpages]: https://veox.github.io/python3-krakenex

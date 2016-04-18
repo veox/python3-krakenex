@@ -1,5 +1,9 @@
 # python3-krakenex release news
 
+## 0.0.6.2 - Mon Apr 18 2016
+* Basic documentation with sphinx.
+
+
 ## 0.0.6.1 - Fri Mar 25 2016
 * Classes sub-classed from `object`.
 
