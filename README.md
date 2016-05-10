@@ -9,7 +9,8 @@ Installation
 
 This package requires Python 3.3 or later.
 
-Run `python3 ./setup.py install`. The module will be called `krakenex`.
+Run `python3 ./setup.py install` to install system-wide. Add `--user`
+to install locally for the user. The module will be called `krakenex`.
 
 
 Documentation
