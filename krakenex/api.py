@@ -54,7 +54,6 @@ class API(object):
     def load_key(self, path):
         """Load key and secret from file.
         
-        Argument:
         :param path: path to keyfile
         :type path: str
         
