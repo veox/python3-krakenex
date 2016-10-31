@@ -1,5 +1,10 @@
 # python3-krakenex release news
 
+## 0.1.0 - Mon Oct 31 2016
+* First PyPI package upload (source distribution).
+* Change versioning scheme to semantic versioning (recommended by PyPI).
+
+
 ## 0.0.6.2 - Mon Apr 18 2016
 * Basic documentation with sphinx.
 
