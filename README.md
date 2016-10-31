@@ -12,6 +12,8 @@ This package requires Python 3.3 or later.
 Run `python3 ./setup.py install` to install system-wide. Add `--user`
 to install locally for the user. The module will be called `krakenex`.
 
+A [PyPI package][pypi] is also available.
+
 
 Documentation
 -------------
@@ -40,6 +42,7 @@ examples when writing the original [Python 2 package][python2-krakenex].
 It was then ported to Python 3.
 
 
+[pypi]: https://pypi.python.org/pypi/krakenex
 [krakenapidoc]: https://www.kraken.com/help/api
 [corelicense]: https://www.gnu.org/licenses/lgpl-3.0.txt
 [krakenphpapi]: https://github.com/payward/kraken-api-client
