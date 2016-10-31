@@ -9,4 +9,7 @@ setup(name='krakenex',
       author_email='veox@wemakethings.net',
       url='https://github.com/veox/python3-krakenex',
       packages=['krakenex'],
+      classifiers=[
+          'Programming Language :: Python :: 3',
+      ],
      )
