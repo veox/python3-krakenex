@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='krakenex',
-      version='0.1.1',
+      version='0.1.2',
       description='kraken.com cryptocurrency exchange API',
       author='Noel Maersk',
       author_email='veox plussign spam atsign veox dotsign pw',
