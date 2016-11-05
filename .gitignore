@@ -19,6 +19,7 @@ lib
 lib64
 __pycache__
 MANIFEST
+setup.cfg
 
 # Installer logs
 pip-log.txt

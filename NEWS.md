@@ -1,5 +1,9 @@
 # python3-krakenex release news
 
+## 0.1.1 - Sat Nov 05 2016
+* Renamed README and LICENSE according to PyPI recommendations.
+
+
 ## 0.1.0 - Mon Oct 31 2016
 * First PyPI package upload (source distribution).
 * Change versioning scheme to semantic versioning (recommended by PyPI).
