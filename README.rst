@@ -14,7 +14,7 @@ to install locally for the user. The module will be called ``krakenex``.
 
 A `PyPI package`_ is also available.
 
-.. _`PyPI package`:: https://pypi.python.org/pypi/krakenex
+.. _PyPI package: https://pypi.python.org/pypi/krakenex
 
 
 Documentation
