@@ -32,6 +32,18 @@ For a list of public/private API methods, see
 .. _Kraken API documentation: https://www.kraken.com/help/api
 
 
+Development
+-----------
+
+This package will never support Python 2. There will be no changes made
+to enable compatibility with Python 2. Python 3.0 was `released in
+2008`_. It is more than 7 years old.
+
+If you need to use Python 2, see python2-krakenex_.
+
+.. _released in 2008: https://en.wikipedia.org/wiki/History_of_Python#Version_3.0
+
+
 Attribution
 -----------
 
@@ -49,3 +61,4 @@ It was then ported to Python 3.
 .. _BTC-e API: https://github.com/alanmcintyre/btce-api
 .. _Cryptsy Python API: https://github.com/ScriptProdigy/CryptsyPythonAPI
 .. _python2-krakenex: https://github.com/veox/python2-krakenex
+
