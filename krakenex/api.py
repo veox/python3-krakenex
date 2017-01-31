@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU Lesser
 # General Public LICENSE along with krakenex. If not, see
-# <http://www.gnu.org/licenses/gpl-3.0.txt>.
+# <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 
 import json
