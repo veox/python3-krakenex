@@ -18,6 +18,8 @@
 import http.client
 import urllib.request, urllib.parse, urllib.error
 
+from krakenex import version
+
 
 class Connection(object):
     """Kraken.com connection handler.
@@ -37,7 +39,8 @@ class Connection(object):
         
         """
         self.headers = {
-            'User-Agent': 'krakenex/0.1.2 (+https://github.com/veox/python3-krakenex)'
+            'User-Agent': 'krakenex/' + version.__version__ +
+            ' (+' + version.__url__ + ')'
         }
         self.conn = http.client.HTTPSConnection(uri, timeout = timeout)
 
