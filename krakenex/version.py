@@ -15,5 +15,5 @@
 # <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 __url__ = 'https://github.com/veox/python3-krakenex'

@@ -1,6 +1,10 @@
 python3-krakenex release news
 =============================
 
+0.1.3 - Tue Jan 31 2017
+-----------------------
+* Single-source version and URL - used during setup and in ``User-Agent``.
+
 0.1.2 - Sat Nov 05 2016
 -----------------------
 * Ship examples with PyPI package.
