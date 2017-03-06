@@ -5,14 +5,26 @@ Kraken.com exchange API, Python 3 package.
 
 
 Installation
------------
+------------
 
-This package requires Python 3.3 or later.
+This package requires Python 3.3 or later. The module will be called
+``krakenex``.
 
-Run ``python3 ./setup.py install`` to install system-wide. Add ``--user``
-to install locally for the user. The module will be called ``krakenex``.
+To install system-wide using standard-library `setuptools`, run:
 
-A `PyPI package`_ is also available.
+``python3 ./setup.py install``
+
+Add ``--user`` to install locally for the user:
+
+``python3 ./setup.py install --user``
+
+A `PyPI package`_ is also available. To install system-wide using ``pip``:
+
+``pip install krakenex``
+
+Or, to install locally for the user:
+
+``pip install --user krakenex``
 
 .. _PyPI package: https://pypi.python.org/pypi/krakenex
 
@@ -22,7 +34,7 @@ Documentation
 
 The code is simple and documented in docstrings.
 
-You can also view it online_, or generate your own with
+You can also view the documentation online_, or generate your own with
 ``sphinx`` in ``doc``.
 
 For a list of public/private API methods, see
