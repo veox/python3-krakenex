@@ -58,9 +58,9 @@ class API(object):
         :type path: str
         
         """
-        f = open(path, "r")
-        self.key = f.readline().strip()
-        self.secret = f.readline().strip()
+        with open(path, "r") as f:
+            self.key = f.readline().strip()
+            self.secret = f.readline().strip()
 
 
     def set_connection(self, conn):
