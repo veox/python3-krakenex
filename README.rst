@@ -32,16 +32,20 @@ Or, to install locally for the user:
 Documentation
 -------------
 
-The code is simple and documented in docstrings.
+View the latest_ or stable_ online at ReadTheDocs.
 
-You can also view the documentation online_, or generate your own with
-``sphinx`` in ``doc``.
+The code is minimalistic, documented in docstrings, and can be viewed
+with a text editor.
 
-For a list of public/private API methods, see
-`Kraken API documentation`_.
+You can also or generate your own with, e.g., ``make dirhtml`` in ``doc``.
+This requires ``sphinx`` and its ``rtd`` theme.
 
-.. _online: https://veox.github.io/python3-krakenex
-.. _Kraken API documentation: https://www.kraken.com/help/api
+For a list of public/private Kraken API methods, see
+their `API documentation`_.
+
+.. _latest: https://python3-krakenex.readthedocs.io/en/latest/
+.. _stable: https://python3-krakenex.readthedocs.io/en/stable/
+.. _API documentation: https://www.kraken.com/help/api
 
 
 Development
