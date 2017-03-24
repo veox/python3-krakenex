@@ -4,6 +4,7 @@ python3-krakenex release news
 0.1.4 - Unreleased
 ------------------
 * Properly release key file descriptor after reading in key.
+* Serve docs at ``https://python3-krakenex.readthedocs.io/``.
 
 0.1.3 - Tue Jan 31 2017
 -----------------------
