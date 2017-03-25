@@ -24,15 +24,18 @@ from krakenex import version
 class Connection(object):
     """ Kraken.com connection handler.
 
+    Opens a reusable HTTPS connection. Allows specifying HTTPS timeout,
+    or server URI (for testing purposes).
+
     """
 
 
     def __init__(self, uri = 'api.kraken.com', timeout = 30):
         """ Create an object for reusable connections.
         
-        :param uri: URI to connect to.
+        :param uri: URI to connect to
         :type uri: str
-        :param timeout: blocking operations' timeout (in seconds).
+        :param timeout: blocking operations' timeout (in seconds)
         :type timeout: int
         :returns: None
         :raises: :py:mod:`http.client` exceptions

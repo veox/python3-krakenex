@@ -31,7 +31,20 @@ from krakenex import connection
 
 class API(object):
     """Kraken.com cryptocurrency Exchange API.
-    
+
+    Maps a key/secret pair to a connection. Specifying either is
+    optional.
+
+    If a connection is not set, a new one will be opened on
+    first query. If a connection is set, during creation or as a result
+    of a previous query, it will be reused for subsequent queries.
+    However, its state is not checked.
+
+    No timeout handling or query rate limiting is performed.
+
+    If a private query is performed without setting a key/secret
+    pair, the effects are undefined.
+
     """
     def __init__(self, key = '', secret = '', conn = None):
         """Create an object with authentication information.
@@ -138,6 +151,7 @@ class API(object):
         :raises: :py:mod:`http.client` exceptions
         
         """
+        # TODO: check if self.{key,secret} are set
         urlpath = '/' + self.apiversion + '/private/' + method
 
         req['nonce'] = int(1000*time.time())
