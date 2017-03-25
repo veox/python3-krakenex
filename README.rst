@@ -9,6 +9,8 @@ exchange.
 
 Intended for developers, not traders.
 
+.. _Kraken: https://kraken.com/
+
 
 Software that uses `krakenex`
 -----------------------------
