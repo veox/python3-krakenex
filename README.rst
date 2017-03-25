@@ -1,7 +1,21 @@
-krakenex
-========
+`krakenex`
+==========
 
 Kraken.com exchange API, Python 3 package.
+
+This package is intentionally as lean as possible, and only
+provides a minimal interface to the `Kraken`_ cryptocurrency
+exchange.
+
+Intended for developers, not traders.
+
+
+Software that uses `krakenex`
+-----------------------------
+
+* clikraken_ - command-line client for the Kraken exchange
+
+.. _clikraken: https://github.com/zertrin/clikraken
 
 
 Installation
@@ -34,8 +48,7 @@ Documentation
 
 View the latest_ or stable_ online at ReadTheDocs.
 
-The code is minimalistic, documented in docstrings, and can be viewed
-with a text editor.
+The code is documented in docstrings, and can be viewed with a text editor.
 
 You can also or generate your own with, e.g., ``make dirhtml`` in ``doc``.
 This requires ``sphinx`` and its ``rtd`` theme.
