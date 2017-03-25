@@ -52,7 +52,7 @@ View the latest_ or stable_ online at ReadTheDocs.
 
 The code is documented in docstrings, and can be viewed with a text editor.
 
-You can also or generate your own with, e.g., ``make dirhtml`` in ``doc``.
+You can also generate your own with, e.g., ``make html`` in ``doc``.
 This requires ``sphinx`` and its ``rtd`` theme.
 
 For a list of public/private Kraken API methods, see
