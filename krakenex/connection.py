@@ -38,7 +38,6 @@ class Connection(object):
         :param timeout: blocking operations' timeout (in seconds)
         :type timeout: int
         :returns: None
-        :raises: :py:mod:`http.client` exceptions
         
         """
         self.headers = {

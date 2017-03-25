@@ -105,7 +105,6 @@ class API(object):
         :param headers: HTTPS headers
         :type headers: dict
         :returns: :py:func:`json.loads`-deserialised Python object
-        :raises: :py:mod:`http.client` exceptions
         
         """
         url = self.uri + urlpath
@@ -130,7 +129,6 @@ class API(object):
         :param conn: existing connection object to use
         :type conn: krakenex.Connection
         :returns: :py:func:`json.loads`-deserialised Python object
-        :raises: :py:mod:`http.client` exceptions
         
         """
         urlpath = '/' + self.apiversion + '/public/' + method
@@ -148,7 +146,6 @@ class API(object):
         :param conn: existing connection object to use
         :type conn: krakenex.Connection
         :returns: :py:func:`json.loads`-deserialised Python object
-        :raises: :py:mod:`http.client` exceptions
         
         """
         # TODO: check if self.{key,secret} are set
