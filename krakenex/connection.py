@@ -22,7 +22,7 @@ from krakenex import version
 
 
 class Connection(object):
-    """Kraken.com connection handler.
+    """ Kraken.com connection handler.
 
     """
 
@@ -34,8 +34,8 @@ class Connection(object):
         :type uri: str
         :param timeout: blocking operations' timeout (in seconds).
         :type timeout: int
-        :returns: TODO
-        :raises: TODO
+        :returns: None
+        :raises: :py:mod:`http.client` exceptions
         
         """
         self.headers = {
@@ -43,13 +43,17 @@ class Connection(object):
             ' (+' + version.__url__ + ')'
         }
         self.conn = http.client.HTTPSConnection(uri, timeout = timeout)
+        return
 
 
     def close(self):
-        """ Close the connection.
+        """ Close this connection.
+
+        :returns: None
 
         """
         self.conn.close()
+        return
 
 
     def _request(self, url, req = {}, headers = {}):
@@ -62,6 +66,7 @@ class Connection(object):
         :type req: dict
         :param headers: additional HTTPS headers, such as API-Key and API-Sign
         :type headers: dict
+        :returns: :py:mod:`http.client`-decoded response
 
         """
         data = urllib.parse.urlencode(req)

@@ -40,8 +40,9 @@ class API(object):
         :type key: str
         :param secret: private key used to sign API messages
         :type secret: str
-        :param conn: connection TODO
+        :param conn: existing connection object to use
         :type conn: krakenex.Connection
+        :returns: None
         
         """
         self.key = key
@@ -49,6 +50,7 @@ class API(object):
         self.uri = 'https://api.kraken.com'
         self.apiversion = '0'
         self.conn = conn
+        return
 
 
     def load_key(self, path):
@@ -56,21 +58,26 @@ class API(object):
         
         :param path: path to keyfile
         :type path: str
+        :returns: None
         
         """
         with open(path, "r") as f:
             self.key = f.readline().strip()
             self.secret = f.readline().strip()
+        return
 
 
+    # FIXME: use @property instead?
     def set_connection(self, conn):
         """Set an existing connection to be used as a default in queries.
 
-        :param conn: connection TODO
+        :param conn: existing connection object to use
         :type conn: krakenex.Connection
+        :returns: None
 
         """
         self.conn = conn
+        return
 
 
     def _query(self, urlpath, req = {}, conn = None, headers = {}):
@@ -80,10 +87,12 @@ class API(object):
         :type urlpath: str
         :param req: additional API request parameters
         :type req: dict
-        :param conn: connection TODO
+        :param conn: existing connection object to use
         :type conn: krakenex.Connection
         :param headers: HTTPS headers
         :type headers: dict
+        :returns: :py:func:`json.loads`-deserialised Python object
+        :raises: :py:mod:`http.client` exceptions
         
         """
         url = self.uri + urlpath
@@ -105,8 +114,10 @@ class API(object):
         :type method: str
         :param req: additional API request parameters
         :type req: dict
-        :param conn: connection TODO
+        :param conn: existing connection object to use
         :type conn: krakenex.Connection
+        :returns: :py:func:`json.loads`-deserialised Python object
+        :raises: :py:mod:`http.client` exceptions
         
         """
         urlpath = '/' + self.apiversion + '/public/' + method
@@ -121,8 +132,10 @@ class API(object):
         :type method: str
         :param req: additional API request parameters
         :type req: dict
-        :param conn: connection TODO
+        :param conn: existing connection object to use
         :type conn: krakenex.Connection
+        :returns: :py:func:`json.loads`-deserialised Python object
+        :raises: :py:mod:`http.client` exceptions
         
         """
         urlpath = '/' + self.apiversion + '/private/' + method
