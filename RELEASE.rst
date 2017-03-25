@@ -16,5 +16,4 @@ Release
 
 Post-release
 ------------
-* Announce and issue API change warnings if required.
-
+* Announce, issue API change warnings if required.
