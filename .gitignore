@@ -21,7 +21,6 @@ __pycache__
 
 # More from PyPI packaging
 MANIFEST
-MANIFEST.in
 setup.cfg
 
 # Installer logs

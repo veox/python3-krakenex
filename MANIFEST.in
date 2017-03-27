@@ -1,0 +1,8 @@
+include README.rst
+include NEWS.rst
+
+include examples/*
+
+include doc/make.bat
+include doc/Makefile
+include doc/source/*
