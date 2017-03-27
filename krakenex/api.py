@@ -81,7 +81,7 @@ class API(object):
         :returns: None
         
         """
-        with open(path, "r") as f:
+        with open(path, 'r') as f:
             self.key = f.readline().strip()
             self.secret = f.readline().strip()
         return

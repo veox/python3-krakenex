@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os.path
 from distutils.core import setup
 
 exec(open('./krakenex/version.py').read())

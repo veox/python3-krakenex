@@ -75,7 +75,7 @@ class Connection(object):
         data = urllib.parse.urlencode(req)
         headers.update(self.headers)
 
-        self.conn.request("POST", url, data, headers)
+        self.conn.request('POST', url, data, headers)
         response = self.conn.getresponse()
 
         return response.read().decode()
