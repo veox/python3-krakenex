@@ -14,15 +14,16 @@
 # General Public LICENSE along with krakenex. If not, see
 # <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
+"""Connection handling."""
 
 import http.client
 import urllib.request, urllib.parse, urllib.error
 
-from krakenex import version
+from . import version
 
 
 class Connection(object):
-    """ Kraken.com connection handler.
+    """ Object representing a single connection.
 
     Opens a reusable HTTPS connection. Allows specifying HTTPS timeout,
     or server URI (for testing purposes).
@@ -59,7 +60,7 @@ class Connection(object):
 
 
     def _request(self, url, req = {}, headers = {}):
-        """ Send POST request to API server.
+        """ Send POST request to API server using this connection.
         
         :param url: fully-qualified URL with all necessary urlencoded
             information

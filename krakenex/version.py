@@ -14,6 +14,12 @@
 # General Public LICENSE along with krakenex. If not, see
 # <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
+""" `krakenex` package metadata.
+
+    This package is used to store variables that need to be single-sourced
+    throughout the project.
+
+"""
 
 __version__ = '0.1.3'
 __url__ = 'https://github.com/veox/python3-krakenex'

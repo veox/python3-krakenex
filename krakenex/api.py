@@ -15,6 +15,9 @@
 # <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 
+"""Kraken.com cryptocurrency Exchange API."""
+
+
 import json
 import urllib.request, urllib.parse, urllib.error
 
@@ -26,28 +29,30 @@ import hashlib
 import hmac
 import base64
 
-from krakenex import connection
+from . import connection
 
 
 class API(object):
-    """Kraken.com cryptocurrency Exchange API.
+    """ Maps a key/secret pair to a connection.
 
-    Maps a key/secret pair to a connection. Specifying either is
-    optional.
+    Specifying either is optional.
 
-    If a connection is not set, a new one will be opened on
-    first query. If a connection is set, during creation or as a result
-    of a previous query, it will be reused for subsequent queries.
-    However, its state is not checked.
+    .. note::
+       If a connection is not set, a new one will be opened on
+       first query. If a connection is set, during creation or as a result
+       of a previous query, it will be reused for subsequent queries.
+       However, its state is not checked.
 
-    No timeout handling or query rate limiting is performed.
+    .. note::
+       No timeout handling or query rate limiting is performed.
 
-    If a private query is performed without setting a key/secret
-    pair, the effects are undefined.
+    .. note::
+       If a private query is performed without setting a key/secret
+       pair, the effects are undefined.
 
     """
     def __init__(self, key = '', secret = '', conn = None):
-        """Create an object with authentication information.
+        """ Create an object with authentication information.
         
         :param key: key required to make queries to the API
         :type key: str
@@ -67,7 +72,9 @@ class API(object):
 
 
     def load_key(self, path):
-        """Load key and secret from file.
+        """ Load key and secret from file.
+
+        Expected file format is key and secret on separate lines.
         
         :param path: path to keyfile
         :type path: str
@@ -82,7 +89,9 @@ class API(object):
 
     # FIXME: use @property instead?
     def set_connection(self, conn):
-        """Set an existing connection to be used as a default in queries.
+        """ Set an existing connection to be used as a default in queries.
+
+        .. note:: May become deprecated in future versions.
 
         :param conn: existing connection object to use
         :type conn: krakenex.Connection
@@ -94,8 +103,11 @@ class API(object):
 
 
     def _query(self, urlpath, req = {}, conn = None, headers = {}):
-        """Low-level query handling.
-        
+        """ Low-level query handling.
+
+        Preferrably use :py:meth:`query_private` or
+        :py:meth:`query_public` instead.
+
         :param urlpath: API URL path sans host
         :type urlpath: str
         :param req: additional API request parameters
@@ -120,8 +132,8 @@ class API(object):
 
     
     def query_public(self, method, req = {}, conn = None):
-        """API queries that do not require a valid key/secret pair.
-        
+        """ API queries that do not require a valid key/secret pair.
+
         :param method: API method name
         :type method: str
         :param req: additional API request parameters
@@ -137,7 +149,7 @@ class API(object):
 
     
     def query_private(self, method, req={}, conn = None):
-        """API queries that require a valid key/secret pair.
+        """ API queries that require a valid key/secret pair.
         
         :param method: API method name
         :type method: str

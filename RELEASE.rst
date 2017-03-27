@@ -6,6 +6,7 @@ Pre-release
 * Can expect to be generally available for the next month.
 * There are no TODOs in the code, including docstrings.
 * There are no open issues for this release on github.
+* Have checked the package locally (installation, docgen, etc.).
 
 Release
 -------

@@ -12,12 +12,15 @@ krakenex documentation
 
       
 
-Classes and methods
--------------------
-  
-.. automodule:: krakenex
-   :members: API, Connection
-   :special-members:
-   :private-members:
+Interface classes
+-----------------
 
+.. automodule:: krakenex
+   :members:
+   :imported-members:
+   :special-members:
+   :exclude-members: __dict__, __weakref__
+   :private-members:
+   :undoc-members:
+   :show-inheritance:
 

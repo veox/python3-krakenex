@@ -1,8 +1,3 @@
-"""These are the classes defined by `krakenex`. Every class is in
-a separate module.
-
-"""
-
 # This file is part of krakenex.
 #
 # krakenex is free software: you can redistribute it and/or modify it
@@ -20,5 +15,30 @@ a separate module.
 # <http://www.gnu.org/licenses/lgpl-3.0.txt>.
 
 
-from krakenex.connection import Connection
-from krakenex.api import API
+""" General-use interface provided by `krakenex`.
+
+Internally, classes are in separate modules, but they are also exported
+to the top-level namespace, so the following uses are possible:
+
+.. code-block:: python
+
+   # recommended, unlikely to result in namespace collisions
+   import krakenex
+   k = krakenex.API()
+   c = krakenex.Connection()
+
+   # OK for simple scripts
+   from krakenex import *
+   k = API()
+   c = Connection()
+
+   # can be explicit in both cases
+   k = krakenex.api.API()
+   c = krakenex.connection.Connection()
+
+"""
+
+# "public interface"
+from .api import API
+from .connection import Connection
+__all__ = ['API', 'Connection']
