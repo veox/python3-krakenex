@@ -1,6 +1,10 @@
 `krakenex`
 ==========
 
+.. image:: https://badges.gitter.im/python3-krakenex/Lobby.svg
+   :alt: Join the chat at https://gitter.im/python3-krakenex/Lobby
+   :target: https://gitter.im/python3-krakenex/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 Kraken.com exchange API, Python 3 package.
 
 This package is intentionally as lean as possible, and only
