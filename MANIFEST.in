@@ -1,5 +1,5 @@
 include README.rst
-include NEWS.rst
+include CHANGELOG.rst
 
 include examples/*
 
