@@ -3,8 +3,8 @@ python3-krakenex change log
 
 All notable changes to this project will be documented in this file.
 
-The format is based on `Keep a Changelog`_.
-and this project adheres to `semantic versioning`_.
+The format is based on `Keep a Changelog`_, and this project adheres
+to `semantic versioning`_.
 
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
