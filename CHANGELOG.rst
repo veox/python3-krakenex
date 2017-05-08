@@ -15,6 +15,9 @@ to `semantic versioning`_.
 Added
 ^^^^^
 * More examples.
+
+Changed
+^^^^^^^
 * Renamed ``NEWS`` to ``CHANGELOG``.
 
 [v0.1.4] - 2017-03-27 (Monday)
