@@ -53,7 +53,7 @@ Added
 ^^^^^
 * Now available on `PyPI`_ as a source distribution.
 
-.. PyPI_: https://pypi.python.org/pypi/krakenex
+.. _PyPI: https://pypi.python.org/pypi/krakenex
 
 Changed
 ^^^^^^^
