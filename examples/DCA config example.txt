@@ -1,0 +1,21 @@
+#Order 1. This line will be ignored
+KEY FILE:/My/Key/File/Path
+PAIR:XETHZEUR
+TYPE:buy
+VOLUME:5
+#WARNING : Volume is always in quote currency. In this case, this is 5 EUR
+
+#Order 2
+KEY FILE:/My/Key/File/Path
+#PAIR:XETHZEUR -- This line will be ignored
+PAIR:XXBTZEUR
+TYPE:buy
+anything VOLUME:5 -- This line will be ignored too. There is no need to put "#" to comment, any char can do this
+VOLUME:10
+
+#Order 3
+KEY FILE:/My/Key/File/Path2
+PAIR:XETHZEUR
+TYPE:shell
+VOLUME:10
+#Reminder : This order is shell 10€ of ETH
