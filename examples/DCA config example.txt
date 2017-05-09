@@ -1,9 +1,11 @@
 #Order 1. This line will be ignored
 KEY FILE:/My/Key/File/Path
+#Key file, using the Krakenex format (keykeykey and secretsecretscret)
 PAIR:XETHZEUR
 TYPE:buy
 VOLUME:5
 #WARNING : Volume is always in quote currency. In this case, this is 5 EUR
+#Note : This is impossible to to comment on a line. Or the line is fully ignored, or it is fully used
 
 #Order 2
 KEY FILE:/My/Key/File/Path
