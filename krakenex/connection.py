@@ -79,6 +79,6 @@ class Connection(object):
         response = self.conn.getresponse()
 
         if response.status not in (200, 201, 202):
-            raise http.client.HTTPException
+            raise http.client.HTTPException(response.status)
 
         return response.read().decode()
