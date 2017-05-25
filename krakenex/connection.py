@@ -17,7 +17,9 @@
 """Connection handling."""
 
 import http.client
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 
 from . import version
 
@@ -30,24 +32,22 @@ class Connection(object):
 
     """
 
-
-    def __init__(self, uri = 'api.kraken.com', timeout = 30):
+    def __init__(self, uri='api.kraken.com', timeout=30):
         """ Create an object for reusable connections.
-        
+
         :param uri: URI to connect to
         :type uri: str
         :param timeout: blocking operations' timeout (in seconds)
         :type timeout: int
         :returns: None
-        
+
         """
         self.headers = {
             'User-Agent': 'krakenex/' + version.__version__ +
             ' (+' + version.__url__ + ')'
         }
-        self.conn = http.client.HTTPSConnection(uri, timeout = timeout)
+        self.conn = http.client.HTTPSConnection(uri, timeout=timeout)
         return
-
 
     def close(self):
         """ Close this connection.
@@ -58,10 +58,9 @@ class Connection(object):
         self.conn.close()
         return
 
-
-    def _request(self, url, req = {}, headers = {}):
+    def _request(self, url, req={}, headers={}):
         """ Send POST request to API server using this connection.
-        
+
         :param url: fully-qualified URL with all necessary urlencoded
             information
         :type url: str
