@@ -78,4 +78,7 @@ class Connection(object):
         self.conn.request('POST', url, data, headers)
         response = self.conn.getresponse()
 
+        if response.status not in (200, 201, 202):
+            raise http.client.HTTPException
+
         return response.read().decode()
