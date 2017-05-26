@@ -20,6 +20,14 @@ Changed
 ^^^^^^^
 * Renamed ``NEWS`` to ``CHANGELOG``.
 
+[v0.1.5a] - Unreleased (Anyday)
+------------------------------
+
+Added
+^^^^^
+* Updated kraken connection to raise error in case it doesnt receive 20x status code. 
+
+
 [v0.1.4] - 2017-03-27 (Monday)
 ------------------------------
   
