@@ -69,8 +69,8 @@ class Connection(object):
         :param headers: additional HTTPS headers, such as API-Key and API-Sign
         :type headers: dict
         :returns: :py:mod:`http.client`-decoded response
-        :raises: :py:exc:http.client.HTTPException: response status not
-             successful`
+        :raises: :py:exc:`http.client.HTTPException`: if response status not
+             successful
 
         """
         data = urllib.parse.urlencode(req)
