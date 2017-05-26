@@ -19,7 +19,9 @@
 
 
 import json
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 
 # private query nonce
 import time
@@ -51,9 +53,9 @@ class API(object):
        pair, the effects are undefined.
 
     """
-    def __init__(self, key = '', secret = '', conn = None):
+    def __init__(self, key='', secret='', conn=None):
         """ Create an object with authentication information.
-        
+
         :param key: key required to make queries to the API
         :type key: str
         :param secret: private key used to sign API messages
@@ -61,7 +63,7 @@ class API(object):
         :param conn: existing connection object to use
         :type conn: krakenex.Connection
         :returns: None
-        
+
         """
         self.key = key
         self.secret = secret
@@ -70,22 +72,20 @@ class API(object):
         self.conn = conn
         return
 
-
     def load_key(self, path):
         """ Load key and secret from file.
 
         Expected file format is key and secret on separate lines.
-        
+
         :param path: path to keyfile
         :type path: str
         :returns: None
-        
+
         """
         with open(path, 'r') as f:
             self.key = f.readline().strip()
             self.secret = f.readline().strip()
         return
-
 
     # FIXME: use @property instead?
     def set_connection(self, conn):
@@ -101,8 +101,7 @@ class API(object):
         self.conn = conn
         return
 
-
-    def _query(self, urlpath, req = {}, conn = None, headers = {}):
+    def _query(self, urlpath, req={}, conn=None, headers={}):
         """ Low-level query handling.
 
         Preferrably use :py:meth:`query_private` or
@@ -117,7 +116,7 @@ class API(object):
         :param headers: HTTPS headers
         :type headers: dict
         :returns: :py:func:`json.loads`-deserialised Python object
-        
+
         """
         url = self.uri + urlpath
 
@@ -130,8 +129,7 @@ class API(object):
         ret = conn._request(url, req, headers)
         return json.loads(ret)
 
-    
-    def query_public(self, method, req = {}, conn = None):
+    def query_public(self, method, req={}, conn=None):
         """ API queries that do not require a valid key/secret pair.
 
         :param method: API method name
@@ -141,16 +139,15 @@ class API(object):
         :param conn: existing connection object to use
         :type conn: krakenex.Connection
         :returns: :py:func:`json.loads`-deserialised Python object
-        
+
         """
         urlpath = '/' + self.apiversion + '/public/' + method
 
         return self._query(urlpath, req, conn)
 
-    
-    def query_private(self, method, req={}, conn = None):
+    def query_private(self, method, req={}, conn=None):
         """ API queries that require a valid key/secret pair.
-        
+
         :param method: API method name
         :type method: str
         :param req: additional API request parameters
@@ -158,7 +155,7 @@ class API(object):
         :param conn: existing connection object to use
         :type conn: krakenex.Connection
         :returns: :py:func:`json.loads`-deserialised Python object
-        
+
         """
         # TODO: check if self.{key,secret} are set
         urlpath = '/' + self.apiversion + '/private/' + method
