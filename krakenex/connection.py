@@ -62,13 +62,15 @@ class Connection(object):
         """ Send POST request to API server using this connection.
 
         :param url: fully-qualified URL with all necessary urlencoded
-            information
+             information
         :type url: str
         :param req: additional API request parameters
         :type req: dict
         :param headers: additional HTTPS headers, such as API-Key and API-Sign
         :type headers: dict
         :returns: :py:mod:`http.client`-decoded response
+        :raises: :py:exc:http.client.HTTPException: response status not
+             successful`
 
         """
         data = urllib.parse.urlencode(req)

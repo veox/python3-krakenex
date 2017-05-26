@@ -1,7 +1,7 @@
 python3-krakenex change log
 ===========================
 
-All notable changes to this project will be documented in this file.
+All notable changes should be documented in this file.
 
 The format is based on `Keep a Changelog`_, and this project adheres
 to `semantic versioning`_.
@@ -18,14 +18,9 @@ Added
 
 Changed
 ^^^^^^^
+* Connection now raises ``http.client.HTTPException`` if response
+  doesn't have ``20x`` status code.
 * Renamed ``NEWS`` to ``CHANGELOG``.
-
-[v0.1.5a] - Unreleased (Anyday)
-------------------------------
-
-Added
-^^^^^
-* Updated kraken connection to raise error in case it doesnt receive 20x status code. 
 
 
 [v0.1.4] - 2017-03-27 (Monday)
