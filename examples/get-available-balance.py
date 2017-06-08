@@ -24,7 +24,8 @@ orders = orders['result']
 
 newbalance = dict()
 for currency in balance:
-    newname = currency[1:] # remove first symbol ('Z' or 'X')
+    # remove first symbol ('Z' or 'X')
+    newname = currency[1:] if len(currency) == 4 else currency
     newbalance[newname] = float(balance[currency])
 balance = newbalance
 
