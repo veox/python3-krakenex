@@ -16,8 +16,8 @@
 
 """ `krakenex` package metadata.
 
-    This package is used to store variables that need to be single-sourced
-    throughout the project.
+This module is used to store variables that need to be single-sourced
+throughout the project.
 
 """
 
