@@ -67,9 +67,9 @@ class Connection(object):
         :param url: fully-qualified URL with all necessary urlencoded
              information
         :type url: str
-        :param req: additional API request parameters
+        :param req: (optional) API request parameters
         :type req: dict
-        :param headers: additional HTTPS headers, such as API-Key and API-Sign
+        :param headers: (optional) HTTPS headers, such as API-Key and API-Sign
         :type headers: dict
         :returns: :py:mod:`http.client`-decoded response
         :raises: :py:exc:`http.client.HTTPException`: if response status not
