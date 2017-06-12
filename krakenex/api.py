@@ -101,11 +101,8 @@ class API(object):
         self.conn = conn
         return
 
-    def _query(self, urlpath, req=None, conn=None, headers=None):
+    def _query(self, urlpath, req, conn=None, headers=None):
         """ Low-level query handling.
-
-        If not provided, sets empty request parameters and HTTPS
-        headers for this query.
 
         If not provided, opens a new connection for this and all
         subsequent queries.
@@ -116,20 +113,17 @@ class API(object):
 
         :param urlpath: API URL path sans host
         :type urlpath: str
-        :param req: additional API request parameters
+        :param req: API request parameters
         :type req: dict
-        :param conn: existing connection object to use
+        :param conn: (optional) existing connection object to use
         :type conn: krakenex.Connection
-        :param headers: HTTPS headers
+        :param headers: (optional) HTTPS headers
         :type headers: dict
         :returns: :py:func:`json.loads`-deserialised Python object
 
         """
 
         url = self.uri + urlpath
-
-        if req is None:
-            req = {}
 
         if conn is None:
             if self.conn is None:
@@ -148,14 +142,17 @@ class API(object):
 
         :param method: API method name
         :type method: str
-        :param req: additional API request parameters
+        :param req: (optional) API request parameters
         :type req: dict
-        :param conn: existing connection object to use
+        :param conn: (optional) connection object to use
         :type conn: krakenex.Connection
         :returns: :py:func:`json.loads`-deserialised Python object
 
         """
         urlpath = '/' + self.apiversion + '/public/' + method
+
+        if req is None:
+            req = {}
 
         return self._query(urlpath, req, conn)
 
@@ -164,13 +161,17 @@ class API(object):
 
         :param method: API method name
         :type method: str
-        :param req: additional API request parameters
+        :param req: (optional) API request parameters
         :type req: dict
-        :param conn: existing connection object to use
+        :param conn: (optional) connection object to use
         :type conn: krakenex.Connection
         :returns: :py:func:`json.loads`-deserialised Python object
 
         """
+
+        if req is None:
+            req = {}
+
         # TODO: check if self.{key,secret} are set
         urlpath = '/' + self.apiversion + '/private/' + method
 
