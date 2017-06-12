@@ -19,24 +19,33 @@ Added
 Changed
 ^^^^^^^
 * Connection now raises ``http.client.HTTPException`` if response
-  doesn't have ``20x`` status code.
+  doesn't have ``20x`` status code. (`#17`_)
+* Be explicit when using default arguments in functions that have
+  optional ones. (`#19`_)
 * Renamed ``NEWS`` to ``CHANGELOG``.
 
+.. _#17: https://github.com/veox/python3-krakenex/pull/17
+.. _#19: https://github.com/veox/python3-krakenex/issues/19
 
 [v0.1.4] - 2017-03-27 (Monday)
 ------------------------------
-  
+
 Changed
 ^^^^^^^
-* Properly release key file descriptor after reading in key.
+* Properly release key file descriptor after reading in key. (`#7`_)
 * Verbose docs, served at ``https://python3-krakenex.readthedocs.io/``.
+
+.. _#7: https://github.com/veox/python3-krakenex/pull/17
 
 [v0.1.3] - 2017-01-31 (Tuesday)
 -------------------------------
   
 Changed
 ^^^^^^^
-* Single-source version and URL - used during setup and in ``User-Agent``.
+* Single-source version and URL - used during setup and in
+  ``User-Agent``. (`#5`_)
+
+.. _#5: https://github.com/veox/python3-krakenex/issues/5
 
 [v0.1.2] - 2016-11-05 (Saturday)
 --------------------------------
@@ -57,9 +66,10 @@ Changed
 
 Added
 ^^^^^
-* Now available on `PyPI`_ as a source distribution.
+* Now available on `PyPI`_ as a source distribution. (`#3`_)
 
 .. _PyPI: https://pypi.python.org/pypi/krakenex
+.. _#3: https://github.com/veox/python3-krakenex/issues/3
 
 Changed
 ^^^^^^^

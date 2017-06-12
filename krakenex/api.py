@@ -101,11 +101,18 @@ class API(object):
         self.conn = conn
         return
 
-    def _query(self, urlpath, req={}, conn=None, headers={}):
+    def _query(self, urlpath, req=None, conn=None, headers=None):
         """ Low-level query handling.
 
-        Preferrably use :py:meth:`query_private` or
-        :py:meth:`query_public` instead.
+        If not provided, sets empty request parameters and HTTPS
+        headers for this query.
+
+        If not provided, opens a new connection for this and all
+        subsequent queries.
+
+        .. note::
+           Preferably use :py:meth:`query_private` or
+           :py:meth:`query_public` instead.
 
         :param urlpath: API URL path sans host
         :type urlpath: str
@@ -118,7 +125,11 @@ class API(object):
         :returns: :py:func:`json.loads`-deserialised Python object
 
         """
+
         url = self.uri + urlpath
+
+        if req is None:
+            req = {}
 
         if conn is None:
             if self.conn is None:
@@ -126,10 +137,13 @@ class API(object):
             else:
                 conn = self.conn
 
+        if headers is None:
+            headers = {}
+
         ret = conn._request(url, req, headers)
         return json.loads(ret)
 
-    def query_public(self, method, req={}, conn=None):
+    def query_public(self, method, req=None, conn=None):
         """ API queries that do not require a valid key/secret pair.
 
         :param method: API method name
@@ -145,7 +159,7 @@ class API(object):
 
         return self._query(urlpath, req, conn)
 
-    def query_private(self, method, req={}, conn=None):
+    def query_private(self, method, req=None, conn=None):
         """ API queries that require a valid key/secret pair.
 
         :param method: API method name
