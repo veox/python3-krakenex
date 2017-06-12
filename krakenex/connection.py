@@ -58,8 +58,11 @@ class Connection(object):
         self.conn.close()
         return
 
-    def _request(self, url, req={}, headers={}):
+    def _request(self, url, req=None, headers=None):
         """ Send POST request to API server using this connection.
+
+        If not provided, sets empty request parameters and HTTPS
+        headers for this request.
 
         :param url: fully-qualified URL with all necessary urlencoded
              information
@@ -73,6 +76,13 @@ class Connection(object):
              successful
 
         """
+
+        if req is None:
+            req = {}
+
+        if headers is None:
+            headers = {}
+
         data = urllib.parse.urlencode(req)
         headers.update(self.headers)
 
