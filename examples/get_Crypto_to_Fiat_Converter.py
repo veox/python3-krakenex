@@ -21,7 +21,7 @@ v0.1
 4. If you don't own any fiat money on your Kraken wallet, it will be displayed the equivalent in USD.
 (The fiat money can be easily modified but be aware that some markets doesn't allow it,
 DASHUSD -> DASHJPY for example, can't be done because the market doesn't exist on Kraken.
-Check k.query_public('Ticker',{'pair': 'YOURMARKET',}) inline to know if it exist.
+Check k.query_public('Ticker',{'pair': 'YOURMARKET',}) inline to know if it exist.)
 5. Works with multi-fiat currencies wallets.
 
  
