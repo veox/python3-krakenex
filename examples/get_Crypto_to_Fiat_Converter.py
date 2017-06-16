@@ -76,7 +76,6 @@ if fiat_index == [] :
     print("Currencies will be converted in USD by default")
     fiat_index.append(0)
     currencies.append('ZUSD')
-#TODO Test if we can append more fiat currency (to test if this script is generic enough)
 
 print("Currencies on your wallet : ",currencies)
 
@@ -103,7 +102,6 @@ if(fiat_index[0] != 0):
 else:
     balance.append('0')
 #We extract what we need
-#/!\TODO : generic extraction when we add another currency in list
 
 #%% Converting balance to float (needed for operations)
 for i in range(len(currencies)): # +1 to count EUR in casting str->float
