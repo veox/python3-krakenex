@@ -44,7 +44,7 @@ data = k.query_private('Balance')
 data = str(data['result'])
 
 #DEBUG
-data = data.replace("XXRP","ZUSD")
+#data = data.replace("XXRP","ZUSD")
 #Can be used to test if others currencies (e.g ZPJY) are compatibles with others market pairs you are into. 
 
 #%%We find currencies concerned by the client wallet
