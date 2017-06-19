@@ -44,7 +44,7 @@ data = k.query_private('Balance')
 data = str(data['result'])
 
 #DEBUG
-#data = data.replace("XXRP","ZUSD")
+data = data.replace("XXRP","ZUSD")
 #Can be used to test if others currencies (e.g ZPJY) are compatibles with others market pairs you are into. 
 
 #%%We find currencies concerned by the client wallet
@@ -138,10 +138,10 @@ for n in range(len(fiat_index)):
     for i in range(len(currencies)-len(fiat_index)):
         if i-n < 0 : 
             values.update({market[i*len(fiat_index)-n] : price[i*len(fiat_index)-n] * balance[len(balance)-len(fiat_index)-1]})
-            totals[n] += values[market[i*len(fiat_index)-n]]
         else: 
-            values.update({market[i*len(fiat_index)-n] : price[i*len(fiat_index)-n] * balance[i-n]})
-            totals[n] += values[market[i*len(fiat_index)-n]]
+            values.update({market[i*len(fiat_index)-n] : price[i*len(fiat_index)-n] * balance[i-n]})       
+            
+        totals[n] += values[market[i*len(fiat_index)-n]]
     values.update({currencies[len(crypto_index)+n] : balance[len(crypto_index)+n]})
 #For each market, we calculate the price for each fiat money involved in
 #One exception : when i-n < 0, we need to fix balance index because 
