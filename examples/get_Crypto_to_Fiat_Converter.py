@@ -133,7 +133,7 @@ for i in fiat_index:
 
 
 #Cross converting data from each fiat to their corresponding market (ZEUR with XBTEUR, ETHEUR,... \
-# same for ZUSD and XBTUSD, XBTEUR, etc...)
+# same for ZUSD and XBTUSD, ETHUSD, etc...)
 for n in range(len(fiat_index)):   
     for i in range(len(currencies)-len(fiat_index)):
         if i-n < 0 : 
