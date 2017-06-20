@@ -68,6 +68,14 @@ their `API documentation`_.
 .. _API documentation: https://www.kraken.com/help/api
 
 
+Examples
+--------
+
+A few package use examples are available in the examples_ directory.
+
+.. _examples: examples/
+
+
 Development
 -----------
 
