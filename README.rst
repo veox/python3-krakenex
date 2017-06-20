@@ -24,6 +24,10 @@ Software that uses `krakenex`
 
 .. _clikraken: https://github.com/zertrin/clikraken
 
+* CurrencyViewer_ - short program for crypto to fiat conversion and data extraction
+
+.. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
+
 
 Installation
 ------------
