@@ -24,6 +24,10 @@ Software that uses `krakenex`
 
 .. _clikraken: https://github.com/zertrin/clikraken
 
+* CurrencyViewer - short program for crypto currencies data display and manipulation
+
+.. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
+
 
 Installation
 ------------
