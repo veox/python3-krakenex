@@ -21,11 +21,9 @@ Software that uses `krakenex`
 -----------------------------
 
 * clikraken_ - command-line client for the Kraken exchange
-
-.. _clikraken: https://github.com/zertrin/clikraken
-
 * CurrencyViewer_ - short program for crypto to fiat conversion and data extraction
 
+.. _clikraken: https://github.com/zertrin/clikraken
 .. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
 
 
