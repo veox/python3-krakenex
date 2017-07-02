@@ -140,9 +140,7 @@ class API(object):
         if conn is None:
             if self.conn is None:
                 self.conn = connection.Connection()
-                conn = self.conn
-            else:
-                conn = self.conn
+            conn = self.conn
 
         if headers is None:
             headers = {}
