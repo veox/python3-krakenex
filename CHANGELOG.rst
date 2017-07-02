@@ -9,8 +9,12 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
-[vX.Y.Z] - Unreleased (Anyday)
-------------------------------
+[v1.0.0a0] - 2017-07-02 (Sunday)
+--------------------------------
+
+**Internal alpha testing release!**
+
+Not for general use. For that reason, ``pip`` package not provided.
 
 Added
 ^^^^^
