@@ -28,7 +28,7 @@ Changed
 
 Deprecated
 ^^^^^^^^^^
-* ``krakenex.API.set_connection()``. Access ``krakenex.API.conn``
+* ``krakenex.API.set_connection()`` method. Access ``krakenex.API.conn``
   attribute directly.
 
 .. _#17: https://github.com/veox/python3-krakenex/pull/17
