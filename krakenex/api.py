@@ -91,7 +91,8 @@ class API(object):
     def set_connection(self, conn):
         """ Set an existing connection to be used as a default in queries.
 
-        .. note:: Will become deprecated in future versions.
+        .. deprecated:: 0.2.0
+           Access the object's :py:attr:`conn` attribute directly.
 
         :param conn: existing connection object to use
         :type conn: krakenex.Connection

@@ -20,12 +20,20 @@ Changed
 ^^^^^^^
 * Connection now raises ``http.client.HTTPException`` if response
   doesn't have ``20x`` status code. (`#17`_)
+* Fix new connection thrashing if one is not provided for reuse
+  (as was described in the docs). (`#27`_)
 * Be explicit when using default arguments in functions that have
   optional ones. (`#19`_)
 * Renamed ``NEWS`` to ``CHANGELOG``.
 
+Deprecated
+^^^^^^^^^^
+* ``krakenex.API.set_connection()``. Access ``krakenex.API.conn``
+  attribute directly.
+
 .. _#17: https://github.com/veox/python3-krakenex/pull/17
 .. _#19: https://github.com/veox/python3-krakenex/issues/19
+.. _#27: https://github.com/veox/python3-krakenex/issues/27
 
 [v0.1.4] - 2017-03-27 (Monday)
 ------------------------------
