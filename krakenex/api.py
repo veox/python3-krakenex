@@ -112,7 +112,7 @@ class API(object):
         previous query.
 
         If this is the first ever query, opens a new connection, and
-        keeps it for future queries.
+        keeps it as a fallback for future queries.
 
         Connection state is not checked.
 
