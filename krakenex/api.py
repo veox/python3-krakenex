@@ -37,7 +37,7 @@ from . import connection
 class API(object):
     """ Maps a key/secret pair to a connection.
 
-    Specifying either is optional.
+    Specifying either the pair or the connection is optional.
 
     .. note::
        If a connection is not set, a new one will be opened on
@@ -87,11 +87,11 @@ class API(object):
             self.secret = f.readline().strip()
         return
 
-    # FIXME: use @property instead?
+    # DEPRECATE: just access directly, e.g. k.conn = krakenex.Connection()
     def set_connection(self, conn):
         """ Set an existing connection to be used as a default in queries.
 
-        .. note:: May become deprecated in future versions.
+        .. note:: Will become deprecated in future versions.
 
         :param conn: existing connection object to use
         :type conn: krakenex.Connection
@@ -104,8 +104,20 @@ class API(object):
     def _query(self, urlpath, req, conn=None, headers=None):
         """ Low-level query handling.
 
-        If not provided, opens a new connection for this and all
-        subsequent queries.
+        If a connection object is provided, attempts to use that
+        specific connection.
+
+        If it is not provided, attempts to reuse a connection from the
+        previous query.
+
+        If this is the first ever query, opens a new connection, and
+        keeps it for future queries.
+
+        Connection state is not checked.
+
+        .. warning::
+           The fallback connection will be re-used for both public and
+           private queries.
 
         .. note::
            Preferably use :py:meth:`query_private` or
@@ -127,7 +139,8 @@ class API(object):
 
         if conn is None:
             if self.conn is None:
-                conn = connection.Connection()
+                self.conn = connection.Connection()
+                conn = self.conn
             else:
                 conn = self.conn
 
