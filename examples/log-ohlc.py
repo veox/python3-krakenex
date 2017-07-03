@@ -8,8 +8,9 @@ import time
 import krakenex
 
 pair = 'XETHZEUR'
-# UTC 2017-06-04 06:07:00, try: date '+%Y-%m-%d %H:%M:%S' -d '@TIMESTAMP' -u
-timestamp = str(1496556420)
+# NOTE: for the (default) 1-minute granularity, the API seems to provide
+# data up to 12 hours old only!
+since = str(1499000000) # UTC 2017-07-02 12:53:20
 
 k = krakenex.API()
 
@@ -26,18 +27,28 @@ def lineprint(msg, targetlen = 72):
         line += trail
 
     print(line)
-
     return
 
 while True:
     lineprint(now())
 
+    # comment out to reuse the same connection
+    k.conn = krakenex.Connection()
+
     before = now()
-    ret = k.query_public('OHLC', req = {'pair': pair, 'since': timestamp})
+    ret = k.query_public('OHLC', req = {'pair': pair, 'since': since})
     after = now()
 
-    for i in range(5):
-        print(ret['result'][pair][i])
+    # comment out to reuse the same connection
+    k.conn.close()
+
+    # comment out to track the same "since"
+    #since = ret['result']['last']
+
+    bars = ret['result'][pair]
+    for b in bars[:5]: print(b)
+    print('...')
+    for b in bars[-5:]: print(b)
 
     lineprint(after - before)
 
