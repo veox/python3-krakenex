@@ -33,18 +33,19 @@ while True:
     lineprint(now())
 
     # comment out to reuse the same connection
-    k.conn = krakenex.Connection()
+    #k.conn = krakenex.Connection()
 
     before = now()
     ret = k.query_public('OHLC', req = {'pair': pair, 'since': since})
     after = now()
 
     # comment out to reuse the same connection
-    k.conn.close()
+    #k.conn.close()
 
     # comment out to track the same "since"
     #since = ret['result']['last']
 
+    # TODO: don't repeat-print if list too short
     bars = ret['result'][pair]
     for b in bars[:5]: print(b)
     print('...')
