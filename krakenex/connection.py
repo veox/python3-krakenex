@@ -32,13 +32,15 @@ class Connection(object):
 
     """
 
-    def __init__(self, uri='api.kraken.com', timeout=30):
+    def __init__(self, uri='api.kraken.com', timeout=30, proxy=''):
         """ Create an object for reusable connections.
 
         :param uri: URI to connect to
         :type uri: str
         :param timeout: blocking operations' timeout (in seconds)
         :type timeout: int
+        :param proxy: URL of the proxy
+        :type proxy: str
         :returns: None
 
         """
@@ -46,7 +48,11 @@ class Connection(object):
             'User-Agent': 'krakenex/' + version.__version__ +
             ' (+' + version.__url__ + ')'
         }
-        self.conn = http.client.HTTPSConnection(uri, timeout=timeout)
+        if proxy == '':
+            self.conn = http.client.HTTPSConnection(uri, timeout = timeout)
+        else:
+            self.conn = http.client.HTTPSConnection(proxy, timeout=timeout)
+            self.conn.set_tunnel(uri)
         return
 
     def close(self):
