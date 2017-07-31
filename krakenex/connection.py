@@ -17,10 +17,7 @@
 
 """Connection handling."""
 
-import http.client
-import urllib.request
-import urllib.parse
-import urllib.error
+import requests
 
 from . import version
 
@@ -43,11 +40,11 @@ class Connection(object):
         :returns: None
 
         """
-        self.headers = {
-            'User-Agent': 'krakenex/' + version.__version__ +
-            ' (+' + version.__url__ + ')'
-        }
-        self.conn = http.client.HTTPSConnection(uri, timeout=timeout)
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'krakenex/' + version.__version__ + ' (+' + version.__url__ + ')'
+        })
+
         return
 
     def close(self):
@@ -56,10 +53,11 @@ class Connection(object):
         :returns: None
 
         """
-        self.conn.close()
+        self.session.close()
+
         return
 
-    def _request(self, url, req=None, headers=None):
+    def _request(self, url, data=None, headers=None):
         """ Send POST request to API server using this connection.
 
         If not provided, sets empty request parameters and HTTPS
@@ -78,19 +76,15 @@ class Connection(object):
 
         """
 
-        if req is None:
-            req = {}
+        if data is None:
+            data = {}
 
         if headers is None:
             headers = {}
 
-        data = urllib.parse.urlencode(req)
-        headers.update(self.headers)
+        response = self.session.post(url, data = data, headers = headers)
 
-        self.conn.request('POST', url, data, headers)
-        response = self.conn.getresponse()
-
-        if response.status not in (200, 201, 202):
+        if response.status_code not in (200, 201, 202):
             raise http.client.HTTPException(response.status)
 
-        return response.read().decode()
+        return response
