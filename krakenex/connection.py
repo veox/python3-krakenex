@@ -85,6 +85,6 @@ class Connection(object):
         response = self.session.post(url, data = data, headers = headers)
 
         if response.status_code not in (200, 201, 202):
-            raise http.client.HTTPException(response.status)
+            response.raise_for_status()
 
-        return response
+        return response.json()
