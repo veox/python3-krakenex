@@ -6,12 +6,14 @@
 # Get balance available for trading/withdrawal (not on orders).
 #
 # NOTE: Assumes limit orders. Margin positions are not taken into account!
-# NOTE: floating-point rounding errors not taken into account!
+# NOTE: final display value is a float!
 #
 # FIXME: Also shows how current krakenex usage has too much sugar.
 
-import krakenex
+from decimal import Decimal as D
 import pprint
+
+import krakenex
 
 k = krakenex.API()
 k.load_key('kraken.key')
@@ -24,20 +26,20 @@ orders = orders['result']
 
 newbalance = dict()
 for currency in balance:
-    # remove first symbol ('Z' or 'X')
+    # remove first symbol ('Z' or 'X'), but not for GNO
     newname = currency[1:] if len(currency) == 4 else currency
-    newbalance[newname] = float(balance[currency])
+    newbalance[newname] = D(balance[currency]) # type(balance[currency]) == str
 balance = newbalance
 
 for _, o in orders['open'].items():
-    # base volume
-    volume = float(o['vol']) - float(o['vol_exec'])
+    # in base currency
+    volume = D(o['vol']) - D(o['vol_exec'])
 
     # extract for less typing
     descr = o['descr']
 
     # order price
-    price = float(descr['price'])
+    price = D(descr['price'])
 
     pair = descr['pair']
     base = pair[:3]
@@ -51,4 +53,5 @@ for _, o in orders['open'].items():
         # selling base - reduce base balance
         balance[base] -= volume
 
-pprint.pprint(balance)
+for k, v in balance.items():
+    print(k, float(v))
