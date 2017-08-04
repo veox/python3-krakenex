@@ -5,6 +5,8 @@
 
 # FIXME: Prints the sum of _some_ open positions?..
 
+# Maintainer: Austin.Deric@gmail.com (@AustinDeric on github)
+
 import krakenex
 
 # configure api
