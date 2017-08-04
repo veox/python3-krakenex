@@ -4,6 +4,8 @@
 # Licensed under the Simplified BSD license. See `examples/LICENSE.txt`.
 
 # Saves trade history to CSV file.
+#
+# WARNING: submits a lot of queries in rapid succession!
 
 # Maintainer: Austin.Deric@gmail.com (@AustinDeric on github)
 

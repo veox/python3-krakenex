@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-# pretty-print the depth on a pair
+
+# This file is part of krakenex.
+# Licensed under the Simplified BSD license. See `examples/LICENSE.txt`.
+
+# Pretty-print a pair's order book depth.
+
+import krakenex
 
 import pprint
-import krakenex
 
 k = krakenex.API()
 

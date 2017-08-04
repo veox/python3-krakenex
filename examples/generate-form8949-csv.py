@@ -6,6 +6,8 @@
 # Kraken bitcoin exchange (Payward, Inc.) United States IRS tax compliance script
 # Generate 2016 Sales and Other Dispositions of Capital Assets
 # Form 8949 spreadsheet (OMB No. 1545-0074)
+#
+# WARNING: submits a lot of queries in rapid succession!
 
 # Maintainer: Austin.Deric@gmail.com (@AustinDeric on github)
 
