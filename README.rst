@@ -83,9 +83,17 @@ Development
 
 This package will never support Python 2. There will be no changes made
 to enable compatibility with Python 2. Python 3.0 was `released in
-2008`_. It is more than 7 years old.
+2008`_, before Bitcoin was.
 
-If you need to use Python 2, see python2-krakenex_.
+There is no reason to support Python 2 except for compatibility with
+systems from the pre-blockchain era.
+
+The fact that some GNU/Linux distributions still ship with Python 2 as
+the default seems unfortunate to me. However, I will not support this
+madness with my precious time.
+
+If you have a valid reason to use Python 2, see python2-krakenex_. Be
+warned, though, that it is unmaintained.
 
 .. _released in 2008: https://en.wikipedia.org/wiki/History_of_Python#Version_3.0
 
