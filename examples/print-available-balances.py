@@ -9,10 +9,10 @@
 #
 # FIXME: Also shows how current krakenex usage has too much sugar.
 
+import krakenex
+
 from decimal import Decimal as D
 import pprint
-
-import krakenex
 
 k = krakenex.API()
 k.load_key('kraken-monitor.key')
