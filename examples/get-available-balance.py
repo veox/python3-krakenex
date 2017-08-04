@@ -5,8 +5,7 @@
 
 # Get balance available for trading/withdrawal (not on orders).
 #
-# NOTE: Assumes limit orders. Margin positions are not taken into account!
-# NOTE: final display value is a float!
+# NOTE: Assumes regular orders. Margin positions are not taken into account!
 #
 # FIXME: Also shows how current krakenex usage has too much sugar.
 
@@ -16,7 +15,7 @@ import pprint
 import krakenex
 
 k = krakenex.API()
-k.load_key('kraken.key')
+k.load_key('kraken-monitor.key')
 
 balance = k.query_private('Balance')
 orders = k.query_private('OpenOrders')
@@ -32,7 +31,7 @@ for currency in balance:
 balance = newbalance
 
 for _, o in orders['open'].items():
-    # in base currency
+    # remaining volume in base currency
     volume = D(o['vol']) - D(o['vol_exec'])
 
     # extract for less typing
@@ -54,4 +53,12 @@ for _, o in orders['open'].items():
         balance[base] -= volume
 
 for k, v in balance.items():
-    print(k, float(v))
+    # convert to string for printing
+    if v == D('0'):
+        s = '0'
+    else:
+        s = str(v)
+    # remove trailing zeros (remnant of being decimal)
+    s = s.rstrip('0').rstrip('.') if '.' in s else s
+    #
+    print(k, s)
