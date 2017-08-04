@@ -1,19 +1,26 @@
+#!/usr/bin/env python
+
+# This file is part of krakenex.
+# Licensed under the Simplified BSD license. See `examples/LICENSE.txt`.
+
+# FIXME: Prints the sum of _some_ open positions?..
+
 import krakenex
 
-#configure api
+# configure api
 k = krakenex.API()
 k.load_key('kraken.key')
 
-#prepare request
+# prepare request
 req_data = {'docalcs': 'true'}
 
-#querry servers
+# querry servers
 start = k.query_public('Time')
 open_positions = k.query_private('OpenPositions', req_data)
 end = k.query_public('Time')
 latency = end['result']['unixtime']-start['result']['unixtime']
 
-#parse result
+# parse result
 dict(open_positions)
 
 b = 0

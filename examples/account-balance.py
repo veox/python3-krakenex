@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # This file is part of krakenex.
 # Licensed under the Simplified BSD license. See `examples/LICENSE.txt`.
 

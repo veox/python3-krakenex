@@ -1,25 +1,30 @@
-# Maintainer Austin.Deric@gmail.com
+#!/usr/bin/env python
 
+# This file is part of krakenex.
+# Licensed under the Simplified BSD license. See `examples/LICENSE.txt`.
 
 # Kraken bitcoin exchange (Payward, Inc.) United States IRS tax compliance script
 # Generate 2016 Sales and Other Dispositions of Capital Assets
 # Form 8949 spreadsheet (OMB No. 1545-0074)
 
+# Maintainer: Austin.Deric@gmail.com (@AustinDeric on github)
+
+import pandas as pd
 import krakenex
+
 import datetime
 import calendar
-import pandas as pd
 import time
 
-# helper function - takes date and returns nix time
+# takes date and returns nix time
 def date_nix(str_date):
     return calendar.timegm(str_date.timetuple())
 
-# helper function - takes nix time and returns date
+# takes nix time and returns date
 def date_str(nix_time):
     return datetime.datetime.fromtimestamp(nix_time).strftime('%m, %d, %Y')
 
-# return formated Trades Historyrequest data
+# return formated Trades History request data
 def req(start, end, ofs):
     req_data = {'type': 'all',
                 'trades': 'true',
@@ -94,4 +99,3 @@ print('2(d) Totals. Proceeds ' + str(total_proceeds))
 print('2(e) Totals. Cost or other basis. ' + str(total_cost))
 print('2(h) Gain or (loss). ' + str(total_net))
 form8949.to_csv('form8949.csv')
-
