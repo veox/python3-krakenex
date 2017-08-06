@@ -2,13 +2,13 @@
 Class to simplify the handling of responses and errors from the API.
 """
 
-class Result(dict):
+class Response(dict):
     def __init__(self, result):
         """
 
         :param result: JSON-deserialised Python object
         """
-        super(Result, self).__init__(result)
+        super(Response, self).__init__(result)
 
     def extract_result(self):
         """
