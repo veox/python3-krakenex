@@ -41,5 +41,5 @@ to the top-level namespace, so the following uses are possible:
 # "public interface"
 from .api import API
 from .connection import Connection
-__all__ = ['API', 'Connection']
 from .result import Result
+__all__ = ['API', 'Connection']
