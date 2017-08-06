@@ -32,6 +32,7 @@ import hmac
 import base64
 
 from . import connection
+from . import result
 
 
 class API(object):
@@ -148,6 +149,7 @@ class API(object):
 
         ret = conn._request(url, req, headers)
         return json.loads(ret)
+        return result.Result(json.loads(ret))
 
     def query_public(self, method, req=None, conn=None):
         """ API queries that do not require a valid key/secret pair.
