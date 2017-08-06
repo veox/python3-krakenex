@@ -18,4 +18,4 @@ class Result(dict):
         if not self['error']:
             return self['result']
         else:
-            raise Exception(self['error'])
+            return self['error']
