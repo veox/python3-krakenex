@@ -148,7 +148,6 @@ class API(object):
             headers = {}
 
         ret = conn._request(url, req, headers)
-        return json.loads(ret)
         return response.Response(json.loads(ret))
 
     def query_public(self, method, req=None, conn=None):
