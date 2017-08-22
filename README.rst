@@ -22,9 +22,11 @@ Software that uses `krakenex`
 
 * clikraken_ - command-line client for the Kraken exchange
 * CurrencyViewer_ - short program for crypto to fiat conversion and data extraction
+* Telegram-Kraken-Bot_ - Telegram bot to trade on Kraken exchange
 
 .. _clikraken: https://github.com/zertrin/clikraken
 .. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
+.. _Telegram-Kraken-Bot: https://github.com/Endogen/Telegram-Kraken-Bot
 
 
 Installation
