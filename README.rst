@@ -17,43 +17,6 @@ Intended for developers, not traders.
 .. _Kraken: https://kraken.com/
 
 
-Software that uses `krakenex`
------------------------------
-
-* clikraken_ - command-line client for the Kraken exchange
-* CurrencyViewer_ - short program for crypto to fiat conversion and data extraction
-* Telegram-Kraken-Bot_ - Telegram bot to trade on Kraken exchange
-
-.. _clikraken: https://github.com/zertrin/clikraken
-.. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
-.. _Telegram-Kraken-Bot: https://github.com/Endogen/Telegram-Kraken-Bot
-
-
-Installation
-------------
-
-This package requires Python 3.3 or later. The module will be called
-``krakenex``.
-
-To install system-wide using standard-library ``setuptools``, run:
-
-``python3 ./setup.py install``
-
-Add ``--user`` to install locally for the user:
-
-``python3 ./setup.py install --user``
-
-A `PyPI package`_ is also available. To install system-wide using ``pip``:
-
-``pip install krakenex``
-
-Or, to install locally for the user:
-
-``pip install --user krakenex``
-
-.. _PyPI package: https://pypi.python.org/pypi/krakenex
-
-
 Documentation
 -------------
 
@@ -64,7 +27,7 @@ The code is documented in docstrings, and can be viewed with a text editor.
 You can also generate your own with, e.g., ``make html`` in ``doc``.
 This requires ``sphinx`` and its ``rtd`` theme.
 
-For a list of public/private Kraken API methods, see
+For the most up-to-date list of public/private Kraken API methods, see
 their `API documentation`_.
 
 .. _latest: https://python3-krakenex.readthedocs.io/en/latest/
@@ -80,8 +43,104 @@ A few package use examples are available in the examples_ directory.
 .. _examples: examples/
 
 
-Development
+Installation
+------------
+
+This package requires Python 3.3 or later. The module will be called
+``krakenex``.
+
+A `PyPI package`_ is available.
+
+.. _PyPI package: https://pypi.python.org/pypi/krakenex
+
+
+Locally for a project, in a virtual environment (recommended)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This requires ``python-virtualenv`` and ``python-pip``.
+
+In a terminal:
+
+.. code-block:: sh
+
+   mkdir my-project
+   cd my-project
+   export VIRTUAL_ENV=.virtualenv/krakenex
+   mkdir -p $VIRTUAL_ENV
+   virtualenv $VIRTUAL_ENV
+   source $VIRTUAL_ENV/bin/activate
+
+For more information on ``virtualenv``, see `its documentation`_.
+
+.. _its documentation: https://virtualenv.pypa.io/en/stable/
+
+For the user
+^^^^^^^^^^^^
+
+Using ``pip``:
+
+.. code-block:: sh
+
+   pip install --user krakenex
+
+Using standard-library ``setuptools``:
+
+.. code-block:: sh
+
+   python ./setup.py install --user
+
+System-wide (not recommended)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In general, use the distribution's package manager.
+
+Failing that, one can use ``pip``:
+
+.. code-block:: sh
+
+   pip install krakenex
+
+Or ``setuptools``:
+
+.. code-block:: sh
+
+   python ./setup.py install
+
+
+Attribution
 -----------
+
+"Core" code is licensed under LGPLv3. See ``LICENSE.txt`` and
+``LICENSE-GPLv3.txt``.
+
+Examples are licensed under the Simplified BSD license. See
+``examples/LICENSE.txt``.
+
+`Payward's PHP API`_, Alan McIntyre's `BTC-e API`_,
+and ScriptProdigy's `Cryptsy Python API`_ were used as
+examples when writing the original python2-krakenex_ package.
+It was then ported to Python 3.
+
+.. _Payward's PHP API: https://github.com/payward/kraken-api-client
+.. _BTC-e API: https://github.com/alanmcintyre/btce-api
+.. _Cryptsy Python API: https://github.com/ScriptProdigy/CryptsyPythonAPI
+.. _python2-krakenex: https://github.com/veox/python2-krakenex
+
+
+Software that uses ``krakenex``
+-------------------------------
+
+* clikraken_ - command-line client for the Kraken exchange
+* CurrencyViewer_ - short program for crypto to fiat conversion and data extraction
+* Telegram-Kraken-Bot_ - Telegram bot to trade on Kraken exchange
+
+.. _clikraken: https://github.com/zertrin/clikraken
+.. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
+.. _Telegram-Kraken-Bot: https://github.com/Endogen/Telegram-Kraken-Bot
+
+
+Random notes
+------------
 
 This package will never support Python 2. There will be no changes made
 to enable compatibility with Python 2. Python 3.0 was `released in
@@ -98,23 +157,3 @@ If you have a valid reason to use Python 2, see python2-krakenex_. Be
 warned, though, that it is unmaintained.
 
 .. _released in 2008: https://en.wikipedia.org/wiki/History_of_Python#Version_3.0
-
-
-Attribution
------------
-
-Core code is licensed under LGPLv3. See ``LICENSE.txt``.
-
-Examples are licensed under the Simplified BSD license. See
-``examples/LICENSE.txt``.
-
-`Payward's PHP API`_, Alan McIntyre's `BTC-e API`_,
-and ScriptProdigy's `Cryptsy Python API`_ were used as
-examples when writing the original python2-krakenex_ package.
-It was then ported to Python 3.
-
-.. _Payward's PHP API: https://github.com/payward/kraken-api-client
-.. _BTC-e API: https://github.com/alanmcintyre/btce-api
-.. _Cryptsy Python API: https://github.com/ScriptProdigy/CryptsyPythonAPI
-.. _python2-krakenex: https://github.com/veox/python2-krakenex
-

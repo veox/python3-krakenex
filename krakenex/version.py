@@ -12,7 +12,8 @@
 #
 # You should have received a copy of the GNU Lesser
 # General Public LICENSE along with krakenex. If not, see
-# <http://www.gnu.org/licenses/lgpl-3.0.txt>.
+# <http://www.gnu.org/licenses/lgpl-3.0.txt> and
+# <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 """ `krakenex` package metadata.
 
@@ -21,5 +22,5 @@ throughout the project.
 
 """
 
-__version__ = '1.0.0a1'
+__version__ = '1.0.0a2'
 __url__ = 'https://github.com/veox/python3-krakenex'
