@@ -12,11 +12,10 @@
 #
 # You should have received a copy of the GNU Lesser
 # General Public LICENSE along with krakenex. If not, see
-# <http://www.gnu.org/licenses/lgpl-3.0.txt>.
-
+# <http://www.gnu.org/licenses/lgpl-3.0.txt> and
+# <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 """Kraken.com cryptocurrency Exchange API."""
-
 
 import json
 import urllib.request
@@ -32,7 +31,6 @@ import hmac
 import base64
 
 from . import connection
-
 
 class API(object):
     """ Maps a key/secret pair to a connection.

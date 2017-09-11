@@ -9,6 +9,19 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
+[v1.0.0c1] - 2017-09-11 (Monday)
+-------------------------------
+
+**Release candidate.**
+
+Added
+^^^^^
+
+* Minimal Travis CI integration_. (`#45`_)
+
+.. _integration: https://travis-ci.org/veox/python3-krakenex
+.. _#45: https://github.com/veox/python3-krakenex/issues/45
+
 [v1.0.0a1] - 2017-08-04 (Friday)
 --------------------------------
 
@@ -31,10 +44,15 @@ Added
 ^^^^^
 * More examples.
 
+Changed (breaking!)
+^^^^^^^^^^^^^^^^^^^
+* Low-level ``Connection._request`` now raises
+  ``http.client.HTTPException`` if response doesn't have ``20x``
+  status code. This propagates all the way up, to
+  ``API.query_{private,public}``. (`#17`_)
+
 Changed
 ^^^^^^^
-* Connection now raises ``http.client.HTTPException`` if response
-  doesn't have ``20x`` status code. (`#17`_)
 * Fix new connection thrashing if one is not provided for reuse
   (as was described in the docs). (`#27`_)
 * Be explicit when using default arguments in functions that have
