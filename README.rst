@@ -142,8 +142,25 @@ Software that uses ``krakenex``
 .. _Telegram-Kraken-Bot: https://github.com/Endogen/Telegram-Kraken-Bot
 
 
-Random notes
-------------
+Development notes
+-----------------
+
+Do not annoy the Kraken with tests
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Be aware that some tests may be making queries to the Kraken API server.
+
+If you intend to do development on this package, and have tests enabled
+on `Travis CI`_, be sure to limit concurrent jobs to 1, and enable all
+possible auto-cancellations.
+
+(Better yet, don't rely on public infrastructure, but run the tests
+locally first.)
+
+.. _Travis CI: https://travis-ci.org
+
+No Python 2
+^^^^^^^^^^^
 
 This package will never support Python 2. There will be no changes made
 to enable compatibility with Python 2. Python 3.0 was `released in
