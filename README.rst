@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/veox/python3-krakenex.svg?branch=master
+   :alt: Latest Travis continuous integration build
+   :target: https://travis-ci.org/veox/python3-krakenex
 .. image:: https://badges.gitter.im/python3-krakenex/Lobby.svg
    :alt: Join the chat at https://gitter.im/python3-krakenex/Lobby
    :target: https://gitter.im/python3-krakenex/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
