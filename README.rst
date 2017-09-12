@@ -66,12 +66,16 @@ In a terminal:
 
 .. code-block:: sh
 
+   # create directory for a project that'll be using krakenex
    mkdir my-project
    cd my-project
+   # bootstrap virtualenv
    export VIRTUAL_ENV=.virtualenv/krakenex
    mkdir -p $VIRTUAL_ENV
    virtualenv $VIRTUAL_ENV
    source $VIRTUAL_ENV/bin/activate
+   # install from PyPI
+   pip install krakenex
 
 For more information on ``virtualenv``, see `its documentation`_.
 
@@ -84,12 +88,16 @@ Using ``pip``:
 
 .. code-block:: sh
 
+   # install from PyPI
    pip install --user krakenex
+   # ... or local clone of git repo
+   pip install --user .
 
 Using standard-library ``setuptools``:
 
 .. code-block:: sh
 
+   # install from local clone of git repo
    python ./setup.py install --user
 
 System-wide (not recommended)
@@ -97,16 +105,20 @@ System-wide (not recommended)
 
 In general, use the distribution's package manager.
 
-Failing that, one can use ``pip``:
+If it's unavailable, one can use ``pip``:
 
 .. code-block:: sh
 
+   # install from PyPI
    pip install krakenex
+   # ... or local clone of git repo
+   pip install .
 
 Or ``setuptools``:
 
 .. code-block:: sh
 
+   # install from local clone of git repo
    python ./setup.py install
 
 
