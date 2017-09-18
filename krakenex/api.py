@@ -51,7 +51,7 @@ class API(object):
        pair, the effects are undefined.
 
     """
-    def __init__(self, key='', secret='', conn=None):
+    def __init__(self, key='', secret='', conn=None, proxy=''):
         """ Create an object with authentication information.
 
         :param key: key required to make queries to the API
@@ -68,6 +68,7 @@ class API(object):
         self.uri = 'https://api.kraken.com'
         self.apiversion = '0'
         self.conn = conn
+        self.proxy = proxy
         return
 
     def load_key(self, path):
@@ -139,7 +140,7 @@ class API(object):
 
         if conn is None:
             if self.conn is None:
-                self.conn = connection.Connection()
+                self.conn = connection.Connection(proxy=self.proxy)
             conn = self.conn
 
         if headers is None:
