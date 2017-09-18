@@ -97,6 +97,7 @@ class API(object):
         :returns: None
 
         """
+        if self.conn is not None: self.conn.close()
         self.conn = conn
         return
 
