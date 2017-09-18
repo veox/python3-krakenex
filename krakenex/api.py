@@ -84,22 +84,6 @@ class API(object):
             self.secret = f.readline().strip()
         return
 
-    # DEPRECATE: just access directly, e.g. k.conn = krakenex.Connection()
-    def set_connection(self, conn):
-        """ Set an existing connection to be used as a default in queries.
-
-        .. deprecated:: 1.0.0
-           Access the object's :py:attr:`conn` attribute directly.
-
-        :param conn: existing connection object to use
-        :type conn: krakenex.Connection
-        :returns: None
-
-        """
-        if self.conn is not None: self.conn.close()
-        self.conn = conn
-        return
-
     def _query(self, urlpath, data, conn=None, headers=None):
         """ Low-level query handling.
 
