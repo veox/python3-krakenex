@@ -15,22 +15,20 @@
 # <http://www.gnu.org/licenses/lgpl-3.0.txt> and
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
-"""Connection handling."""
+"""Session handling."""
 
 import requests
 
 from . import version
 
+class Session(object):
+    """ Object representing a single session. Handles common headers.
 
-class Connection(object):
-    """ Object representing a single connection.
-
-    Opens a reusable HTTPS connection. Allows specifying HTTPS timeout,
-    or server URI (for testing purposes).
+    Opens a reusable :py:module:`requests` session. Allows specifying
+    server URI (for testing purposes).
 
     """
-
-    def __init__(self, uri='api.kraken.com', timeout=30):
+    def __init__(self, uri='api.kraken.com'):
         """ Create an object for reusable connections.
 
         :param uri: URI to connect to
@@ -48,7 +46,7 @@ class Connection(object):
         return
 
     def close(self):
-        """ Close this connection.
+        """ Close this session.
 
         :returns: None
 
@@ -58,7 +56,7 @@ class Connection(object):
         return
 
     def _request(self, url, data=None, headers=None):
-        """ Send POST request to API server using this connection.
+        """ Send POST request to API server using this session.
 
         If not provided, sets empty request parameters and HTTPS
         headers for this request.
@@ -70,7 +68,7 @@ class Connection(object):
         :type req: dict
         :param headers: (optional) HTTPS headers, such as API-Key and API-Sign
         :type headers: dict
-        :returns: :py:mod:`http.client`-decoded response
+        :returns: :py:meth:`requests.Session.json`-decoded response
         :raises: :py:exc:`http.client.HTTPException`: if response status not
              successful
 
