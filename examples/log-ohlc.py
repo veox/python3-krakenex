@@ -36,15 +36,9 @@ def lineprint(msg, targetlen = 72):
 while True:
     lineprint(now())
 
-    # comment out to reuse the same connection
-    #k.conn = krakenex.Connection()
-
     before = now()
-    ret = k.query_public('OHLC', req = {'pair': pair, 'since': since})
+    ret = k.query_public('OHLC', data = {'pair': pair, 'since': since})
     after = now()
-
-    # comment out to reuse the same connection
-    #k.conn.close()
 
     # comment out to track the same "since"
     #since = ret['result']['last']
