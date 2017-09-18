@@ -17,6 +17,8 @@
 
 """Kraken.com cryptocurrency Exchange API."""
 
+import requests
+
 # private query nonce
 import time
 
@@ -26,33 +28,24 @@ import hashlib
 import hmac
 import base64
 
-from . import session
+from . import version
 
 class API(object):
-    """ Maps a key/secret pair to a session.
+    """ Maintains a single session between this machine and Kraken.
 
-    Specifying the pair is optional.
-
-    .. note::
-       If a session is not set, a new one will be opened on
-       first query. If a session has been set during previous
-       query, it will be reused for subsequent queries.
-       However, its state is not checked.
+    Specifying a key/secret pair is optional. If not specified, private
+    queries will not be possible.
 
     .. note::
        No query rate limiting is performed.
-
-    .. note::
-       If a private query is performed without setting a key/secret
-       pair, the effects are undefined.
 
     """
     def __init__(self, key='', secret=''):
         """ Create an object with authentication information.
 
-        :param key: key required to make queries to the API
+        :param key: (optional) key identifier for queries to the API
         :type key: str
-        :param secret: private key used to sign API messages
+        :param secret: (optional) actual private key used to sign messages
         :type secret: str
         :returns: None
 
@@ -61,7 +54,20 @@ class API(object):
         self.secret = secret
         self.uri = 'https://api.kraken.com'
         self.apiversion = '0'
-        self.session = session.Session()
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'krakenex/' + version.__version__ + ' (+' + version.__url__ + ')'
+        })
+        self.response = None
+        return
+
+    def close(self):
+        """ Close this session.
+
+        :returns: None
+
+        """
+        self.session.close()
         return
 
     def load_key(self, path):
@@ -82,7 +88,8 @@ class API(object):
     def _query(self, urlpath, data, headers=None):
         """ Low-level query handling.
 
-        Session state is not checked.
+        The response, as received by :py:module:`requests`, is retained
+        as attribute :py:attr:`response` of this object.
 
         .. note::
            Use :py:meth:`query_private` or :py:meth:`query_public`
@@ -95,17 +102,26 @@ class API(object):
         :param headers: (optional) HTTPS headers
         :type headers: dict
         :returns: :py:func:`requests.Response.json`-deserialised Python object
+        :raises: :py:exc:`requests.HTTPError`: if response status not successful
 
         """
-        url = self.uri + urlpath
-
+        if data is None:
+            data = {}
         if headers is None:
             headers = {}
 
-        return self.session._request(url, data, headers)
+        url = self.uri + urlpath
+
+        self.response = self.session.post(url, data = data, headers = headers)
+
+        if self.response.status_code not in (200, 201, 202):
+            self.response.raise_for_status()
+
+        return self.response.json()
+
 
     def query_public(self, method, data=None):
-        """ API queries that do not require a valid key/secret pair.
+        """ Performs an API query that does not require a valid key/secret pair.
 
         :param method: API method name
         :type method: str
@@ -122,7 +138,7 @@ class API(object):
         return self._query(urlpath, data)
 
     def query_private(self, method, data=None):
-        """ API queries that require a valid key/secret pair.
+        """ Performs an API query that requires a valid key/secret pair.
 
         :param method: API method name
         :type method: str
@@ -135,11 +151,9 @@ class API(object):
             data = {}
 
         if not self.key or not self.secret:
-            # TODO: raise exception
-            pass
+            raise Exception('Either key or secret is not set! (Use `load_key()`.')
 
-        # TODO: allow using a different scheme
-        data['nonce'] = int(1000*time.time())
+        data['nonce'] = self._nonce()
 
         urlpath = '/' + self.apiversion + '/private/' + method
 
@@ -149,6 +163,14 @@ class API(object):
         }
 
         return self._query(urlpath, data, headers)
+
+    def _nonce(self):
+        """ Nonce counter.
+
+        :returns: an always-increasing unsigned integer (up to 64 bits wide)
+
+        """
+        return int(1000*time.time())
 
     def _sign(self, data, urlpath):
         """ Sign request data according to Kraken's scheme.

@@ -25,20 +25,17 @@ to the top-level namespace, so the following uses are possible:
    # recommended, unlikely to result in namespace collisions
    import krakenex
    k = krakenex.API()
-   s = krakenex.Session()
 
    # OK for simple scripts
    from krakenex import *
    k = API()
-   s = Session()
 
    # can be explicit in both cases
+   # <some import form>
    k = krakenex.api.API()
-   s = krakenex.session.Session()
 
 """
 
 # "public interface"
 from .api import API
-from .session import Session
-__all__ = ['API', 'Session']
+__all__ = ['API']

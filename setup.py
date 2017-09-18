@@ -19,7 +19,4 @@ setup(name='krakenex',
       classifiers=[
           'Programming Language :: Python :: 3',
       ],
-      install_requires=[
-          'requests>=2.18.2,<3'
-      ],
 )
