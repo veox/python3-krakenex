@@ -9,6 +9,30 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
+[v2.0.0a1] - 2017-09-21 (Thursday)
+----------------------------------
+
+**Internal alpha testing release!**
+
+Not for general use. For that reason, ``pip`` package not provided.
+
+Changed (breaking!)
+^^^^^^^^^^^^^^^^^^^
+* **Everything network-related now handled by `requests`_.** (`#11`_)
+* ``krakenex.API`` class no longer has a ``conn`` atrribute for
+  connection manipulation. It has been replaced by a ``session``
+  attribute, which is a ``requests.Session``.
+* ``krakenex.API`` constructor no longer accepts ``conn`` argument
+  as a means of re-using an existing ``krakenex.Connection`` object.
+
+Removed
+^^^^^^^
+* ``krakenex.Connection`` class.
+* ``krakenex.API.set_connection()`` method (deprecated in ``v1.0.0``).
+
+.. _requests: http://docs.python-requests.org/
+.. _#11: https://github.com/veox/python3-krakenex/issues/11
+
 [v1.0.0] - 2017-09-18 (Monday)
 ------------------------------
 
