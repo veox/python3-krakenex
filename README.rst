@@ -54,7 +54,10 @@ This package requires Python 3.3 or later. The module will be called
 
 A `PyPI package`_ is available.
 
+For general use, there is only one direct dependency: `requests`_.
+
 .. _PyPI package: https://pypi.python.org/pypi/krakenex
+.. _requests: http://docs.python-requests.org/
 
 
 Locally for a project, in a virtual environment (recommended)
@@ -90,15 +93,9 @@ Using ``pip``:
 
    # install from PyPI
    pip install --user krakenex
-   # ... or local clone of git repo
+   # ... or from local git repo clone
+   cd CLONE-OF-GIT-REPO
    pip install --user .
-
-Using standard-library ``setuptools``:
-
-.. code-block:: sh
-
-   # install from local clone of git repo
-   python ./setup.py install --user
 
 System-wide (not recommended)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -111,17 +108,11 @@ If it's unavailable, one can use ``pip``:
 
    # install from PyPI
    pip install krakenex
-   # ... or local clone of git repo
+   # ... or from local git repo clone
+   cd CLONE-OF-GIT-REPO
    pip install .
 
-Or ``setuptools``:
-
-.. code-block:: sh
-
-   # install from local clone of git repo
-   python ./setup.py install
-
-
+   
 Attribution
 -----------
 
@@ -160,7 +151,7 @@ Development notes
 Do not annoy the Kraken with tests
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Be aware that some tests may be making queries to the Kraken API server.
+Some tests may be making queries to the Kraken API server.
 
 If you intend to do development on this package, and have tests enabled
 on `Travis CI`_, be sure to limit concurrent jobs to 1, and enable all
