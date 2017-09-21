@@ -17,49 +17,43 @@
 
 """Kraken.com cryptocurrency Exchange API."""
 
-import json
-import urllib.request
-import urllib.parse
-import urllib.error
+import requests
 
 # private query nonce
 import time
 
 # private query signing
+import urllib.parse
 import hashlib
 import hmac
 import base64
 
-from . import connection
+from . import version
 
 class API(object):
-    """ Maps a key/secret pair to a connection.
+    """ Maintains a single session between this machine and Kraken.
 
-    Specifying either the pair or the connection is optional.
+    Specifying a key/secret pair is optional. If not specified, private
+    queries will not be possible.
+
+    The :py:attr:`session` attribute is a :py:class:`requests.Session`
+    object. Customise networking options by manipulating it.
+
+    Query responses, as received by :py:mod:`requests`, are retained
+    as attribute :py:attr:`response` of this object. It is overwritten
+    on each query.
 
     .. note::
-       If a connection is not set, a new one will be opened on
-       first query. If a connection is set, during creation or as a result
-       of a previous query, it will be reused for subsequent queries.
-       However, its state is not checked.
-
-    .. note::
-       No timeout handling or query rate limiting is performed.
-
-    .. note::
-       If a private query is performed without setting a key/secret
-       pair, the effects are undefined.
+       No query rate limiting is performed.
 
     """
-    def __init__(self, key='', secret='', conn=None):
+    def __init__(self, key='', secret=''):
         """ Create an object with authentication information.
 
-        :param key: key required to make queries to the API
+        :param key: (optional) key identifier for queries to the API
         :type key: str
-        :param secret: private key used to sign API messages
+        :param secret: (optional) actual private key used to sign messages
         :type secret: str
-        :param conn: existing connection object to use
-        :type conn: krakenex.Connection
         :returns: None
 
         """
@@ -67,7 +61,20 @@ class API(object):
         self.secret = secret
         self.uri = 'https://api.kraken.com'
         self.apiversion = '0'
-        self.conn = conn
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'krakenex/' + version.__version__ + ' (+' + version.__url__ + ')'
+        })
+        self.response = None
+        return
+
+    def close(self):
+        """ Close this session.
+
+        :returns: None
+
+        """
+        self.session.close()
         return
 
     def load_key(self, path):
@@ -85,121 +92,107 @@ class API(object):
             self.secret = f.readline().strip()
         return
 
-    # DEPRECATE: just access directly, e.g. k.conn = krakenex.Connection()
-    def set_connection(self, conn):
-        """ Set an existing connection to be used as a default in queries.
-
-        .. deprecated:: 1.0.0
-           Access the object's :py:attr:`conn` attribute directly.
-
-        :param conn: existing connection object to use
-        :type conn: krakenex.Connection
-        :returns: None
-
-        """
-        if self.conn is not None: self.conn.close()
-        self.conn = conn
-        return
-
-    def _query(self, urlpath, req, conn=None, headers=None):
+    def _query(self, urlpath, data, headers=None):
         """ Low-level query handling.
 
-        If a connection object is provided, attempts to use that
-        specific connection.
-
-        If it is not provided, attempts to reuse a connection from the
-        previous query.
-
-        If this is the first ever query, opens a new connection, and
-        keeps it as a fallback for future queries.
-
-        Connection state is not checked.
-
-        .. warning::
-           The fallback connection will be re-used for both public and
-           private queries.
-
         .. note::
-           Preferably use :py:meth:`query_private` or
-           :py:meth:`query_public` instead.
+           Use :py:meth:`query_private` or :py:meth:`query_public`
+           unless you have a good reason not to.
 
         :param urlpath: API URL path sans host
         :type urlpath: str
-        :param req: API request parameters
-        :type req: dict
-        :param conn: (optional) existing connection object to use
-        :type conn: krakenex.Connection
+        :param data: API request parameters
+        :type data: dict
         :param headers: (optional) HTTPS headers
         :type headers: dict
-        :returns: :py:func:`json.loads`-deserialised Python object
+        :returns: :py:meth:`requests.Response.json`-deserialised Python object
+        :raises: :py:exc:`requests.HTTPError`: if response status not successful
 
         """
-
-        url = self.uri + urlpath
-
-        if conn is None:
-            if self.conn is None:
-                self.conn = connection.Connection()
-            conn = self.conn
-
+        if data is None:
+            data = {}
         if headers is None:
             headers = {}
 
-        ret = conn._request(url, req, headers)
-        return json.loads(ret)
+        url = self.uri + urlpath
 
-    def query_public(self, method, req=None, conn=None):
-        """ API queries that do not require a valid key/secret pair.
+        self.response = self.session.post(url, data = data, headers = headers)
+
+        if self.response.status_code not in (200, 201, 202):
+            self.response.raise_for_status()
+
+        return self.response.json()
+
+
+    def query_public(self, method, data=None):
+        """ Performs an API query that does not require a valid key/secret pair.
 
         :param method: API method name
         :type method: str
-        :param req: (optional) API request parameters
-        :type req: dict
-        :param conn: (optional) connection object to use
-        :type conn: krakenex.Connection
-        :returns: :py:func:`json.loads`-deserialised Python object
+        :param data: (optional) API request parameters
+        :type data: dict
+        :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
+        if data is None:
+            data = {}
+
         urlpath = '/' + self.apiversion + '/public/' + method
 
-        if req is None:
-            req = {}
+        return self._query(urlpath, data)
 
-        return self._query(urlpath, req, conn)
-
-    def query_private(self, method, req=None, conn=None):
-        """ API queries that require a valid key/secret pair.
+    def query_private(self, method, data=None):
+        """ Performs an API query that requires a valid key/secret pair.
 
         :param method: API method name
         :type method: str
-        :param req: (optional) API request parameters
-        :type req: dict
-        :param conn: (optional) connection object to use
-        :type conn: krakenex.Connection
-        :returns: :py:func:`json.loads`-deserialised Python object
+        :param data: (optional) API request parameters
+        :type data: dict
+        :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
+        if data is None:
+            data = {}
 
-        if req is None:
-            req = {}
+        if not self.key or not self.secret:
+            raise Exception('Either key or secret is not set! (Use `load_key()`.')
 
-        # TODO: check if self.{key,secret} are set
+        data['nonce'] = self._nonce()
+
         urlpath = '/' + self.apiversion + '/private/' + method
 
-        req['nonce'] = int(1000*time.time())
-        postdata = urllib.parse.urlencode(req)
+        headers = {
+            'API-Key': self.key,
+            'API-Sign': self._sign(data, urlpath)
+        }
+
+        return self._query(urlpath, data, headers)
+
+    def _nonce(self):
+        """ Nonce counter.
+
+        :returns: an always-increasing unsigned integer (up to 64 bits wide)
+
+        """
+        return int(1000*time.time())
+
+    def _sign(self, data, urlpath):
+        """ Sign request data according to Kraken's scheme.
+
+        :param data: API request parameters
+        :type data: dict
+        :param urlpath: API URL path sans host
+        :type urlpath: str
+        :returns: signature digest
+        """
+        postdata = urllib.parse.urlencode(data)
 
         # Unicode-objects must be encoded before hashing
-        encoded = (str(req['nonce']) + postdata).encode()
+        encoded = (str(data['nonce']) + postdata).encode()
         message = urlpath.encode() + hashlib.sha256(encoded).digest()
 
         signature = hmac.new(base64.b64decode(self.secret),
                              message, hashlib.sha512)
         sigdigest = base64.b64encode(signature.digest())
 
-        headers = {
-            'API-Key': self.key,
-            'API-Sign': sigdigest.decode()
-        }
-
-        return self._query(urlpath, req, conn, headers)
+        return sigdigest.decode()

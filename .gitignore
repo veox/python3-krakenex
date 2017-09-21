@@ -41,3 +41,4 @@ nosetests.xml
 
 # Other
 .virtualenv*
+*.key
