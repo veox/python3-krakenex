@@ -36,6 +36,13 @@ class API(object):
     Specifying a key/secret pair is optional. If not specified, private
     queries will not be possible.
 
+    The :py:attr:`session` attribute is a :py:class:`requests.Session`
+    object. Customise networking options by manipulating it.
+
+    Query responses, as received by :py:mod:`requests`, are retained
+    as attribute :py:attr:`response` of this object. It is overwritten
+    on each query.
+
     .. note::
        No query rate limiting is performed.
 
@@ -88,9 +95,6 @@ class API(object):
     def _query(self, urlpath, data, headers=None):
         """ Low-level query handling.
 
-        The response, as received by :py:module:`requests`, is retained
-        as attribute :py:attr:`response` of this object.
-
         .. note::
            Use :py:meth:`query_private` or :py:meth:`query_public`
            unless you have a good reason not to.
@@ -101,7 +105,7 @@ class API(object):
         :type data: dict
         :param headers: (optional) HTTPS headers
         :type headers: dict
-        :returns: :py:func:`requests.Response.json`-deserialised Python object
+        :returns: :py:meth:`requests.Response.json`-deserialised Python object
         :raises: :py:exc:`requests.HTTPError`: if response status not successful
 
         """
@@ -127,13 +131,13 @@ class API(object):
         :type method: str
         :param data: (optional) API request parameters
         :type data: dict
-        :returns: :py:func:`requests.Response.json`-deserialised Python object
+        :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
-        urlpath = '/' + self.apiversion + '/public/' + method
-
         if data is None:
             data = {}
+
+        urlpath = '/' + self.apiversion + '/public/' + method
 
         return self._query(urlpath, data)
 
@@ -144,7 +148,7 @@ class API(object):
         :type method: str
         :param data: (optional) API request parameters
         :type data: dict
-        :returns: :py:func:`requests.Response.json`-deserialised Python object
+        :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
         if data is None:
