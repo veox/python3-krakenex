@@ -23,7 +23,12 @@ import requests
 import time
 
 # private query signing
-import urllib.parse
+try:
+    #: Python 3.x?
+    import urllib.parse
+except ImportError:
+    #: Python 2.x?
+    import urllib
 import hashlib
 import hmac
 import base64
@@ -185,7 +190,12 @@ class API(object):
         :type urlpath: str
         :returns: signature digest
         """
-        postdata = urllib.parse.urlencode(data)
+        try:
+            #: Python 3.x?
+            postdata = urllib.parse.urlencode(data)
+        except AttributeError:
+            #: Python 2.x?
+            postdata = urllib.urlencode(data)
 
         # Unicode-objects must be encoded before hashing
         encoded = (str(data['nonce']) + postdata).encode()
