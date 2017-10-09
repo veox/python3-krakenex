@@ -9,14 +9,75 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
+[v2.0.0a1] - 2017-09-21 (Thursday)
+----------------------------------
+
+**Internal alpha testing release!**
+
+Not for general use. For that reason, ``pip`` package not provided.
+
+Changed (breaking!)
+^^^^^^^^^^^^^^^^^^^
+* **Everything network-related now handled by `requests`_.** (`#11`_)
+* ``krakenex.API`` class no longer has a ``conn`` atrribute for
+  connection manipulation. It has been replaced by a ``session``
+  attribute, which is a ``requests.Session``.
+* ``krakenex.API`` constructor no longer accepts ``conn`` argument
+  as a means of re-using an existing ``krakenex.Connection`` object.
+
+Removed
+^^^^^^^
+* ``krakenex.Connection`` class.
+* ``krakenex.API.set_connection()`` method (deprecated in ``v1.0.0``).
+
+.. _requests: http://docs.python-requests.org/
+.. _#11: https://github.com/veox/python3-krakenex/issues/11
+
+[v1.0.0] - 2017-09-18 (Monday)
+------------------------------
+
+For a detailed list of changes, refer to the same-number releases below.
+
+Changed (breaking!)
+^^^^^^^^^^^^^^^^^^^
+* If you were previously calling ``API.query_private()`` or
+  ``API.query_public()`` in a ``try/except`` block, be aware that
+  these two may now throw ``http.client.HTTPException``, if the
+  underlying ``Connection`` returns a non-`20x` status code. (`#17`_)
+
+Deprecated
+^^^^^^^^^^
+* ``krakenex.API.set_connection()`` method. Access ``krakenex.API.conn``
+  attribute directly.
+
+Known bugs
+^^^^^^^^^^
+* There is no straightforward way to reset the ``krakenex.API`` object's
+  connection ``krakenex.API.conn``. (`#53_`)
+
+The recommended workaround for now, assuming ``k = krakenex.API()``:
+
+.. code-block:: sh
+
+   k.conn.close()
+   k.conn = None
+
+If a connection is not closed prior to the reference being removed, the
+connection will continue to linger, preventing removal of the object by
+the garbage collector.
+
+.. _#17: https://github.com/veox/python3-krakenex/pull/17
+.. _#53: https://github.com/veox/python3-krakenex/issues/53
+
 [v1.0.0c1] - 2017-09-11 (Monday)
--------------------------------
+--------------------------------
 
 **Release candidate.**
 
+Not recommended for production use.
+
 Added
 ^^^^^
-
 * Minimal Travis CI integration_. (`#45`_)
 
 .. _integration: https://travis-ci.org/veox/python3-krakenex

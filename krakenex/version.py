@@ -22,5 +22,5 @@ throughout the project.
 
 """
 
-__version__ = '1.0.0c1'
+__version__ = '2.0.0a1'
 __url__ = 'https://github.com/veox/python3-krakenex'

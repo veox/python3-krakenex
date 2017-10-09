@@ -8,8 +8,8 @@ python:
   - "3.7-dev" # 3.7 development branch
 # command to install dependencies
 install:
+  - pip install -r requirements.txt
   - pip install -e .
-# - pip install -r requirements.txt
 # command to run tests
 script:
   - python3 examples/print-depth.py
