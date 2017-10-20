@@ -15,6 +15,9 @@ setup(name='krakenex',
       author='Noel Maersk',
       author_email='veox+packages+spamremove@veox.pw',
       url=__url__,
+      install_requires=[
+          'requests>=2.18.2,<3'
+      ],
       packages=['krakenex'],
       classifiers=[
           'Programming Language :: Python :: 3',
