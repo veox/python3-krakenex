@@ -18,7 +18,8 @@ For a detailed list of changes, refer to the same-number releases below.
 
 Migration instructions
 ^^^^^^^^^^^^^^^^^^^^^^
-* **Everything network-related now handled by `requests`_.** (`#11`_)
+* **Everything network-related now handled by ``requests``.** (`#11`_)
+  See its `docs`_ if needed.
 * ``krakenex.API`` class no longer has a ``conn`` attribute for
   connection manipulation. It has been replaced by a ``session``
   attribute, which is a ``requests.Session``. For custom networking
@@ -28,7 +29,7 @@ Migration instructions
   as a means of re-using an existing ``krakenex.Connection`` object.
   As above, modify ``krakenex.API.session`` if needed.
 
-.. _requests: http://docs.python-requests.org/
+.. _docs: http://docs.python-requests.org/
 .. _#11: https://github.com/veox/python3-krakenex/issues/11
 
 
