@@ -18,8 +18,8 @@ For a detailed list of changes, refer to the same-number releases below.
 
 Migration instructions
 ^^^^^^^^^^^^^^^^^^^^^^
-* Everything network-related now handled by ``requests``. (`#11`_)
-  See its `docs`_ if needed.
+* Everything network-related now handled by ``requests``. See its
+  `docs`_ if needed. (`#11`_)
 * ``krakenex.API`` class no longer has a ``conn`` attribute for
   connection manipulation. It has been replaced by a ``session``
   attribute, which is a ``requests.Session``. For custom networking
