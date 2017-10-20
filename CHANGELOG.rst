@@ -28,6 +28,10 @@ Migration instructions
   as a means of re-using an existing ``krakenex.Connection`` object.
   As above, modify ``krakenex.API.session`` if needed.
 
+.. _requests: http://docs.python-requests.org/
+.. _#11: https://github.com/veox/python3-krakenex/issues/11
+
+
 [v2.0.0c1] - 2017-10-20 (Friday)
 --------------------------------
 
@@ -54,9 +58,6 @@ Removed
 * ``krakenex.API.conn`` attribute, which was a ``krakenex.Connection``
   object.
 * ``krakenex.API.set_connection()`` method (deprecated since ``v1.0.0``).
-
-.. _requests: http://docs.python-requests.org/
-.. _#11: https://github.com/veox/python3-krakenex/issues/11
 
 [v1.0.0] - 2017-09-18 (Monday)
 ------------------------------
