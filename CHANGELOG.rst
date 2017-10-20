@@ -19,7 +19,7 @@ Not for general use. For that reason, ``pip`` package not provided.
 Changed (breaking!)
 ^^^^^^^^^^^^^^^^^^^
 * **Everything network-related now handled by `requests`_.** (`#11`_)
-* ``krakenex.API`` class no longer has a ``conn`` atrribute for
+* ``krakenex.API`` class no longer has a ``conn`` attribute for
   connection manipulation. It has been replaced by a ``session``
   attribute, which is a ``requests.Session``.
 * ``krakenex.API`` constructor no longer accepts ``conn`` argument
@@ -27,7 +27,8 @@ Changed (breaking!)
 
 Removed
 ^^^^^^^
-* ``krakenex.Connection`` class.
+* ``krakenex.Connection`` class. Obsoleted by use of
+  ``requests.Session``.
 * ``krakenex.API.set_connection()`` method (deprecated in ``v1.0.0``).
 
 .. _requests: http://docs.python-requests.org/
