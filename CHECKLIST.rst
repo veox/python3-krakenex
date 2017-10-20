@@ -34,12 +34,13 @@ Release
 
    git tag -u 1298BC0A9B0DBEEA3BDDCBA62D3DA6CD74AB3D37 vX.Y.Z
    git push -v
+   git push -v --tags
 
 * Push actual PyPI package.
 
 .. code-block:: sh
 
-   twine upload --repository testpypi --sign --identity 74AB3D37 dist/krakenex-X.Y.Z.tar.gz
+   twine upload --repository pypi --sign --identity 74AB3D37 dist/krakenex-X.Y.Z.tar.gz
 
 * Doc rebuild has triggered on readthedocs.io.
 
