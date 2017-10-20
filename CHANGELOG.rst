@@ -9,7 +9,7 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
-[v2.0.0c1] - 2017-10-20 (Friday)
+[v2.0.0c2] - 2017-10-20 (Friday)
 --------------------------------
 
 **Release candidate.** Not recommended for production use.
@@ -27,6 +27,11 @@ Migration instructions
 * ``krakenex.API`` constructor no longer accepts ``conn`` argument
   as a means of re-using an existing ``krakenex.Connection`` object.
   As above, modify ``krakenex.API.session`` if needed.
+
+[v2.0.0c1] - 2017-10-20 (Friday)
+--------------------------------
+
+**Yanked** due to clean-room ``pip`` installation failing.
 
 [v2.0.0a1] - 2017-09-21 (Thursday)
 ----------------------------------
