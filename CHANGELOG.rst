@@ -9,40 +9,67 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
+[v2.0.0c2] - 2017-10-20 (Friday)
+--------------------------------
+
+**Release candidate.** Not recommended for production use.
+
+For a detailed list of changes, refer to the same-number releases below.
+
+Migration instructions
+^^^^^^^^^^^^^^^^^^^^^^
+* Everything network-related now handled by ``requests``. See its
+  `docs`_ if needed. (`#11`_)
+* ``krakenex.API`` class no longer has a ``conn`` attribute for
+  connection manipulation. It has been replaced by a ``session``
+  attribute, which is a ``requests.Session``. For custom networking
+  setups, directly modify ``session`` attribute of a ``krakenex.API``
+  object.
+* ``krakenex.API`` constructor no longer accepts ``conn`` argument
+  as a means of re-using an existing ``krakenex.Connection`` object.
+  As above, modify ``krakenex.API.session`` if needed.
+
+.. _docs: http://docs.python-requests.org/
+.. _#11: https://github.com/veox/python3-krakenex/issues/11
+
+
+[v2.0.0c1] - 2017-10-20 (Friday)
+--------------------------------
+
+**Yanked** due to clean-room ``pip`` installation failing.
+
 [v2.0.0a1] - 2017-09-21 (Thursday)
 ----------------------------------
 
-**Internal alpha testing release!**
+**Internal alpha testing release!** Not for general use. For that
+reason, ``pip`` package not provided.
 
-Not for general use. For that reason, ``pip`` package not provided.
+Added
+^^^^^
+* ``krakenex.API.session`` attribute, which is a ``requests.Session``.
 
-Changed (breaking!)
-^^^^^^^^^^^^^^^^^^^
-* **Everything network-related now handled by `requests`_.** (`#11`_)
-* ``krakenex.API`` class no longer has a ``conn`` atrribute for
-  connection manipulation. It has been replaced by a ``session``
-  attribute, which is a ``requests.Session``.
-* ``krakenex.API`` constructor no longer accepts ``conn`` argument
-  as a means of re-using an existing ``krakenex.Connection`` object.
+Changed
+^^^^^^^
+* It is now recommended to install with ``pip`` in a ``virtualenv``.
+  See ``README`` for details.
 
 Removed
 ^^^^^^^
-* ``krakenex.Connection`` class.
-* ``krakenex.API.set_connection()`` method (deprecated in ``v1.0.0``).
-
-.. _requests: http://docs.python-requests.org/
-.. _#11: https://github.com/veox/python3-krakenex/issues/11
+* ``krakenex.Connection`` class. Obsoleted by use of ``requests.Session``.
+* ``krakenex.API.conn`` attribute, which was a ``krakenex.Connection``
+  object.
+* ``krakenex.API.set_connection()`` method (deprecated since ``v1.0.0``).
 
 [v1.0.0] - 2017-09-18 (Monday)
 ------------------------------
 
 For a detailed list of changes, refer to the same-number releases below.
 
-Changed (breaking!)
-^^^^^^^^^^^^^^^^^^^
+Migration instructions
+^^^^^^^^^^^^^^^^^^^^^^
 * If you were previously calling ``API.query_private()`` or
   ``API.query_public()`` in a ``try/except`` block, be aware that
-  these two may now throw ``http.client.HTTPException``, if the
+  these two may now throw a ``http.client.HTTPException``, if the
   underlying ``Connection`` returns a non-`20x` status code. (`#17`_)
 
 Deprecated
@@ -50,8 +77,8 @@ Deprecated
 * ``krakenex.API.set_connection()`` method. Access ``krakenex.API.conn``
   attribute directly.
 
-Known bugs
-^^^^^^^^^^
+Known issues
+^^^^^^^^^^^^
 * There is no straightforward way to reset the ``krakenex.API`` object's
   connection ``krakenex.API.conn``. (`#53_`)
 
@@ -63,7 +90,7 @@ The recommended workaround for now, assuming ``k = krakenex.API()``:
    k.conn = None
 
 If a connection is not closed prior to the reference being removed, the
-connection will continue to linger, preventing removal of the object by
+connection may continue to linger, preventing removal of the object by
 the garbage collector.
 
 .. _#17: https://github.com/veox/python3-krakenex/pull/17
@@ -72,9 +99,7 @@ the garbage collector.
 [v1.0.0c1] - 2017-09-11 (Monday)
 --------------------------------
 
-**Release candidate.**
-
-Not recommended for production use.
+**Release candidate.** Not recommended for production use.
 
 Added
 ^^^^^
@@ -86,9 +111,8 @@ Added
 [v1.0.0a1] - 2017-08-04 (Friday)
 --------------------------------
 
-**Internal alpha testing release!**
-
-Not for general use. For that reason, ``pip`` package not provided.
+**Internal alpha testing release!** Not for general use. For that
+reason, ``pip`` package not provided.
 
 Changed
 ^^^^^^^
@@ -97,9 +121,8 @@ Changed
 [v1.0.0a0] - 2017-07-02 (Sunday)
 --------------------------------
 
-**Internal alpha testing release!**
-
-Not for general use. For that reason, ``pip`` package not provided.
+**Internal alpha testing release!** Not for general use. For that
+reason, ``pip`` package not provided.
 
 Added
 ^^^^^
