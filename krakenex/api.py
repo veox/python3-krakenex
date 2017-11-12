@@ -67,6 +67,8 @@ class API(object):
             'User-Agent': 'krakenex/' + version.__version__ + ' (+' + version.__url__ + ')'
         })
         self.response = None
+        # How many times we try to recover from bad HTTP connection situation
+        self.bad_http_connection_retries = 3
         return
 
     def close(self):
@@ -119,22 +121,19 @@ class API(object):
         
         url = self.uri + urlpath
 
-        max_retries =  3
-        attempt = 1
-
         # Retries mechanism for certain HTTP codes. 
         # Kraken is behind CloudFlare which adds to network requests instability during peaks
         # Careful! Sometimes service returns error code but actuallu executes a request
         # needs investigation if this can cause a multiple buys/sells (don't think so as there is nonce in each request )
-        while attempt<=max_retries:
+        attempt = 1
+        while attempt<=self.bad_http_connection_retries:
             self.response = self.session.post(url, data = data, headers = headers)
                 
             if self.response.status_code in (200, 201, 202):
                 return self.response.json()
-            elif self.response.status_code in (504, 520) and attempt<max_retries:
+            elif self.response.status_code in (504, 520) and attempt<self.bad_http_connection_retries:
                 logger.debug("HTTP Error. Status Code %d. Attempting to reconnect (attempt: %d)", self.response.status_code, attempt)
                 attempt = attempt + 1
-                continue
             else:
                 # Raises stored HTTPError, if one occurred.
                 self.response.raise_for_status()
