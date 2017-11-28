@@ -26,6 +26,11 @@ Migration instructions
 * ``krakenex.API`` constructor no longer accepts ``conn`` argument
   as a means of re-using an existing ``krakenex.Connection`` object.
   Instead, modify ``krakenex.API.session`` if needed, same as above.
+* If you were previously calling ``API.query_private()`` or
+  ``API.query_public()`` in a ``try/except`` block, be aware that
+  these two may now throw a ``requests.exceptions.HTTPError`` instead
+  of the previous ``http.client.HTTPException``, if the
+  underlying ``Connection`` returns a non-`20x` status code.
 
 .. _docs: http://docs.python-requests.org/
 .. _#11: https://github.com/veox/python3-krakenex/issues/11
