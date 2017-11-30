@@ -128,7 +128,8 @@ class API(object):
 
         attempt = 0
         while attempt < self.retries:
-            logger.debug('Posting query: nonce %d, attempt %d.', data['nonce'], attempt)
+            nonce = -1 if 'nonce' not in data.keys() else data['nonce'] # UGLY
+            logger.debug('Posting query: nonce %d, attempt %d.', nonce, attempt)
             self.response = self.session.post(url, data = data, headers = headers)
             status = self.response.status_code
                 
