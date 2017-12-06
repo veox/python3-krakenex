@@ -23,12 +23,17 @@ import requests
 import time
 
 # private query signing
-import urllib.parse
 import hashlib
 import hmac
 import base64
 
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
+
 from . import version
+
 
 class API(object):
     """ Maintains a single session between this machine and Kraken.
@@ -116,13 +121,12 @@ class API(object):
 
         url = self.uri + urlpath
 
-        self.response = self.session.post(url, data = data, headers = headers)
+        self.response = self.session.post(url, data=data, headers=headers)
 
         if self.response.status_code not in (200, 201, 202):
             self.response.raise_for_status()
 
         return self.response.json()
-
 
     def query_public(self, method, data=None):
         """ Performs an API query that does not require a valid key/secret pair.
@@ -174,7 +178,7 @@ class API(object):
         :returns: an always-increasing unsigned integer (up to 64 bits wide)
 
         """
-        return int(1000*time.time())
+        return int(1000 * time.time())
 
     def _sign(self, data, urlpath):
         """ Sign request data according to Kraken's scheme.
@@ -185,7 +189,7 @@ class API(object):
         :type urlpath: str
         :returns: signature digest
         """
-        postdata = urllib.parse.urlencode(data)
+        postdata = urlencode(data)
 
         # Unicode-objects must be encoded before hashing
         encoded = (str(data['nonce']) + postdata).encode()
