@@ -69,7 +69,7 @@ class API(object):
         self.response = None
 
         # retry-on-failure configuration
-        self.retries = 1 # FIXME: retries==1 does 0 retries!
+        self.retries = 0
         self.cooldown = 15
         self.successcodes = [200, 201, 202]
         self.retrycodes = [504, 520]
@@ -127,17 +127,17 @@ class API(object):
         
         url = self.uri + urlpath
 
-        attempt = 0
-        while attempt < self.retries:
-            attempt += 1
+        attempts = 0
+        while attempts <= self.retries:
             nonce = -1 if 'nonce' not in data.keys() else data['nonce'] # UGLY
-            logger.debug('Posting query: nonce %d, attempt %d.', nonce, attempt)
+            logger.debug('Posting query: nonce %d, attempt %d.', nonce, attempts)
             self.response = self.session.post(url, data = data, headers = headers)
             status = self.response.status_code
+            attempts += 1
                 
             if status in self.successcodes:
                 break
-            elif status in self.retrycodes and attempt < self.retries:
+            elif status in self.retrycodes and attempts <= self.retries:
                 logger.debug('HTTP error %d', status)
                 logger.debug('Sleeping for %d seconds', self.cooldown)
                 time.sleep(self.cooldown)
