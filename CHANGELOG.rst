@@ -117,11 +117,11 @@ Deprecated
 Known issues
 ^^^^^^^^^^^^
 * There is no straightforward way to reset the ``krakenex.API`` object's
-  connection ``krakenex.API.conn``. (`#53_`)
+  connection ``krakenex.API.conn``. (`#53`_)
 
 The recommended workaround for now, assuming ``k = krakenex.API()``:
 
-.. code-block:: sh
+.. code-block:: python
 
    k.conn.close()
    k.conn = None
