@@ -5,11 +5,16 @@
 
 # Pretty-print a pair's order book depth.
 
+from requests.exceptions import HTTPError
+
 import krakenex
 
 import pprint
 
-k = krakenex.API()
+kraken = krakenex.API()
 
-response = k.query_public('Depth', {'pair': 'XXBTZUSD', 'count': '10'})
-pprint.pprint(response)
+try:
+    response = kraken.query_public('Depth', {'pair': 'XXBTZUSD', 'count': '10'})
+    pprint.pprint(response)
+except HTTPError as e:
+    print(str(e))
