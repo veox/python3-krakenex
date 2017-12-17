@@ -15,7 +15,7 @@ from decimal import Decimal as D
 import pprint
 
 k = krakenex.API()
-k.load_key('kraken-monitor.key')
+k.load_key('kraken.key')
 
 balance = k.query_private('Balance')
 orders = k.query_private('OpenOrders')
@@ -25,8 +25,8 @@ orders = orders['result']
 
 newbalance = dict()
 for currency in balance:
-    # remove first symbol ('Z' or 'X'), but not for GNO
-    newname = currency[1:] if len(currency) == 4 else currency
+    # remove first symbol ('Z' or 'X'), but not for GNO or DASH
+    newname = currency[1:] if len(currency) == 4 and currency != "DASH" else currency
     newbalance[newname] = D(balance[currency]) # type(balance[currency]) == str
 balance = newbalance
 
@@ -41,8 +41,8 @@ for _, o in orders['open'].items():
     price = D(descr['price'])
 
     pair = descr['pair']
-    base = pair[:3]
-    quote = pair[3:]
+    base = pair[:3] if pair != "DASHEUR" else "DASH"
+    quote = pair[3:] if pair != "DASHEUR" else "EUR"
 
     type_ = descr['type']
     if type_ == 'buy':
