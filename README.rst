@@ -138,9 +138,8 @@ If it's unavailable, one can use ``pip``:
 
    # install from PyPI
    pip install krakenex
-   # ... or from local git repo clone
-   cd CLONE-OF-GIT-REPO
-   pip install .
+   # ... or from local copy
+   pip install /path/to/clone/of/repo
 
    
 Attribution
