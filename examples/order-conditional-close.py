@@ -14,19 +14,25 @@
 
 import krakenex
 
-k = krakenex.API()
-k.load_key('kraken.key')
+def main():
+    kraken = krakenex.API()
+    kraken.load_key('kraken.key')
 
-k.query_private('AddOrder',
-                {'pair': 'XXBTZEUR',
-                 'type': 'buy',
-                 'ordertype': 'limit',
-                 'price': '1',
-                 'volume': '1',
-                 # only `ordertype`, `price` and `price2` are valid
-                 'close[ordertype]': 'limit',
-                 'close[price]': '9001',
-                 # these will be ignored!
-                 'close[pair]': 'XXBTZEUR',
-                 'close[type]': 'sell',
-                 'close[volume]': '1'})
+    response = kraken.query_private('AddOrder',
+                                    {'pair': 'XXBTZEUR',
+                                     'type': 'buy',
+                                     'ordertype': 'limit',
+                                     'price': '1',
+                                     'volume': '1',
+                                     # `ordertype`, `price`, `price2` are valid
+                                     'close[ordertype]': 'limit',
+                                     'close[price]': '9001',
+                                     # these will be ignored!
+                                     'close[pair]': 'XXBTZEUR',
+                                     'close[type]': 'sell',
+                                     'close[volume]': '1'})
+    return response
+
+if __name__ == '__main__':
+    ret = main()
+    print(ret)
