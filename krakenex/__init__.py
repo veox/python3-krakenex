@@ -24,15 +24,15 @@ to the top-level namespace, so the following uses are possible:
 
    # recommended, unlikely to result in namespace collisions
    import krakenex
-   k = krakenex.API()
+   kraken = krakenex.API()
 
    # OK for simple scripts
    from krakenex import *
-   k = API()
+   kraken = API()
 
    # can be explicit in both cases
-   # <some import form>
-   k = krakenex.api.API()
+   # <some import form here>
+   kraken = krakenex.api.API()
 
 """
 
