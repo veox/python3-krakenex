@@ -148,13 +148,16 @@ class API(object):
 
         return self._query(urlpath, data, timeout = timeout)
 
-    def query_private(self, method, data=None):
+    def query_private(self, method, data=None, timeout=None):
         """ Performs an API query that requires a valid key/secret pair.
 
         :param method: API method name
         :type method: str
         :param data: (optional) API request parameters
         :type data: dict
+        :param timeout: (optional) if not None, a `requests.HTTPError` will be 
+        thrown after `timeout` seconds if a response has not been received
+        :type timeout: number
         :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
@@ -173,7 +176,7 @@ class API(object):
             'API-Sign': self._sign(data, urlpath)
         }
 
-        return self._query(urlpath, data, headers)
+        return self._query(urlpath, data, headers, timeout = timeout)
 
     def _nonce(self):
         """ Nonce counter.
