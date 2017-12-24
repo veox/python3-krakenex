@@ -128,13 +128,16 @@ class API(object):
         return self.response.json()
 
 
-    def query_public(self, method, data=None):
+    def query_public(self, method, data=None, timeout=None):
         """ Performs an API query that does not require a valid key/secret pair.
 
         :param method: API method name
         :type method: str
         :param data: (optional) API request parameters
         :type data: dict
+        :param timeout: (optional) if not None, a `requests.HTTPError` will be 
+        thrown after `timeout` seconds if a response has not been received
+        :type timeout: number
         :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
@@ -143,7 +146,7 @@ class API(object):
 
         urlpath = '/' + self.apiversion + '/public/' + method
 
-        return self._query(urlpath, data)
+        return self._query(urlpath, data, timeout = timeout)
 
     def query_private(self, method, data=None):
         """ Performs an API query that requires a valid key/secret pair.
