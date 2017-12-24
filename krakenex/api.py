@@ -105,9 +105,10 @@ class API(object):
         :type data: dict
         :param headers: (optional) HTTPS headers
         :type headers: dict
-        :param timeout: (optional) if not None, a `requests.HTTPError` will be 
-        thrown after `timeout` seconds if a response has not been received
-        :type timeout: number
+        :param timeout: (optional) if not ``None``, a :py:exc:`requests.HTTPError`
+                        will be thrown after ``timeout`` seconds if a response
+                        has not been received
+        :type timeout: int or float
         :returns: :py:meth:`requests.Response.json`-deserialised Python object
         :raises: :py:exc:`requests.HTTPError`: if response status not successful
 
@@ -135,9 +136,10 @@ class API(object):
         :type method: str
         :param data: (optional) API request parameters
         :type data: dict
-        :param timeout: (optional) if not None, a `requests.HTTPError` will be 
-        thrown after `timeout` seconds if a response has not been received
-        :type timeout: number
+        :param timeout: (optional) if not ``None``, a :py:exc:`requests.HTTPError`
+                        will be thrown after ``timeout`` seconds if a response
+                        has not been received
+        :type timeout: int or float
         :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
@@ -155,9 +157,10 @@ class API(object):
         :type method: str
         :param data: (optional) API request parameters
         :type data: dict
-        :param timeout: (optional) if not None, a `requests.HTTPError` will be 
-        thrown after `timeout` seconds if a response has not been received
-        :type timeout: number
+        :param timeout: (optional) if not ``None``, a :py:exc:`requests.HTTPError`
+                        will be thrown after ``timeout`` seconds if a response
+                        has not been received
+        :type timeout: int or float
         :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
