@@ -1,8 +1,14 @@
 .. image:: https://travis-ci.org/veox/python3-krakenex.svg?branch=master
    :alt: Latest Travis continuous integration build
    :target: https://travis-ci.org/veox/python3-krakenex
+.. image:: https://readthedocs.org/projects/python3-krakenex/badge/
+   :alt: Read latest documentation
+   :target: https://python3-krakenex.readthedocs.io/
+.. image:: https://badge.fury.io/py/krakenex.svg
+   :alt: Latest PyPI release
+   :target: https://badge.fury.io/py/krakenex
 .. image:: https://badges.gitter.im/python3-krakenex/Lobby.svg
-   :alt: Join the chat at https://gitter.im/python3-krakenex/Lobby
+   :alt: Development discussion at https://gitter.im/python3-krakenex/Lobby
    :target: https://gitter.im/python3-krakenex/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 
@@ -18,6 +24,30 @@ exchange.
 Intended for developers, not traders.
 
 .. _Kraken: https://kraken.com/
+
+
+Software that uses ``krakenex``
+-------------------------------
+
+Libraries
+^^^^^^^^^
+
+* pykrakenapi_ - nicely wraps API methods into regular Python methods, and JSON
+  responses into Pandas_ dataframes (available on PyPI!)
+
+.. _pykrakenapi: https://github.com/dominiktraxl/pykrakenapi
+.. _Pandas: http://pandas.pydata.org/
+
+Clients
+^^^^^^^
+
+* clikraken_ - command-line client for the Kraken exchange (available on PyPI!)
+* CurrencyViewer_ - short program for crypto to fiat conversion and data extraction
+* Telegram-Kraken-Bot_ - Telegram bot to trade on Kraken exchange
+
+.. _clikraken: https://github.com/zertrin/clikraken
+.. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
+.. _Telegram-Kraken-Bot: https://github.com/Endogen/Telegram-Kraken-Bot
 
 
 Documentation
@@ -108,9 +138,8 @@ If it's unavailable, one can use ``pip``:
 
    # install from PyPI
    pip install krakenex
-   # ... or from local git repo clone
-   cd CLONE-OF-GIT-REPO
-   pip install .
+   # ... or from local copy
+   pip install /path/to/clone/of/repo
 
    
 Attribution
@@ -131,18 +160,6 @@ It was then ported to Python 3.
 .. _BTC-e API: https://github.com/alanmcintyre/btce-api
 .. _Cryptsy Python API: https://github.com/ScriptProdigy/CryptsyPythonAPI
 .. _python2-krakenex: https://github.com/veox/python2-krakenex
-
-
-Software that uses ``krakenex``
--------------------------------
-
-* clikraken_ - command-line client for the Kraken exchange
-* CurrencyViewer_ - short program for crypto to fiat conversion and data extraction
-* Telegram-Kraken-Bot_ - Telegram bot to trade on Kraken exchange
-
-.. _clikraken: https://github.com/zertrin/clikraken
-.. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
-.. _Telegram-Kraken-Bot: https://github.com/Endogen/Telegram-Kraken-Bot
 
 
 Development notes

@@ -9,10 +9,8 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
-[v2.0.0c2] - 2017-10-20 (Friday)
---------------------------------
-
-**Release candidate.** Not recommended for production use.
+[v2.0.0] - 2017-11-14 (Tuesday)
+-------------------------------
 
 For a detailed list of changes, refer to the same-number releases below.
 
@@ -27,11 +25,47 @@ Migration instructions
   object.
 * ``krakenex.API`` constructor no longer accepts ``conn`` argument
   as a means of re-using an existing ``krakenex.Connection`` object.
-  As above, modify ``krakenex.API.session`` if needed.
+  Instead, modify ``krakenex.API.session`` if needed, same as above.
+* If you were previously calling ``API.query_private()`` or
+  ``API.query_public()`` in a ``try/except`` block, be aware that
+  these two may now throw a ``requests.exceptions.HTTPError`` instead
+  of the previous ``http.client.HTTPException``, if the
+  underlying ``Connection`` returns a non-`20x` status code.
 
 .. _docs: http://docs.python-requests.org/
 .. _#11: https://github.com/veox/python3-krakenex/issues/11
 
+Known issues
+^^^^^^^^^^^^
+* The remote servers are unstable under high load, which is most of
+  the time. No recovery mechanism is provided for failed queries. (`#66`_)
+
+Most importantly, queries that may seem to have failed due to a ``502``
+HTTP error may in fact reach the trade execution engine, with an
+unpredictable delay. See `PSA`_ for an example.
+
+After encountering a ``502``, a subsequent call to
+``krakenex.API.query_private()`` will construct a new query, with an
+increased ``nonce``. When used with an ``AddOrder`` query, this may
+have disastrous effects, placing a duplicate order.
+
+To work around this, instead reuse the ``krakenex.API.response.request``
+object, which is a ``requests.PreparedRequest``, saved as part of
+``requests``' operation when submitting the first query. This request
+can be re-sent using ``krakenex.API.session.send()``.
+
+.. _#66: https://github.com/veox/python3-krakenex/issues/66
+.. _PSA: https://www.reddit.com/r/krakenex/comments/778uvh/psa_http_error_502_does_not_mean_the_query_wont/
+
+[v2.0.0c2] - 2017-10-20 (Friday)
+--------------------------------
+
+**Release candidate.** Not recommended for production use.
+
+Changed
+^^^^^^^
+* Fixed bug with dependencies not getting installed when following
+  installation instructions in a clean virtual environment.
 
 [v2.0.0c1] - 2017-10-20 (Friday)
 --------------------------------
@@ -47,6 +81,9 @@ reason, ``pip`` package not provided.
 Added
 ^^^^^
 * ``krakenex.API.session`` attribute, which is a ``requests.Session``.
+* ``krakenex.API.response`` attribute, which is a ``requests.Response``
+  object for the previous query. It is available whether the query
+  was successful or has failed.
 
 Changed
 ^^^^^^^
@@ -80,11 +117,11 @@ Deprecated
 Known issues
 ^^^^^^^^^^^^
 * There is no straightforward way to reset the ``krakenex.API`` object's
-  connection ``krakenex.API.conn``. (`#53_`)
+  connection ``krakenex.API.conn``. (`#53`_)
 
 The recommended workaround for now, assuming ``k = krakenex.API()``:
 
-.. code-block:: sh
+.. code-block:: python
 
    k.conn.close()
    k.conn = None

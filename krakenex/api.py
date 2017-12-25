@@ -92,7 +92,7 @@ class API(object):
             self.secret = f.readline().strip()
         return
 
-    def _query(self, urlpath, data, headers=None):
+    def _query(self, urlpath, data, headers=None, timeout=None):
         """ Low-level query handling.
 
         .. note::
@@ -105,6 +105,10 @@ class API(object):
         :type data: dict
         :param headers: (optional) HTTPS headers
         :type headers: dict
+        :param timeout: (optional) if not ``None``, a :py:exc:`requests.HTTPError`
+                        will be thrown after ``timeout`` seconds if a response
+                        has not been received
+        :type timeout: int or float
         :returns: :py:meth:`requests.Response.json`-deserialised Python object
         :raises: :py:exc:`requests.HTTPError`: if response status not successful
 
@@ -116,7 +120,8 @@ class API(object):
 
         url = self.uri + urlpath
 
-        self.response = self.session.post(url, data = data, headers = headers)
+        self.response = self.session.post(url, data = data, headers = headers, 
+                                          timeout = timeout)
 
         if self.response.status_code not in (200, 201, 202):
             self.response.raise_for_status()
@@ -124,13 +129,17 @@ class API(object):
         return self.response.json()
 
 
-    def query_public(self, method, data=None):
+    def query_public(self, method, data=None, timeout=None):
         """ Performs an API query that does not require a valid key/secret pair.
 
         :param method: API method name
         :type method: str
         :param data: (optional) API request parameters
         :type data: dict
+        :param timeout: (optional) if not ``None``, a :py:exc:`requests.HTTPError`
+                        will be thrown after ``timeout`` seconds if a response
+                        has not been received
+        :type timeout: int or float
         :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
@@ -139,15 +148,19 @@ class API(object):
 
         urlpath = '/' + self.apiversion + '/public/' + method
 
-        return self._query(urlpath, data)
+        return self._query(urlpath, data, timeout = timeout)
 
-    def query_private(self, method, data=None):
+    def query_private(self, method, data=None, timeout=None):
         """ Performs an API query that requires a valid key/secret pair.
 
         :param method: API method name
         :type method: str
         :param data: (optional) API request parameters
         :type data: dict
+        :param timeout: (optional) if not ``None``, a :py:exc:`requests.HTTPError`
+                        will be thrown after ``timeout`` seconds if a response
+                        has not been received
+        :type timeout: int or float
         :returns: :py:meth:`requests.Response.json`-deserialised Python object
 
         """
@@ -166,7 +179,7 @@ class API(object):
             'API-Sign': self._sign(data, urlpath)
         }
 
-        return self._query(urlpath, data, headers)
+        return self._query(urlpath, data, headers, timeout = timeout)
 
     def _nonce(self):
         """ Nonce counter.
