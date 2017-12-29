@@ -146,8 +146,10 @@ class API(object):
         if not session:
             session = self.session
         
-        retry = Retry(total=self._retry_config['retries'], read=self._retry_config['retries'], connect=self._retry_config['retries'], 
-                      backoff_factor=self._retry_config['backoff'], status_forcelist=self._retry_config['forcelist'])
+        retry = Retry(total=None, read=self._retry_config['retries'], connect=self._retry_config['retries'], redirect=0,
+                      status=self._retry_config['retries'], backoff_factor=self._retry_config['backoff'], 
+                      status_forcelist=self._retry_config['forcelist'],
+                      method_whitelist=frozenset(['HEAD', 'TRACE', 'GET', 'PUT', 'OPTIONS', 'DELETE', 'POST']))
                       
         adapter = HTTPAdapter(max_retries=retry)
         session.mount('https://', adapter)
