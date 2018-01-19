@@ -37,20 +37,20 @@ def data(start, end, ofs):
 k = krakenex.API()
 k.load_key('kraken.key')
 
-data = []
+data2 = []
 count = 0
-for i in range(1,11):
-    start_date = datetime.datetime(2016, i+1, 1)
-    end_date = datetime.datetime(2016, i+2, 29)
+for i in range(1,2):
+    start_date = datetime.datetime(2017, 1, 1)
+    end_date = datetime.datetime(2017, 12, 31)
     th = k.query_private('TradesHistory', data(start_date, end_date, 1))
     time.sleep(.25)
     print(th)
     th_error = th['error']
     if int(th['result']['count'])>0:
         count += th['result']['count']
-        data.append(pd.DataFrame.from_dict(th['result']['trades']).transpose())
+        data2.append(pd.DataFrame.from_dict(th['result']['trades']).transpose())
 
 trades = pd.DataFrame
-trades = pd.concat(data, axis = 0)
-trades = trades.sort(columns='time', ascending=True)
+trades = pd.concat(data2, axis = 0)
+trades = trades.sort_values(by='time', ascending=True)
 trades.to_csv('data.csv')
