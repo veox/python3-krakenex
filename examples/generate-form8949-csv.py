@@ -57,7 +57,7 @@ for i in range(6,11):
 #
 trades = pd.concat(data, axis = 0)
 trades = trades[~trades.index.duplicated()]
-trades = trades.sort(columns='time', ascending=True)
+trades = trades.sort_values(columns='time', ascending=True)
 trades.to_csv('data.csv')
 
 #format pair description for IRS
