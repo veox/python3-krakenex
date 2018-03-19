@@ -40,5 +40,8 @@ nosetests.xml
 .pydevproject
 
 # Other
+.venv*
 .virtualenv*
 *.key
+*.secret
+*.pickle
