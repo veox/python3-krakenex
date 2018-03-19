@@ -9,6 +9,29 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
+[vX.Y.Z] - Unreleased
+---------------------
+
+Added
+^^^^^
+* A ``timeout`` argument for ``API.query_public()`` or
+  ``API.query_private()``, to set a time-out period for
+  that particular query. (`#67`_)
+* ``krakenex.API.json_options()`` to set options to the JSON
+  de-serialiser, to be used on query responses. (`#87`_)
+* An ``examples/json-options.py`` example to demonstrate
+  the above. (`#88`_)
+
+.. _#67: https://github.com/veox/python3-krakenex/pull/67
+.. _#87: https://github.com/veox/python3-krakenex/pull/87
+.. _#88: https://github.com/veox/python3-krakenex/pull/88
+
+Changed
+^^^^^^^
+* Updated examples using ``pandas`` to post-v0.17.0 sorting. (`#29`_)
+
+.. _#29: https://github.com/veox/python3-krakenex/issues/29
+
 [v2.0.0] - 2017-11-14 (Tuesday)
 -------------------------------
 
