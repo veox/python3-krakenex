@@ -12,6 +12,11 @@ to `semantic versioning`_.
 [vX.Y.Z] - Unreleased
 ---------------------
 
+* Nothing (yet).
+
+[v2.1.0] - 2018-04-20 (Fryday)
+------------------------------
+
 Added
 ^^^^^
 * A ``timeout`` argument for ``API.query_public()`` or
