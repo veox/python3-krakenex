@@ -52,5 +52,5 @@ for i in range(1,11):
 
 trades = pd.DataFrame
 trades = pd.concat(data, axis = 0)
-trades = trades.sort(columns='time', ascending=True)
+trades = trades.sort_values(columns='time', ascending=True)
 trades.to_csv('data.csv')

@@ -74,7 +74,18 @@ class API(object):
             'User-Agent': 'krakenex/' + version.__version__ + ' (+' + version.__url__ + ')'
         })
         self.response = None
+        self._json_options = {}
         return
+
+    def json_options(self, **kwargs):
+        """ Set keyword arguments to be passed to JSON deserialization.
+
+        :param kwargs: passed to :py:meth:`requests.Response.json`
+        :returns: this instance for chaining
+
+        """
+        self._json_options = kwargs
+        return self
 
     def close(self):
         """ Close this session.
@@ -197,7 +208,7 @@ class API(object):
         if self.response.status_code not in (200, 201, 202):
             self.response.raise_for_status()
 
-        return self.response.json()
+        return self.response.json(**self._json_options)
 
 
     def query_public(self, method, data=None, timeout=None, retry=False):

@@ -16,26 +16,32 @@ k.load_key('kraken.key')
 # prepare request
 req_data = {'docalcs': 'true'}
 
-# querry servers
+# query servers
 start = k.query_public('Time')
 open_positions = k.query_private('OpenPositions', req_data)
 end = k.query_public('Time')
-latency = end['result']['unixtime']-start['result']['unixtime']
+latency = end['result']['unixtime'] - start['result']['unixtime']
 
 # parse result
-dict(open_positions)
+b, c = 0, 0
 
-b = 0
-c = 0
-for i in open_positions['result']:
-    order = open_positions['result'][i]
-    if(order['pair']=='XETHZUSD'):
+for order in open_positions['result']:
+    coin = order["pair"]
+    if coin == 'XETHZUSD':
         b += (float(order['vol']))
-    if (order['pair'] == 'XXBTZUSD'):
+    elif coin == 'XXBTZUSD':
         c += (float(order['vol']))
 
-print('error count: ' + str(len(open_positions['error'])))
-print('latency: ' + str(latency))
-print('total open eth: ' + str(b))
-print('total open btc: ' + str(c))
-print('total open positions: ' + str(len(open_positions['result'])))
+n_errors = len(open_positions['error'])
+total = len(open_positions['result'])
+
+msg = """
+error counts: {n_errors}
+latency: {latency}
+
+open orders
+    eth: {b}
+    btc: {c}
+    total: {total}
+"""
+print(msg.format(n_errors=n_errors, total=total, b=b, c=c, latency=latency))
