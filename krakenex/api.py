@@ -57,11 +57,11 @@ class API(object):
         :returns: None
 
         """
-
-        self._retry_config = {}
-        self._retry_config['forcelist'] = (104, 500, 502, 503, 504, 520, 521, 522, 523, 524)
-        self._retry_config['retries'] = 3
-        self._retry_config['backoff'] = 0.5
+        self._retry_config = {
+            'forcelist': (504, 520),
+            'retrycount': 3,
+            'backoff': 0.5,
+        }
         
         self.key = key
         self.secret = secret
@@ -151,16 +151,16 @@ class API(object):
         :type session: :py:class:`requests.Session` object
 
         :returns: :py:class:`requests.Session` object with configured retry adapter
-        """
 
+        """
         if session is None:
             session = self.session
 
         retry = requests.packages.urllib3.util.retry.Retry(
             total=None, redirect=0,
-            read=self._retry_config['retries'],
-            connect=self._retry_config['retries'],
-            status=self._retry_config['retries'],
+            read=self._retry_config['retrycount'],
+            connect=self._retry_config['retrycount'],
+            status=self._retry_config['retrycount'],
             backoff_factor=self._retry_config['backoff'],
             status_forcelist=self._retry_config['forcelist'],
             method_whitelist=frozenset(['HEAD', 'TRACE', 'GET', 'PUT', 'OPTIONS', 'DELETE', 'POST']))
