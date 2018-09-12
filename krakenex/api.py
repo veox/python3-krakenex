@@ -58,11 +58,11 @@ class API(object):
 
         """
         self._retry_config = {
-            'forcelist': (504, 520),
-            'retrycount': 3,
-            'backoff': 0.5,
+            'codes': (504, 520),
+            'count': 3,
+            'backoff': 1.0,
         }
-        
+
         self.key = key
         self.secret = secret
         self.uri = 'https://api.kraken.com'
@@ -121,13 +121,13 @@ class API(object):
     @retry_config.setter
     def retry_config(self, newconfig):
         """ Sets the retry configuration.
-            
+
         .. note::
           Checks that keys match in the new and old configurations.
-            
+
         :param newconfig: new configuration for retries
         :type newconfig: dict
-            
+
         :returns: None
         :raises: :py:exc:`ValueError` on key count/name mismatch in configurations
 
@@ -145,12 +145,8 @@ class API(object):
     def _retry_session(self, session=None):
         """ Low-level configuration for retries.
 
-        .. note::
-          for documentation of this technique, refer to:
-          https://www.peterbe.com/plog/best-practice-with-retries-with-requests
-
-        :param session: (optional) An existing session to be used.
-                        If ``None``, the session created during instantiation is used.
+        :param session: (optional) An existing session to be used. If ``None``,
+                        the session created during instantiation will be used.
         :type session: :py:class:`requests.Session` object
 
         :returns: :py:class:`requests.Session` object with configured retry adapter
@@ -159,21 +155,24 @@ class API(object):
         if session is None:
             session = self.session
 
+        # https://urllib3.readthedocs.io/en/latest/reference/urllib3.util.html#module-urllib3.util.retry
         retry = requests.packages.urllib3.util.retry.Retry(
-            total=None, redirect=0,
-            read=self._retry_config['retrycount'],
-            connect=self._retry_config['retrycount'],
-            status=self._retry_config['retrycount'],
+            total=pow(self._retry_config['count'], 2),
+            connect=self._retry_config['count'],
+            read=self._retry_config['count'],
+            redirect=0,
+            status=self._retry_config['count'],
+            method_whitelist=False, # default list doesn't include POST, so force on any verb
+            status_forcelist=self._retry_config['codes'],
             backoff_factor=self._retry_config['backoff'],
-            status_forcelist=self._retry_config['forcelist'],
-            method_whitelist=frozenset(['HEAD', 'TRACE', 'GET', 'PUT', 'OPTIONS', 'DELETE', 'POST']))
+        )
         adapter = requests.adapters.HTTPAdapter(max_retries=retry)
 
         session.mount('https://', adapter)
         session.mount('http://', adapter)
 
         return session
-        
+
     def _query(self, urlpath, data, headers=None, timeout=None, retry=False):
         """ Low-level query handling.
 
@@ -201,14 +200,13 @@ class API(object):
             headers = {}
 
         url = self.uri + urlpath
-        
-        if(retry):
-            curr_session = self._retry_session()
-        else:
-            curr_session = self.session
 
-        self.response = curr_session.post(url, data = data, headers = headers, 
-                                          timeout = timeout)
+        if retry:
+            session = self._retry_session()
+        else:
+            session = self.session
+
+        self.response = session.post(url, data=data, headers=headers, timeout=timeout)
 
         if self.response.status_code not in (200, 201, 202):
             self.response.raise_for_status()
@@ -235,7 +233,7 @@ class API(object):
 
         urlpath = '/' + self.apiversion + '/public/' + method
 
-        return self._query(urlpath, data, timeout = timeout, retry = retry)
+        return self._query(urlpath, data, timeout=timeout, retry=retry)
 
     def query_private(self, method, data=None, timeout=None, retry=False):
         """ Performs an API query that requires a valid key/secret pair.
@@ -266,7 +264,7 @@ class API(object):
             'API-Sign': self._sign(data, urlpath)
         }
 
-        return self._query(urlpath, data, headers, timeout = timeout, retry = retry)
+        return self._query(urlpath, data, headers, timeout=timeout, retry=retry)
 
     def _nonce(self):
         """ Nonce counter.
