@@ -18,8 +18,6 @@
 """Kraken.com cryptocurrency Exchange API."""
 
 import requests
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.util.retry import Retry
 
 # private query nonce
 import time
@@ -142,32 +140,36 @@ class API(object):
 
 
     def _retry_session(self, session=None):
-        """ Low-level configuration for retries
-        
-        ..note:: 
+        """ Low-level configuration for retries.
+
+        ..note::
           for documentation of this technique, refer to:
           https://www.peterbe.com/plog/best-practice-with-retries-with-requests
-          
-        :param session: Use an already existing session. If None, the session created during instantiation is used.
-        :type session: requests session object
-        
-        :returns: requests session object
+
+        :param session: (optional) An existing session to be used.
+                        If ``None``, the session created during instantiation is used.
+        :type session: :py:class:`requests.Session` object
+
+        :returns: :py:class:`requests.Session` object with configured retry adapter
         """
-        
-        if not session:
+
+        if session is None:
             session = self.session
-        
-        retry = Retry(total=None, read=self._retry_config['retries'], connect=self._retry_config['retries'], redirect=0,
-                      status=self._retry_config['retries'], backoff_factor=self._retry_config['backoff'], 
-                      status_forcelist=self._retry_config['forcelist'],
-                      method_whitelist=frozenset(['HEAD', 'TRACE', 'GET', 'PUT', 'OPTIONS', 'DELETE', 'POST']))
-                      
-        adapter = HTTPAdapter(max_retries=retry)
+
+        retry = requests.packages.urllib3.util.retry.Retry(
+            total=None, redirect=0,
+            read=self._retry_config['retries'],
+            connect=self._retry_config['retries'],
+            status=self._retry_config['retries'],
+            backoff_factor=self._retry_config['backoff'],
+            status_forcelist=self._retry_config['forcelist'],
+            method_whitelist=frozenset(['HEAD', 'TRACE', 'GET', 'PUT', 'OPTIONS', 'DELETE', 'POST']))
+        adapter = requests.adapters.HTTPAdapter(max_retries=retry)
+
         session.mount('https://', adapter)
         session.mount('http://', adapter)
-        
-        return session
 
+        return session
         
     def _query(self, urlpath, data, headers=None, timeout=None, retry=False):
         """ Low-level query handling.
