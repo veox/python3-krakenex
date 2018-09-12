@@ -109,40 +109,43 @@ class API(object):
             self.secret = f.readline().strip()
         return
 
-
     @property
     def retry_config(self):
-        """ Return the current retry configuration dict as a copy
-        
-            :returns: dict containing the current retry configuration
-        """
-    
-        return self._retry_config.copy()
-    
-    
-    @retry_config.setter
-    def retry_config(self, retry_dict):
-        """ Set the internal retry configuration dict
-            
-            .. note:: 
-            Does some error checking to ensure that all the keys in the new dict match with 
-            those in the original configuration dict. 
-            
-            :param retry_dict: new configuration for retries
-            :type retry_dict: dict
-            
-            :returns: None
-        """
-        
-        if(len(retry_dict.keys()) == len(self._retry_config.keys())):
-            if all(key in retry_dict for key in self._retry_config):
-                self._retry_config = retry_dict.copy()
+        """ Returns the current retry configuration as a copy.
 
+        :returns: dictionary containing the current retry configuration
+
+        """
+        return self._retry_config.copy()
+
+    @retry_config.setter
+    def retry_config(self, newconfig):
+        """ Sets the retry configuration.
+            
+        .. note::
+          Checks that keys match in the new and old configurations.
+            
+        :param newconfig: new configuration for retries
+        :type newconfig: dict
+            
+        :returns: None
+        :raises: :py:exc:`ValueError` on key count/name mismatch in configurations
+
+        """
+        if len(newconfig.keys()) != len(self._retry_config.keys()):
+            raise ValueError("Number of keys in current and new configurations does not match!")
+        if not all(key in newconfig for key in self._retry_config):
+            raise ValueError("New configuration lacks key(s) present in current configuration!")
+        if not all(key in self._retry_config for key in newconfig):
+            raise ValueError("New configuration specifies extra keys!")
+
+        self._retry_config = newconfig.copy()
+        return
 
     def _retry_session(self, session=None):
         """ Low-level configuration for retries.
 
-        ..note::
+        .. note::
           for documentation of this technique, refer to:
           https://www.peterbe.com/plog/best-practice-with-retries-with-requests
 
