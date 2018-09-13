@@ -18,6 +18,29 @@ Added
   on certain HTTP error codes. By default, no retries will be attempted.
 * TODO: docs on how, link here.
 
+[v2.1.0] - 2018-04-20 (Fryday)
+------------------------------
+
+Added
+^^^^^
+* A ``timeout`` argument for ``API.query_public()`` or
+  ``API.query_private()``, to set a time-out period for
+  that particular query. (`#67`_)
+* ``krakenex.API.json_options()`` to set options to the JSON
+  de-serialiser, to be used on query responses. (`#87`_)
+* An ``examples/json-options.py`` example to demonstrate
+  the above. (`#88`_)
+
+.. _#67: https://github.com/veox/python3-krakenex/pull/67
+.. _#87: https://github.com/veox/python3-krakenex/pull/87
+.. _#88: https://github.com/veox/python3-krakenex/pull/88
+
+Changed
+^^^^^^^
+* Updated examples using ``pandas`` to post-v0.17.0 sorting. (`#29`_)
+
+.. _#29: https://github.com/veox/python3-krakenex/issues/29
+
 [v2.0.0] - 2017-11-14 (Tuesday)
 -------------------------------
 
@@ -126,11 +149,11 @@ Deprecated
 Known issues
 ^^^^^^^^^^^^
 * There is no straightforward way to reset the ``krakenex.API`` object's
-  connection ``krakenex.API.conn``. (`#53_`)
+  connection ``krakenex.API.conn``. (`#53`_)
 
 The recommended workaround for now, assuming ``k = krakenex.API()``:
 
-.. code-block:: sh
+.. code-block:: python
 
    k.conn.close()
    k.conn = None

@@ -1,8 +1,14 @@
 .. image:: https://travis-ci.org/veox/python3-krakenex.svg?branch=master
    :alt: Latest Travis continuous integration build
    :target: https://travis-ci.org/veox/python3-krakenex
+.. image:: https://readthedocs.org/projects/python3-krakenex/badge/
+   :alt: Read latest documentation
+   :target: https://python3-krakenex.readthedocs.io/
+.. image:: https://badge.fury.io/py/krakenex.svg
+   :alt: Latest PyPI release
+   :target: https://badge.fury.io/py/krakenex
 .. image:: https://badges.gitter.im/python3-krakenex/Lobby.svg
-   :alt: Join the chat at https://gitter.im/python3-krakenex/Lobby
+   :alt: Development discussion at https://gitter.im/python3-krakenex/Lobby
    :target: https://gitter.im/python3-krakenex/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 
 
@@ -132,9 +138,8 @@ If it's unavailable, one can use ``pip``:
 
    # install from PyPI
    pip install krakenex
-   # ... or from local git repo clone
-   cd CLONE-OF-GIT-REPO
-   pip install .
+   # ... or from local copy
+   pip install /path/to/clone/of/repo
 
    
 Attribution
