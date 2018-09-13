@@ -140,7 +140,7 @@ class API(object):
             data = {}
         if headers is None:
             headers = {}
-        
+
         url = self.uri + urlpath
 
         attempts = 0
@@ -151,7 +151,7 @@ class API(object):
                                               timeout=timeout)
             status = self.response.status_code
             attempts += 1
-                
+
             if status in self.successcodes:
                 break
             elif status in self.retrycodes and attempts <= self.retries:
