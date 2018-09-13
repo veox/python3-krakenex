@@ -133,8 +133,7 @@ class API(object):
         :raises: :py:exc:`requests.HTTPError`: if response status not successful
 
         """
-        # FIXME: have a logging object; reported as `root` otherwise
-        logger = logging.getLogger()
+        logger = logging.getLogger('krakenex.api')
 
         if data is None:
             data = {}
