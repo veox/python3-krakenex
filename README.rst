@@ -34,19 +34,20 @@ Libraries
 
 * pykrakenapi_ - nicely wraps API methods into regular Python methods, and JSON
   responses into Pandas_ dataframes (available on PyPI!)
+* CurrencyViewer_ - short python3 framework for data extraction, conversion, and
+  smooth development experience (available on PyPI!)
 
 .. _pykrakenapi: https://github.com/dominiktraxl/pykrakenapi
 .. _Pandas: http://pandas.pydata.org/
+.. _CurrencyViewer: https://github.com/smechaab/CurrencyViewer
 
 Clients
 ^^^^^^^
 
 * clikraken_ - command-line client for the Kraken exchange (available on PyPI!)
-* CurrencyViewer_ - short program for crypto to fiat conversion and data extraction
 * Telegram-Kraken-Bot_ - Telegram bot to trade on Kraken exchange
 
 .. _clikraken: https://github.com/zertrin/clikraken
-.. _CurrencyViewer: https://github.com/smechaab/krakenex-CurrencyViewer
 .. _Telegram-Kraken-Bot: https://github.com/Endogen/Telegram-Kraken-Bot
 
 
