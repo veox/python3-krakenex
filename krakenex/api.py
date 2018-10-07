@@ -47,7 +47,7 @@ class API(object):
        No query rate limiting is performed.
 
     """
-    def __init__(self, key='', secret=''):
+    def __init__(self, key='', secret='', proxies={}):
         """ Create an object with authentication information.
 
         :param key: (optional) key identifier for queries to the API
@@ -67,6 +67,7 @@ class API(object):
         })
         self.response = None
         self._json_options = {}
+        self.proxies = proxies
         return
 
     def json_options(self, **kwargs):
@@ -132,7 +133,8 @@ class API(object):
         url = self.uri + urlpath
 
         self.response = self.session.post(url, data = data, headers = headers,
-                                          timeout = timeout)
+                                          timeout = timeout,
+                                          proxies = self.proxies)
 
         if self.response.status_code not in (200, 201, 202):
             self.response.raise_for_status()
