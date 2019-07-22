@@ -25,7 +25,7 @@ def date_str(nix_time):
     return datetime.datetime.fromtimestamp(nix_time).strftime('%m, %d, %Y')
 
 # return formatted TradesHistory request data
-def data(start, end, ofs):
+def date(start, end, ofs):
     req_data = {'type': 'all',
                 'trades': 'true',
                 'start': str(date_nix(start)),
@@ -42,13 +42,16 @@ count = 0
 for i in range(1,11):
     start_date = datetime.datetime(2016, i+1, 1)
     end_date = datetime.datetime(2016, i+2, 29)
-    th = k.query_private('TradesHistory', data(start_date, end_date, 1))
+    th = k.query_private('TradesHistory', date(start_date, end_date, 1))
     time.sleep(.25)
     print(th)
     th_error = th['error']
-    if int(th['result']['count'])>0:
-        count += th['result']['count']
-        data.append(pd.DataFrame.from_dict(th['result']['trades']).transpose())
+    try:
+        if int(th['result']['count'])>0:
+            count += th['result']['count']
+            data.append(pd.DataFrame.from_dict(th['result']['trades']).transpose())
+    except Exception as e:
+        print(e)
 
 trades = pd.DataFrame
 trades = pd.concat(data, axis = 0)
