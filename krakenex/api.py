@@ -16,6 +16,8 @@
 # <http://www.gnu.org/licenses/gpl-3.0.txt>.
 
 """Kraken.com cryptocurrency Exchange API."""
+import io
+import zipfile
 
 import requests
 
@@ -136,8 +138,14 @@ class API(object):
 
         if self.response.status_code not in (200, 201, 202):
             self.response.raise_for_status()
-
-        return self.response.json(**self._json_options)
+        content_type = self.response.headers['Content-Type'].split(";")[0]
+        if content_type == "application/json":
+            return self.response.json(**self._json_options)
+        if content_type == "application/zip":
+            return zipfile.ZipFile(io.BytesIO(self.response.content), "r")
+        if content_type == "text/plain":
+            return self.response.content.text
+        return self.response.content
 
 
     def query_public(self, method, data=None, timeout=None):
