@@ -32,7 +32,7 @@ Release
 
 .. code-block:: sh
 
-   git tag -u 1298BC0A9B0DBEEA3BDDCBA62D3DA6CD74AB3D37 vX.Y.Z
+   git tag -u 1298BC0A9B0DBEEA3BDDCBA62D3DA6CD74AB3D37 -s vX.Y.Z
    git push -v
    git push -v --tags
 
