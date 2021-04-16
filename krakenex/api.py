@@ -57,6 +57,12 @@ class API(object):
         :returns: None
 
         """
+        self._retry_config = {
+            'codes': (504, 520),
+            'count': 3,
+            'backoff': 1.0,
+        }
+
         self.key = key
         self.secret = secret
         self.uri = 'https://api.kraken.com'
@@ -103,7 +109,71 @@ class API(object):
             self.secret = f.readline().strip()
         return
 
-    def _query(self, urlpath, data, headers=None, timeout=None):
+    @property
+    def retry_config(self):
+        """ Returns the current retry configuration as a copy.
+
+        :returns: dictionary containing the current retry configuration
+
+        """
+        return self._retry_config.copy()
+
+    @retry_config.setter
+    def retry_config(self, newconfig):
+        """ Sets the retry configuration.
+
+        .. note::
+          Checks that keys match in the new and old configurations.
+
+        :param newconfig: new configuration for retries
+        :type newconfig: dict
+
+        :returns: None
+        :raises: :py:exc:`ValueError` on key count/name mismatch in configurations
+
+        """
+        if len(newconfig.keys()) != len(self._retry_config.keys()):
+            raise ValueError("Number of keys in current and new configurations does not match!")
+        if not all(key in newconfig for key in self._retry_config):
+            raise ValueError("New configuration lacks key(s) present in current configuration!")
+        if not all(key in self._retry_config for key in newconfig):
+            raise ValueError("New configuration specifies extra keys!")
+
+        self._retry_config = newconfig.copy()
+        return
+
+    def _retry_session(self, session=None):
+        """ Low-level configuration for retries.
+
+        :param session: (optional) An existing session to be used. If ``None``,
+                        the session created during instantiation will be used.
+        :type session: :py:class:`requests.Session` object
+
+        :returns: :py:class:`requests.Session` object with configured retry adapter
+
+        """
+        if session is None:
+            session = self.session
+
+        # https://urllib3.readthedocs.io/en/latest/reference/urllib3.util.html#module-urllib3.util.retry
+        retry = requests.packages.urllib3.util.retry.Retry(
+            total=pow(self._retry_config['count'], 2),
+            connect=self._retry_config['count'],
+            read=self._retry_config['count'],
+            redirect=0,
+            status=self._retry_config['count'],
+            method_whitelist=False, # default list doesn't include POST, so force on any verb
+            status_forcelist=self._retry_config['codes'],
+            backoff_factor=self._retry_config['backoff'],
+        )
+        adapter = requests.adapters.HTTPAdapter(max_retries=retry)
+
+        session.mount('https://', adapter)
+        session.mount('http://', adapter)
+
+        return session
+
+    def _query(self, urlpath, data, headers=None, timeout=None, retry=False):
         """ Low-level query handling.
 
         .. note::
@@ -131,8 +201,12 @@ class API(object):
 
         url = self.uri + urlpath
 
-        self.response = self.session.post(url, data = data, headers = headers,
-                                          timeout = timeout)
+        if retry:
+            session = self._retry_session()
+        else:
+            session = self.session
+
+        self.response = session.post(url, data=data, headers=headers, timeout=timeout)
 
         if self.response.status_code not in (200, 201, 202):
             self.response.raise_for_status()
@@ -140,7 +214,7 @@ class API(object):
         return self.response.json(**self._json_options)
 
 
-    def query_public(self, method, data=None, timeout=None):
+    def query_public(self, method, data=None, timeout=None, retry=False):
         """ Performs an API query that does not require a valid key/secret pair.
 
         :param method: API method name
@@ -159,9 +233,9 @@ class API(object):
 
         urlpath = '/' + self.apiversion + '/public/' + method
 
-        return self._query(urlpath, data, timeout = timeout)
+        return self._query(urlpath, data, timeout=timeout, retry=retry)
 
-    def query_private(self, method, data=None, timeout=None):
+    def query_private(self, method, data=None, timeout=None, retry=False):
         """ Performs an API query that requires a valid key/secret pair.
 
         :param method: API method name
@@ -190,7 +264,7 @@ class API(object):
             'API-Sign': self._sign(data, urlpath)
         }
 
-        return self._query(urlpath, data, headers, timeout = timeout)
+        return self._query(urlpath, data, headers, timeout=timeout, retry=retry)
 
     def _nonce(self):
         """ Nonce counter.
