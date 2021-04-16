@@ -27,6 +27,7 @@ import urllib.parse
 import hashlib
 import hmac
 import base64
+import logging
 
 from . import version
 
@@ -66,7 +67,15 @@ class API(object):
             'User-Agent': 'krakenex/' + version.__version__ + ' (+' + version.__url__ + ')'
         })
         self.response = None
+
+        # retry-on-failure configuration
+        self.retries = 0
+        self.cooldown = 15
+        self.successcodes = [200, 201, 202]
+        self.retrycodes = [504, 520]
+
         self._json_options = {}
+
         return
 
     def json_options(self, **kwargs):
@@ -124,6 +133,8 @@ class API(object):
         :raises: :py:exc:`requests.HTTPError`: if response status not successful
 
         """
+        logger = logging.getLogger('krakenex.api')
+
         if data is None:
             data = {}
         if headers is None:
@@ -131,14 +142,26 @@ class API(object):
 
         url = self.uri + urlpath
 
-        self.response = self.session.post(url, data = data, headers = headers,
-                                          timeout = timeout)
+        attempts = 0
+        while attempts <= self.retries:
+            nonce = -1 if 'nonce' not in data.keys() else data['nonce'] # UGLY
+            logger.debug('Posting query: nonce %d, attempt %d.', nonce, attempts)
+            self.response = self.session.post(url, data=data, headers=headers,
+                                              timeout=timeout)
+            status = self.response.status_code
+            attempts += 1
 
-        if self.response.status_code not in (200, 201, 202):
-            self.response.raise_for_status()
+            if status in self.successcodes:
+                break
+            elif status in self.retrycodes and attempts <= self.retries:
+                logger.debug('HTTP error %d', status)
+                logger.debug('Sleeping for %d seconds', self.cooldown)
+                time.sleep(self.cooldown)
+                continue
+            else:
+                self.response.raise_for_status()
 
         return self.response.json(**self._json_options)
-
 
     def query_public(self, method, data=None, timeout=None):
         """ Performs an API query that does not require a valid key/secret pair.
@@ -159,7 +182,7 @@ class API(object):
 
         urlpath = '/' + self.apiversion + '/public/' + method
 
-        return self._query(urlpath, data, timeout = timeout)
+        return self._query(urlpath, data, timeout=timeout)
 
     def query_private(self, method, data=None, timeout=None):
         """ Performs an API query that requires a valid key/secret pair.
@@ -190,7 +213,7 @@ class API(object):
             'API-Sign': self._sign(data, urlpath)
         }
 
-        return self._query(urlpath, data, headers, timeout = timeout)
+        return self._query(urlpath, data, headers, timeout=timeout)
 
     def _nonce(self):
         """ Nonce counter.

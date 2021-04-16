@@ -9,10 +9,14 @@ to `semantic versioning`_.
 .. _Keep a Changelog: http://keepachangelog.com/
 .. _semantic versioning: http://semver.org/
 
-[vX.Y.Z] - Unreleased
----------------------
+[vX.Y.Z] - TODO
+---------------
 
-* Nothing (yet).
+Added
+^^^^^
+* Allow configuring the ``krakenex.API`` object to retry the query
+  on certain HTTP error codes. By default, no retries will be attempted.
+* TODO: docs on how, link here.
 
 [v2.1.0] - 2018-04-20 (Fryday)
 ------------------------------
