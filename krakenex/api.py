@@ -134,6 +134,9 @@ class API(object):
         # Since January 2024, public endpoints only support GET.
         if '/public/' in urlpath:
             call_function = self.session.get
+            get_data = urllib.parse.urlencode(data)
+            url += '?' + get_data
+            data = {}
         else:
             call_function = self.session.post
 
