@@ -14,6 +14,15 @@ to `semantic versioning`_.
 
 * Nothing (yet).
 
+[v2.2.0] - 2024-01-31 (Wednesday)
+---------------------------------
+
+Changed
+^^^^^^^
+* Public endpoints will now use a ``GET`` method, because Kraken
+  dropped support for ``POST``. Previously, all endpoint calls used
+  ``POST``.
+
 [v2.1.0] - 2018-04-20 (Fryday)
 ------------------------------
 
