@@ -26,7 +26,7 @@ Release
 
 .. code-block:: sh
 
-   twine upload --repository testpypi --sign --identity 74AB3D37 dist/krakenex-X.Y.Z.tar.gz
+   twine upload --repository testpypi dist/krakenex-X.Y.Z.tar.gz
 
 * Tagged and signed commit, pushed to github.
 
@@ -40,7 +40,7 @@ Release
 
 .. code-block:: sh
 
-   twine upload --repository pypi --sign --identity 74AB3D37 dist/krakenex-X.Y.Z.tar.gz
+   twine upload --repository pypi dist/krakenex-X.Y.Z.tar.gz
 
 * Doc rebuild has triggered on readthedocs.io.
 
