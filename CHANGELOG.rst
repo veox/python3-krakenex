@@ -14,6 +14,16 @@ to `semantic versioning`_.
 
 * Nothing (yet).
 
+[v2.2.1] - 2024-02-01 (Thursday)
+--------------------------------
+
+Changed
+^^^^^^^
+* Public endpoints were still not working. They will now be URL-encoded
+  as params instead of being sent as data. (`#141_`)
+
+.. _#141: https://github.com/veox/python3-krakenex/pull/141
+
 [v2.2.0] - 2024-01-31 (Wednesday)
 ---------------------------------
 
