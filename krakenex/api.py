@@ -131,17 +131,11 @@ class API(object):
 
         url = self.uri + urlpath
 
-        # Since January 2024, public endpoints only support GET.
-        if '/public/' in urlpath:
-            call_function = self.session.get
-            get_data = urllib.parse.urlencode(data)
-            url += '?' + get_data
-            data = {}
-        else:
-            call_function = self.session.post
-
-        self.response = call_function(url, data = data, headers = headers,
-                                      timeout = timeout)
+        # Since January 2024, public endpoints only support GET. 
+        if '/public/' in urlpath: 
+            self.response = self.session.get(url, params = data, headers = headers, timeout = timeout) 
+        else: 
+            self.response = self.session.post(url, data = data, headers = headers, timeout = timeout)
 
         if self.response.status_code not in (200, 201, 202):
             self.response.raise_for_status()
