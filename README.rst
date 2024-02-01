@@ -15,7 +15,7 @@
 `krakenex`
 ==========
 
-Kraken.com exchange API, Python 3 package.
+Kraken.com exchange REST API, Python 3 package.
 
 This package is intentionally as lean as possible, and only
 provides a minimal interface to the `Kraken`_ cryptocurrency
@@ -66,7 +66,7 @@ their `API documentation`_.
 
 .. _latest: https://python3-krakenex.readthedocs.io/en/latest/
 .. _stable: https://python3-krakenex.readthedocs.io/en/stable/
-.. _API documentation: https://www.kraken.com/help/api
+.. _API documentation: https://docs.kraken.com/rest/
 
 
 Examples
