@@ -14,6 +14,17 @@ to `semantic versioning`_.
 
 * Nothing (yet).
 
+[v2.2.2] - 2024-07-01 (Monday)
+------------------------------
+
+Changed
+^^^^^^^
+* License classifier added to ``setup.py`` to aid automatic detection.
+  (`#145_`)
+
+.. _#145: https://github.com/veox/python3-krakenex/pull/145
+
+
 [v2.2.1] - 2024-02-01 (Thursday)
 --------------------------------
 

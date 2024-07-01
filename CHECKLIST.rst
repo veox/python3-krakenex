@@ -15,6 +15,7 @@ Pre-release
 Release
 -------
 * Bump version.
+* Update changelog.
 * Build package.
 
 .. code-block:: sh
@@ -27,6 +28,8 @@ Release
 .. code-block:: sh
 
    twine upload --repository testpypi dist/krakenex-X.Y.Z.tar.gz
+
+* Commit changes.
 
 * Tagged and signed commit, pushed to github.
 
