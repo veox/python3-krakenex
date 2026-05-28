@@ -67,6 +67,10 @@ class API(object):
         })
         self.response = None
         self._json_options = {}
+        # Suppress debug-level logging from the requests/urllib3 library,
+        # which would otherwise clutter the caller's logs.
+        import logging
+        logging.getLogger('urllib3').setLevel(logging.WARNING)
         return
 
     def json_options(self, **kwargs):
